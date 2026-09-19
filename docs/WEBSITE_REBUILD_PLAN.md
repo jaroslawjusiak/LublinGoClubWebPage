@@ -1,9 +1,32 @@
 # Lubelski Klub Go — Website Analysis & Rebuild Concept
 
-> **Status:** Draft for discussion (step 1 of the rebuild project).
+> **Status:** Draft v2 for discussion (step 1 of the rebuild project) — the current version;
+> supersedes [`WEBSITE_REBUILD_PLAN.md`](WEBSITE_REBUILD_PLAN.md) (draft v1, kept for reference).
 > **Scope of this document:** audit of the current site, what to keep, content & feature ideas,
 > layout / UX concept, and open questions. **Deliberately out of scope:** technology stack and
 > implementation plan — those come in the next step, after this concept is agreed.
+>
+> **Changelog v2** (after external review): v1 scope cut down and re-tiered (§6); contact form
+> dropped from v1; interactive Go board moved out of the launch requirement; added the
+> "first visit, step by step" mini-story and expectation-setting content (§4.3); admin-panel
+> auth requirement made mechanism-neutral (§4.2); privacy, continuity, content-ownership and
+> success-metric requirements added (§7); "front door" promoted to the central principle (§3).
+
+---
+
+## 0. Central principle
+
+**The site is the front door, not the living room.** The community lives on Facebook, Discord
+and OGS; the website's only job is to get a curious person through the door on a Wednesday.
+It must answer four questions exceptionally well:
+
+1. **What is this?** — A friendly Go club in Lublin.
+2. **Can I join?** — Yes. It's free, beginners are welcome, you can come alone.
+3. **Where and when?** — Wednesday 17:00–20:00, MDK nr 2, room 14 — with map and directions.
+4. **Is the club actually alive?** — Yes: recent photos, recent posts, next meeting.
+
+Every proposed feature must justify itself against these four questions **and** against the
+maintenance budget in §7 (1–2 volunteers, ~15 minutes/week). Everything else is secondary.
 
 ---
 
@@ -17,7 +40,7 @@ Live site: <https://lubelski-klub-go.vercel.app/> (also reachable via `lubelski-
 |---|---|---|
 | `index.html` | Club logo, poster image, meeting info (Wednesdays 17:00–20:00, MDK nr 2, ul. Bernardyńska 14a, room 14), "meetings are free", invitation for kids/teens/adults/families, link to rules | **Core info is valuable**, but the page is a static poster — no call to action, no photos of real people, nothing that answers "what will my first visit look like?" |
 | `zasady.html` | Illustrated explanation of Go rules: board, liberties ("oddechy"), atari, capturing, territory, dead stones, ko, eyes, life & death — with 4 diagrams | **Best content on the site.** Well written, beginner-oriented, in Polish. Worth keeping almost as-is, with editorial polish (typos: *bezpośednie*, *oddechy* → *oddechu*, *byc*, *się się*) and restructuring into shorter sections |
-| `kontakt.html` | Two contact persons (emails, one phone number, OGS nicknames) + meeting info repeated | **Keep the data**, rethink the presentation. Publishing raw personal emails/phone invites spam — consider a contact form and/or club-level contact channel |
+| `kontakt.html` | Two contact persons (emails, one phone number, OGS nicknames) + meeting info repeated | **Keep the data**, rethink the presentation. Publishing raw personal emails/phone invites spam — switch to a club-level contact channel (see §4.5) |
 | `wydarzenia.html` | Two events from **2023** (Akira Hello World festival, 3rd China Town Weiqi Cup) with photo carousel | Content is stale (2 years old) and reads as "the club stopped existing". **This page is the strongest argument for the admin-panel/news-feed idea** — event coverage must be effortless to publish or it dies |
 | `galeria.html` | "Strona w trakcie przygotowania. Zapraszamy niebawem!" | Placeholder since launch. **Drop as a separate page** — fold photos into news posts (see §4.1) |
 | everything else | 404 | Dead/misleading links must not exist in the new site |
@@ -52,7 +75,7 @@ Live site: <https://lubelski-klub-go.vercel.app/> (also reachable via `lubelski-
 - ✅ **Meeting information** — day, time, venue, "free of charge", family-friendly framing.
   The warm tone ("uczymy się i bawimy razem, często całymi rodzinami") is exactly right — amplify it.
 - ✅ **Contact persons with OGS nicknames** — the OGS nicks are a nice touch (visitors can find you
-  online before visiting). Keep, but behind a contact form or club email for the public part.
+  online before visiting). Keep, but with a club email as the public channel (§4.5).
 - ✅ **Event photos** (China Town Cup, Akira) — perfect seed content for the new news feed:
   migrate them as the first 2–3 historical posts so the feed isn't empty at launch.
 - ✅ **Logo and visual identity seed** — keep the logo (possibly refreshed), keep the Go-stone
@@ -85,8 +108,16 @@ and a low-friction path to the first visit.
 3. Ukrainian residents and international students — need EN/UK content.
 4. Returning members — check news, events, tournament announcements.
 
-**Measurable goal of the site:** convert a curious visitor into a person who shows up on Wednesday.
+**Goal of the site:** convert a curious visitor into a person who shows up on Wednesday.
 Every page should be judged against that goal.
+
+**Hard success metric (so we can tell if the rebuild worked):**
+
+- **Primary:** number of first-time visitors per month who say they found the club through the
+  website — measured the simplest possible way: *ask newcomers at the door* and keep a tally.
+- **Secondary (optional, privacy-friendly analytics only):** clicks on "Przyjdź w środę",
+  map/directions clicks, contact clicks, traffic from Facebook. No invasive tracking, no cookie
+  banners if avoidable.
 
 ---
 
@@ -129,9 +160,16 @@ Exactly the format you described, and it's the right call:
 - **Seed content:** migrate the 2023 China Town Cup and Akira posts as the first entries.
 - Nice-to-have later: an RSS feed and OpenGraph tags so posts share nicely on Facebook.
 
-**Admin panel (as you proposed):**
+**Admin panel:**
 
-- Login via **Google / GitHub OAuth**; an allowlist of admin accounts (2–5 people), no public registration.
+- **The requirement, stated mechanism-neutrally:** *two or three non-technical club members must
+  be able to publish a post safely from a phone.* That — not any particular auth technology — is
+  what the implementation must satisfy.
+- Google/GitHub OAuth (as originally proposed) with an allowlist of 2–5 admin accounts and no
+  public registration remains the leading candidate — managed "sign in with Google" is often the
+  *lowest*-maintenance option (no passwords to store, reset, or leak). But the stack decision in
+  step 2 should pick the simplest mechanism that satisfies the requirement above, not start from
+  "we need OAuth".
 - One screen: list of posts + "new post" form (title, text, photo upload with automatic
   resize/compression, date, tag). Edit & delete. Nothing else in v1.
 - Design principle: **publishing a post from a phone, right after the meeting, in under 2 minutes.**
@@ -141,41 +179,75 @@ Exactly the format you described, and it's the right call:
 
 Rework of `zasady.html` into a two-part page:
 
-**Part A — the game (interactive if possible):**
+**Part A — the game (excellent static diagrams at launch, interactive later):**
 - Keep the existing pedagogical sequence, split into short steps
   (1. plansza i kamienie → 2. oddechy → 3. zbijanie i atari → 4. terytorium → 5. ko → 6. oczy).
-- **Idea worth serious consideration:** replace static JPG diagrams with an interactive board
-  widget (there are ready open-source components, e.g. besogo / wgo.js / glift-style viewers —
-  stack decision later). Each rule step becomes a mini-board where the visitor can *place the
-  stone themselves* and see the capture happen. "Try it" beats "read it" for Go.
+- **Launch with polished static diagrams.** An interactive board widget (visitor places the
+  stone, sees the capture happen) is pedagogically superior and stays on the roadmap (Tier C,
+  §6) — but a custom board is exactly the kind of "little JavaScript widget" that turns into
+  "why does capture state misbehave on mobile?". **The launch must not depend on it.**
+- Author the content so that each static diagram is a self-contained exercise ("Black to
+  capture — where?" with the answer shown below) that can later be *swapped 1:1* for an
+  interactive version without rewriting the page.
 - A 30-second pitch of *why* Go is special (4000 years old, simple rules / deep strategy,
   AlphaGo, Hikaru no Go) — a hook, not a lecture.
 - "Want more?" links: interactive tutorials (e.g. online-go.com/learn-to-play-go), OGS, and…
   the club itself: *"najlepiej nauczysz się u nas — przyjdź w środę"*.
 
-**Part B — the first visit FAQ:**
+**Part B — "Co się stanie, kiedy przyjdę pierwszy raz?" (the mini-story):**
+
+Turn "reducing first-visit anxiety" into an actual numbered story, not just an FAQ:
+
+> 1. Wejdź do MDK nr 2 przy ul. Bernardyńskiej 14a.
+> 2. Znajdź salę 14 (galeria na górze — oznaczymy drogę na zdjęciach).
+> 3. Powiedz, że jesteś pierwszy raz.
+> 4. Ktoś z klubu wytłumaczy Ci podstawy i znajdzie partnera do gry.
+> 5. Zagrasz pierwszą partię (na małej planszy — to szybkie i przyjemne).
+> 6. Zostań, jak długo chcesz.
+
+This is likely the single most useful piece of new content on the site: an FAQ answers
+questions, the story removes the need to ask them.
+
+**Part C — the first visit FAQ + expectation setting:**
 - Czy muszę znać zasady? / Czy muszę coś przynieść? / Ile to kosztuje? (nic) /
   W jakim wieku można zacząć? / Przychodzę sam(a) — czy to problem? / Jak znaleźć salę 14?
-- This section is the single highest-leverage *new* content on the whole site for your stated goal.
+- **Explicit expectation-setting ("who this is for"), phrased positively:**
+  *"Nie musisz być szachistą. Nie musisz znać anime. Nie musisz być dobry w matematyce.
+  Nie musisz mieć żadnego doświadczenia."* And honestly framing the club's character:
+  *"Jeśli szukasz turniejowej rywalizacji — też ją u nas znajdziesz, ale większość spotkań to
+  spokojna gra i nauka."* This prevents visitors from forming the wrong mental model of the club.
 
 ### 4.4 About the club (`/o-klubie`)
 
 New content to write (currently missing entirely):
 - Short club story: when it started, connection with MDK nr 2, who runs it.
 - People: a few friendly bios/photos of regulars & organizers (with consent), their ranks/OGS nicks.
-- What a typical meeting looks like: teaching games, casual games, occasional mini-tournaments —
-  set expectations honestly.
-- Club in numbers (optional, fun): members, boards owned, strongest rank, youngest player.
+- **"Jak wygląda typowe spotkanie?" with 2–3 real photographs** — teaching games, casual games,
+  occasional mini-tournaments; set expectations honestly. This is the priority content for the
+  page.
+- Club in numbers (members, boards owned, strongest rank, youngest player) — cute but low value
+  at launch; **moved to the backlog (§6)**. The content budget is better spent on the
+  typical-meeting section above.
 
 ### 4.5 Contact (`/kontakt`)
 
-- Contact form (goes to club email) as the primary channel + social links (Facebook is where the
-  community actually is — link it prominently).
-- Contact persons kept, but consider club aliases instead of raw personal Gmail addresses.
+- **No contact form in v1.** A form sounds professional but brings spam protection, email
+  delivery, validation, privacy handling, and another thing that silently breaks — for a
+  volunteer club the cost/benefit doesn't hold. Instead, one simple block:
+  **"Masz pytanie? Napisz do nas"** with a single club email address (`mailto:`) plus prominent
+  Facebook/Messenger and Discord links (that's where the community actually answers). A form can
+  always be added later if spam or demand justifies it.
+- Contact persons kept (with OGS nicknames), but prefer a club alias over raw personal Gmail
+  addresses as the public channel.
 - Map + transit hints (bus lines, parking) — Bernardyńska is central, make that an asset.
 
 ### 4.6 Multilingual: PL / EN / UK
 
+- **Architecture in v1, content can trail slightly:** the site must be built i18n-ready from day
+  one (language routing like `/en/...`, `/uk/...` is expensive to retrofit), but **translations
+  must not block the launch**. Shipping PL-only and adding reviewed EN/UK content within the
+  following weeks is acceptable — especially for Ukrainian, where a human reviewer is required
+  for the welcoming intent to land (machine-only translation would undermine it).
 - **Scope as you proposed:** static content only (home, start-here, about, contact, UI chrome).
   News posts stay in the language they were written in (translating every post is unsustainable) —
   optionally a per-post language flag later.
@@ -202,65 +274,144 @@ New content to write (currently missing entirely):
 - **Accessibility & basics:** semantic HTML, alt texts, contrast, dark mode is almost free with a
   black/white palette; fast loading (compressed images), proper Polish/English/Ukrainian `lang` tags.
 - **SEO for one job:** rank for "go klub Lublin", "nauka go Lublin", "gra go Lublin",
-  "weiqi baduk Lublin". Structured data (`LocalBusiness`/`Event`), OpenGraph for shared posts.
+  "weiqi baduk Lublin" — basic titles/descriptions/sitemap in v1; structured data
+  (`LocalBusiness`/`Event`), OpenGraph and dark mode are Tier B polish (§6), not launch blockers.
 - **No dead ends:** every page ends with a CTA (come on Wednesday / read the rules / message us).
 
 ---
 
-## 6. Additional feature ideas (backlog — v2+, not for launch)
+## 6. Scope tiers — what ships when
 
-Ordered roughly by value-to-effort; none of these should delay v1.
+The original draft listed "five pages, nothing more" but then quietly loaded those pages with a
+much larger feature set (i18n + interactive board + CMS + OAuth + image processing + contact
+form + structured data + dark mode + …). Individually reasonable; collectively the classic way a
+straightforward project takes 3× longer than expected. This section is the explicit cut-line.
 
-1. **Events with dates** (as distinct from news): a small "upcoming" box — next meeting,
-   next tournament — possibly auto-generated ("every Wednesday" rule + exceptions/holidays
-   editable from the admin panel).
-2. **Problem of the week (tsumego):** one Go problem on the homepage, changed weekly from the
-   admin panel — gives returning visitors a reason to return, and newcomers a taste of the game.
-3. **Newsletter or Messenger/Discord deep-link** for meeting reminders.
-4. **Club ladder / internal ranking table** — motivating for members, social proof for visitors.
-5. **"Where else to play" page:** OGS, Fox, tournaments in Poland (szalenisamuraje.org board),
-   Polish Go Association — the natural next step after someone is hooked.
-6. **Integration with your GoLessons repo:** the training-material project could eventually feed a
-   "materiały do nauki" section.
-7. **Post scheduling / draft mode** in the admin panel.
+### Tier A — v1 launch (absolutely nail it, nothing else blocks launch)
+
+1. **Homepage** with hero, CTA, when/where + map & directions
+2. **First-visit explanation** — the step-by-step mini-story + FAQ + expectation setting (§4.3 B/C)
+3. **Accurate meeting information** (single source of truth, shown on home & contact)
+4. **Real photography** throughout
+5. **Recent news feed** + **simple publishing workflow** (admin panel per §4.2 — the minimal
+   one-screen version)
+6. **Improved rules content with polished static diagrams** (§4.3 A)
+7. **About page** (club story + "typical meeting" with photos)
+8. **Contact page** (club email + socials — no form)
+9. **Mobile-first UX** (incl. sticky CTA)
+10. **Old URL redirects** (`zasady.html`, `kontakt.html`, `wydarzenia.html` → new equivalents)
+11. **Accessibility & privacy basics** (semantic HTML, alt texts, contrast; privacy notice,
+    photo-consent policy per §7)
+12. **i18n-ready architecture** (PL content at launch; EN/UK content may trail by weeks)
+13. Basic SEO (titles, descriptions, sitemap) — enough to rank for "go klub Lublin"
+
+### Tier B — v1.x (highly worthwhile, weeks after launch)
+
+14. **EN / UK translated content** (with named human reviewers)
+15. **Upcoming events box** ("every Wednesday" rule + exceptions editable in admin)
+16. **OpenGraph / richer social sharing** for news posts
+17. **Better image galleries / lightbox** in posts
+18. **Post scheduling / draft mode** in the admin panel
+19. **RSS feed**
+20. Structured data (`LocalBusiness` / `Event`), dark mode
+
+### Tier C — v2+ (excellent ideas that must not delay anything)
+
+21. **Interactive Go board** replacing the static rule diagrams 1:1 (§4.3 A)
+22. **Problem of the week (tsumego)** on the homepage
+23. **Newsletter / Messenger / Discord reminders**
+24. **Club ladder / internal ranking**
+25. **"Where else to play" page** (OGS, Fox, szalenisamuraje.org, Polish Go Association)
+26. **GoLessons repo integration** ("materiały do nauki")
+27. **Club in numbers** block on the About page
+28. **Contact form** (only if the plain club email proves insufficient)
 
 ---
 
-## 7. Constraints & non-goals (proposed)
+## 7. Constraints, non-goals & governance requirements
+
+### Non-goals
 
 - **Non-goal:** a Go server, game records database, member accounts, forums — the community lives
-  on Facebook/Discord/OGS; the site is the *front door*, not the living room.
+  on Facebook/Discord/OGS; the site is the *front door*, not the living room (§0).
 - **Non-goal (v1):** translating dynamic news content.
+
+### Constraints
+
 - **Constraint:** the whole site must be maintainable by 1–2 volunteers with ~15 minutes/week.
-  Every feature is evaluated against that budget.
+  Every feature is evaluated against that budget. **This is the test every proposal must survive.**
 - **Constraint:** hosting should remain in the free tier (Vercel or similar) — influences the
   stack discussion later, noted here only as a requirement.
+
+### Privacy & legal (hard v1 requirements, not open questions)
+
+- **Photo consent policy** written down before launch: what consent is collected, how, and where
+  it's recorded — with **stricter rules for minors** (explicit parental consent; default to
+  crowd/hands-and-boards shots when in doubt).
+- **Privacy notice** page: what data the site processes (essentially: admin login identities and
+  optional privacy-friendly analytics), GDPR contact point.
+- **No contact form in v1** ⇒ no form-data handling to design; if a form is ever added (Tier C),
+  its data handling gets specified then.
+- Prefer analytics that require **no cookie banner** (or no analytics at all in v1).
+
+### Continuity & ownership (the "bus factor" requirements)
+
+Boring but critical for a volunteer organisation — the old site froze in 2023 precisely because
+this was never defined:
+
+- **Access inventory:** at least **two named people** must hold access to each of: the domain
+  registrar/DNS, the hosting account, the GitHub repository, the club email, and the admin panel.
+- **Succession note:** a short document in the repo describing how to take over each of the above
+  if the primary volunteer disappears.
+- **Content ownership table** — every piece of content has a named maintainer:
+
+| Content | Who maintains it |
+|---|---|
+| Meeting time / location | named person (single source of truth) |
+| News posts | any admin |
+| EN translation | named reviewer |
+| UK translation | named reviewer |
+| About-club page | organizer |
+| Contact information | organizer |
+| Photos in posts | whoever publishes the post (bound by the consent policy) |
+
+  (Names to be filled in during the PR discussion — the requirement is that **no cell is empty
+  at launch**.)
 
 ---
 
 ## 8. Open questions before the next step (tech stack & implementation plan)
 
+Resolved since draft v1: ~~contact form~~ (dropped from v1, §4.5); ~~interactive rules widget~~
+(static diagrams at launch, interactive is Tier C, §4.3); ~~old URL redirects~~ (now a Tier A
+requirement, §6).
+
+Still open:
+
 1. **Domain:** is `lubelski-klub-go.pl` the canonical address going forward (with the Vercel URL as
-   an alias)? Who controls the DNS?
+   an alias)? Who controls the DNS? (Feeds the access inventory in §7.)
 2. **Photos & consent:** do you have consent to publish photos of members (especially minors)?
-   This affects what we can put on the homepage and in posts.
-3. **Admin users:** who exactly (how many people) will publish posts? Google accounts, GitHub, or both in practice?
-4. **Club email:** does a club-level email exist (for the contact form), or should we create one?
-5. **Content ownership for translations:** who can review the EN and UK translations for quality?
-   (Machine-translate + native review is fine; machine-only for UK would undermine the welcoming intent.)
-6. **Interactive rules widget:** are you happy to invest in this for v1, or ship static (improved)
-   diagrams first and add interactivity in v1.1?
-7. **Old URLs:** should `zasady.html`, `kontakt.html`, `wydarzenia.html` redirect to their new
-   equivalents (cheap, avoids breaking any links printed on old posters)?
-8. **Facebook page:** should the site embed/link the FB feed, or is the new admin-panel feed
+   This affects what we can put on the homepage and in posts, and feeds the consent policy in §7.
+3. **Admin users:** who exactly (how many people) will publish posts? Which accounts do they
+   already have (Google / GitHub / other)? — this drives the "simplest safe mechanism" choice in §4.2.
+4. **Club email:** does a club-level email exist, or should we create one? (It's now the primary
+   public contact channel.)
+5. **Translation reviewers:** who can review the EN and UK translations for quality?
+   (Machine-translate + native review is fine; machine-only for UK would undermine the welcoming
+   intent.) Names go into the ownership table in §7.
+6. **Facebook page:** should the site embed/link the FB feed, or is the new admin-panel feed
    intended to *replace* posting on Facebook (recommendation: post on the site, share the link on FB)?
+7. **Access inventory & succession (§7):** which two people hold access to each system today, and
+   where should the succession note live?
 
 ---
 
 ## 9. Suggested next steps
 
-1. You review & annotate this document (PR discussion).
-2. We agree on the v1 sitemap and feature cut-line (§4 vs §6).
-3. **Step 2 document:** technology stack proposal + implementation plan (milestones:
-   static pages → i18n → news feed + admin panel → polish & launch), including hosting,
-   auth, image storage, and content-migration details.
+1. You review & annotate this document (PR discussion) — in particular the Tier A cut-line in §6
+   and the remaining open questions in §8.
+2. Fill in the names in the §7 ownership table and access inventory.
+3. **Step 2 document:** technology stack proposal + implementation plan scoped to **Tier A only**
+   (milestones: static pages → news feed + admin publishing → redirects, privacy & launch),
+   with Tier B/C explicitly deferred. Includes hosting, the simplest safe publishing/auth
+   mechanism (§4.2), image storage, and content-migration details.
