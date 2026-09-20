@@ -1,0 +1,16 @@
+/* src/styles/global.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global CSS Overrides using Defined Tokens */
+
+:root {
+  --color-paper: theme('colors.paper');
+  --color-primary: theme('colors.kaya');
+  --color-ink: theme('colors.ink');
+}
+
+body {
+  background-color: var(--color-paper);
+}

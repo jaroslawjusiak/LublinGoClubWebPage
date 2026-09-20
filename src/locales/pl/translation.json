@@ -1,0 +1,38 @@
+{
+  "common": {
+    "site_name": "Lubelski Klub Go",
+    "menu": {
+      "home": "Strona główna",
+      "about": "O klubie",
+      "news": "Aktualności",
+      "events": "Kontakt",
+      "start": "Zacznij grać"
+    },
+    "cta_start_button": "Zacznij grać",
+    "news_description": "Najnowsze turnieje, warsztaty i artykuły z życia klubu.",
+    "view_all_articles": "Zobacz wszystkie artykuły",
+    "read_more": "Czytaj dalej"
+  },
+  "hero": {
+    "title": "Witamy w Lubelskim Klubie Go",
+    "subtitle": "Gramy, uczymy się i rozwijamy wspólną pasję do gry Go."
+  },
+  "homepage": {
+    "section_heading": "Co znajdziesz w naszym klubie",
+    "cta_button": "Sprawdź najbliższe spotkanie",
+    "news_title": "Aktualności",
+    "proposition_1_title": "Otwarte spotkania",
+    "proposition_1_description": "Spotykamy się regularnie, a wstęp jest bezpłatny. Nie potrzebujesz doświadczenia ani własnej planszy.",
+    "proposition_2_title": "Nauka od podstaw",
+    "proposition_2_description": "Wyjaśnimy zasady, pożyczymy sprzęt i poprowadzimy Cię przez pierwszą partię.",
+    "proposition_3_title": "Turnieje i warsztaty",
+    "proposition_3_description": "Regularne turnieje, warsztaty i analizy partii dla graczy na każdym poziomie."
+  },
+  "oklubie": {
+    "section_title": "O naszym klubie",
+    "description": "Lubelski Klub Go to społeczność miłośników gry Go w Lublinie."
+  },
+  "aktualnosci": {
+    "news_heading": "Aktualności"
+  }
+}

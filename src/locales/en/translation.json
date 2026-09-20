@@ -1,0 +1,38 @@
+{
+  "common": {
+    "site_name": "Lubelski Klub Go",
+    "menu": {
+      "home": "Home",
+      "about": "About",
+      "news": "News",
+      "events": "Contact",
+      "start": "Start playing"
+    },
+    "cta_start_button": "Start playing",
+    "news_description": "The latest tournaments, workshops and articles from club life.",
+    "view_all_articles": "View all articles",
+    "read_more": "Read more"
+  },
+  "hero": {
+    "title": "Welcome to the Lublin Go Club",
+    "subtitle": "We play, learn and share a passion for the game of Go."
+  },
+  "homepage": {
+    "section_heading": "What you will find at our club",
+    "cta_button": "See the next meeting",
+    "news_title": "Latest News",
+    "proposition_1_title": "Open meetings",
+    "proposition_1_description": "We meet regularly and entry is free. No experience or equipment needed.",
+    "proposition_2_title": "Learn from scratch",
+    "proposition_2_description": "We explain the rules, lend you a board and guide you through your first game.",
+    "proposition_3_title": "Tournaments and workshops",
+    "proposition_3_description": "Regular tournaments, workshops and game reviews for players of every level."
+  },
+  "oklubie": {
+    "section_title": "About our club",
+    "description": "The Lublin Go Club is a community of Go enthusiasts in Lublin."
+  },
+  "aktualnosci": {
+    "news_heading": "News"
+  }
+}
