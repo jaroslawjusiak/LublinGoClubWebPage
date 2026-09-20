@@ -1,16 +1,5 @@
 # Lubelski Klub Go — Website Analysis & Rebuild Concept
 
-> **Status:** Draft v2 for discussion (step 1 of the rebuild project) — the current version;
-> supersedes [`WEBSITE_REBUILD_PLAN.md`](WEBSITE_REBUILD_PLAN.md) (draft v1, kept for reference).
-> **Scope of this document:** audit of the current site, what to keep, content & feature ideas,
-> layout / UX concept, and open questions. **Deliberately out of scope:** technology stack and
-> implementation plan — those come in the next step, after this concept is agreed.
->
-> **Changelog v2** (after external review): v1 scope cut down and re-tiered (§6); contact form
-> dropped from v1; interactive Go board moved out of the launch requirement; added the
-> "first visit, step by step" mini-story and expectation-setting content (§4.3); admin-panel
-> auth requirement made mechanism-neutral (§4.2); privacy, continuity, content-ownership and
-> success-metric requirements added (§7); "front door" promoted to the central principle (§3).
 
 ---
 
