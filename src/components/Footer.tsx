@@ -107,10 +107,16 @@ const Footer: React.FC = () => {
         </div>
 
         {/* Copyright bar */}
-        <div className="text-sm text-muted-text text-center md:text-left">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-3 text-sm text-muted-text">
           <p>
             &copy; {new Date().getFullYear()} {clubConfig.name}
           </p>
+          <Link
+            to={localizePath('/prywatnosc', locale)}
+            className="hover:text-kaya transition rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-kaya/50"
+          >
+            {t('footer:privacy_link')}
+          </Link>
         </div>
       </div>
     </footer>

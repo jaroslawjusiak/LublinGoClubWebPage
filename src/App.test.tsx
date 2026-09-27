@@ -108,4 +108,14 @@ describe('App', () => {
     expect(screen.queryByText('robots.txt')).not.toBeInTheDocument();
     expect(screen.queryByText('sitemap.xml')).not.toBeInTheDocument();
   });
+
+  it('renders the privacy policy route', async () => {
+    renderApp('/prywatnosc');
+    expect(
+      await screen.findByRole('heading', { level: 1, name: 'Polityka prywatności' }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', { level: 2, name: 'Zgoda na wykorzystanie wizerunku' }),
+    ).toBeInTheDocument();
+  });
 });

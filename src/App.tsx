@@ -2,15 +2,21 @@
 import React, { useEffect, useState } from 'react';
 import { Routes, Route, Outlet, useParams } from 'react-router-dom';
 import { I18nextProvider, useTranslation } from 'react-i18next';
+import { HelmetProvider } from 'react-helmet-async';
 import i18nConfig from './i18n/config';
 import { useLocale } from './i18n/locale';
+import { AuthProvider } from './lib/supabase/auth';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import PageMeta from './components/PageMeta';
+import ScrollToTop from './components/ScrollToTop';
 import HomePage from './pages/HomePage';
 import ZacznijPage from './pages/ZacznijPage';
 import OKlubiePage from './pages/OKlubiePage';
 import AktualnosciPage from './pages/AktualnosciPage';
 import KontaktPage from './pages/KontaktPage';
+import AdminPage from './pages/AdminPage';
+import PrivacyPage from './pages/PrivacyPage';
 import NotFoundPage from './pages/NotFoundPage';
 
 const SUPPORTED_LOCALES = ['en', 'uk'];
@@ -62,6 +68,8 @@ const LocaleLayout: React.FC = () => {
 
 const AppShell: React.FC = () => (
   <div className="min-h-screen flex flex-col bg-paper text-ink">
+    <PageMeta />
+    <ScrollToTop />
     <Header />
     <main className="flex-grow w-full">
       <Routes>
@@ -70,6 +78,8 @@ const AppShell: React.FC = () => (
         <Route path="/o-klubie" element={<OKlubiePage />} />
         <Route path="/aktualnosci" element={<AktualnosciPage />} />
         <Route path="/kontakt" element={<KontaktPage />} />
+        <Route path="/prywatnosc" element={<PrivacyPage />} />
+        <Route path="/admin" element={<AdminPage />} />
 
         <Route path="/:locale" element={<LocaleLayout />}>
           <Route index element={<HomePage />} />
@@ -77,6 +87,7 @@ const AppShell: React.FC = () => (
           <Route path="o-klubie" element={<OKlubiePage />} />
           <Route path="aktualnosci" element={<AktualnosciPage />} />
           <Route path="kontakt" element={<KontaktPage />} />
+          <Route path="prywatnosc" element={<PrivacyPage />} />
         </Route>
 
         <Route path="*" element={<NotFoundPage />} />
@@ -88,9 +99,13 @@ const AppShell: React.FC = () => (
 
 const App: React.FC = () => (
   <I18nextProvider i18n={i18nConfig}>
-    <LocaleGate>
-      <AppShell />
-    </LocaleGate>
+    <HelmetProvider>
+      <AuthProvider>
+        <LocaleGate>
+          <AppShell />
+        </LocaleGate>
+      </AuthProvider>
+    </HelmetProvider>
   </I18nextProvider>
 );
 

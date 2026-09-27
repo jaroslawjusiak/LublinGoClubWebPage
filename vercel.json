@@ -1,0 +1,15 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ],
+  "redirects": [
+    { "source": "/index.html", "destination": "/", "permanent": true },
+    { "source": "/zasady.html", "destination": "/zacznij", "permanent": true },
+    { "source": "/kontakt.html", "destination": "/kontakt", "permanent": true },
+    { "source": "/wydarzenia.html", "destination": "/aktualnosci", "permanent": true },
+    { "source": "/galeria.html", "destination": "/aktualnosci", "permanent": true }
+  ]
+}

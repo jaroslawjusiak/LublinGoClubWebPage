@@ -16,11 +16,16 @@ const renderPage = () =>
   );
 
 describe('ZacznijPage', () => {
-  it('renders the six-step first-visit story', () => {
+  it('renders the rules and the first-visit story', () => {
     renderPage();
 
     expect(screen.getByRole('heading', { level: 1, name: 'Zacznij grać' })).toBeInTheDocument();
-    expect(screen.getAllByRole('listitem')).toHaveLength(6);
+    // The rules section and the first-visit story both render.
+    expect(screen.getByRole('heading', { level: 2, name: 'Zasady gry' })).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', { level: 2, name: 'Co się stanie, kiedy przyjdę pierwszy raz?' }),
+    ).toBeInTheDocument();
+    expect(screen.getByText(/Zostań, jak długo chcesz/)).toBeInTheDocument();
   });
 
   it('toggles the FAQ accordion with correct expanded state', () => {

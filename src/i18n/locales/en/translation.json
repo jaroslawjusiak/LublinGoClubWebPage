@@ -82,8 +82,13 @@
     "nav_aria": "Footer navigation",
     "contact_heading": "Contact us",
     "email_unavailable": "Email address unavailable",
-    "address_heading": "Club address"
+    "address_heading": "Club address",
+    "privacy_link": "Privacy policy"
   },
+  "rules": {},
+  "admin": {},
+  "privacy": {},
+  "meta": {},
   "aktualnosci": {
     "news_heading": "News",
     "loading": "Loading the latest news…",

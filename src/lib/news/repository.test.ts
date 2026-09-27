@@ -103,4 +103,95 @@ describe('SupabaseNewsRepository', () => {
 
     await expect(repo.listPublished(1, 10)).rejects.toThrow(/boom/);
   });
+
+  it('throws a clear error for admin mutations when not configured', async () => {
+    const repo = new SupabaseNewsRepository(null);
+    await expect(repo.listAll()).rejects.toThrow(/not configured/);
+    await expect(
+      repo.create({ title: 'x', body: 'y', publishedAt: '2024-01-01', images: [] }),
+    ).rejects.toThrow(/not configured/);
+    await expect(
+      repo.update('id', { title: 'x', body: 'y', publishedAt: '2024-01-01', images: [] }),
+    ).rejects.toThrow(/not configured/);
+    await expect(repo.remove('id')).rejects.toThrow(/not configured/);
+  });
+
+  it('listAll selects all posts newest-first', async () => {
+    const order = vi.fn().mockResolvedValue({ data: [validRow], error: null });
+    const select = vi.fn().mockReturnValue({ order });
+    const from = vi.fn().mockReturnValue({ select });
+    const client = { from } as unknown as SupabaseClient;
+    const repo = new SupabaseNewsRepository(client);
+
+    const posts = await repo.listAll();
+
+    expect(from).toHaveBeenCalledWith('posts');
+    expect(order).toHaveBeenCalledWith('published_at', { ascending: false });
+    expect(posts).toEqual([mapRowToNewsPost(validRow)]);
+  });
+
+  it('create inserts a published post from the input', async () => {
+    const single = vi.fn().mockResolvedValue({
+      data: { ...validRow, id: 'new-id', published: true },
+      error: null,
+    });
+    const select = vi.fn().mockReturnValue({ single });
+    const insert = vi.fn().mockReturnValue({ select });
+    const from = vi.fn().mockReturnValue({ insert });
+    const client = { from } as unknown as SupabaseClient;
+    const repo = new SupabaseNewsRepository(client);
+
+    const post = await repo.create({
+      title: 'Nowy',
+      body: 'Treść',
+      publishedAt: '2024-01-01',
+      tag: 'spotkanie',
+      images: ['https://example.com/a.jpg'],
+      externalUrl: 'https://example.com',
+    });
+
+    expect(insert).toHaveBeenCalledWith({
+      title: 'Nowy',
+      body: 'Treść',
+      tag: 'spotkanie',
+      image_urls: ['https://example.com/a.jpg'],
+      external_url: 'https://example.com',
+      published_at: '2024-01-01',
+      published: true,
+    });
+    expect(post.id).toBe('new-id');
+  });
+
+  it('update writes the post by id', async () => {
+    const single = vi.fn().mockResolvedValue({ data: validRow, error: null });
+    const select = vi.fn().mockReturnValue({ single });
+    const eq = vi.fn().mockReturnValue({ select });
+    const update = vi.fn().mockReturnValue({ eq });
+    const from = vi.fn().mockReturnValue({ update });
+    const client = { from } as unknown as SupabaseClient;
+    const repo = new SupabaseNewsRepository(client);
+
+    await repo.update('abc-123', {
+      title: 'Turniej',
+      body: 'Krótki opis turnieju.',
+      publishedAt: '2023-10-14',
+      images: [],
+    });
+
+    expect(update).toHaveBeenCalled();
+    expect(eq).toHaveBeenCalledWith('id', 'abc-123');
+  });
+
+  it('remove deletes the post by id', async () => {
+    const eq = vi.fn().mockResolvedValue({ error: null });
+    const del = vi.fn().mockReturnValue({ eq });
+    const from = vi.fn().mockReturnValue({ delete: del });
+    const client = { from } as unknown as SupabaseClient;
+    const repo = new SupabaseNewsRepository(client);
+
+    await repo.remove('abc-123');
+
+    expect(from).toHaveBeenCalledWith('posts');
+    expect(eq).toHaveBeenCalledWith('id', 'abc-123');
+  });
 });

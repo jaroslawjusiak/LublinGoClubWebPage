@@ -66,12 +66,13 @@
       OpenStreetMap map + directions links (localized).
 - [x] **M2-T5 Start Here first-visit story and FAQ** - six-step story + accessible FAQ accordion +
       meeting CTA.
-- [ ] **M2-T6 Migrate and polish static rules content** - not started; now **unblocked** (legacy
-      `zasady.html` and diagrams are vendored).
+- [x] **M2-T6 Migrate and polish static rules content** - six short rules steps on `/zacznij`
+      (board, liberties, capture/atari, territory, ko, eyes/life-death) with typo-fixed Polish and
+      the original static diagrams (meaningful alt). Interactive board remains deferred.
 - [~] **M2-T7 About page** - honest, minimal "purpose + typical meeting" content. Full club story,
       people bios and consented photos pending approval (N2).
-- [~] **M2-T8 Contact and privacy pages** - Contact done (channels + shared meeting + OGS handles).
-      **`/prywatnosc` and the photo-consent policy do not exist yet.**
+- [x] **M2-T8 Contact and privacy pages** - Contact done (channels + shared meeting + OGS handles);
+      `/prywatnosc` (privacy notice + photo-consent policy) done and linked from the footer.
 - [ ] **M2-T9 Public-pages milestone gate** - `docs/qa-public-pages.md` not created (browser checks
       were done informally as part of R3/R4/R5).
 
@@ -80,7 +81,9 @@
 - [x] **M3-T1 News repository contract** - one concrete `PostRow`, validated `mapRowToNewsPost`,
       `listPublished` with a discriminated `ok` vs `unconfigured` result. (`getById` removed — no
       detail route.)
-- [ ] **M3-T2 Seed data and migration format** - historical China Town Cup / Akira posts not prepared.
+- [~] **M3-T2 Seed data and migration format** - historical posts prepared in `src/lib/news/seed.ts`
+      (correct 2023 dates, tags, external links); images intentionally empty pending photo consent
+      and Supabase Storage upload.
 - [x] **M3-T3 PostCard and simple image viewing** - `NewsPostCard` renders date, tag, title, body,
       0–4 images and an optional external link; `NewsCard.tsx` (unused duplicate) removed.
 - [x] **M3-T4 Public feed and Home preview** - one shared `NewsFeed` for Home preview (3) and
@@ -90,30 +93,59 @@
 
 ## Milestone 4 - Supabase persistence, storage, security
 
-- [ ] **M4-T1 `posts` migration** - no `supabase/migrations/` directory.
-- [ ] **M4-T2 `admins` table and RLS policies** - not started.
-- [ ] **M4-T3 Image bucket and storage policies** - not started.
+- [x] **M4-T1 `posts` migration** - `supabase/migrations/0001_posts.sql` (posts table matching
+      `PostRow`, indexes on published date/status).
+- [x] **M4-T2 `admins` table and RLS policies** - `0002_admins_and_rls.sql` (allowlist, `is_admin()`,
+      public-read-published + admin-only write RLS).
+- [x] **M4-T3 Image bucket and storage policies** - `0003_storage.sql` (`news-images` bucket, image
+      MIME allowlist + size limit, public reads + admin-only writes).
 - [~] **M4-T4 Supabase client and repository implementation** - client getter, `.env.example`, row
-      mapping and null-safety done; **now includes tests for descending order and error propagation.**
-      No live Supabase project / `.env` yet.
-- [ ] **M4-T5 Seed migrated posts** - not started.
+      mapping, null-safety and tests (descending order, error propagation) done. No live project yet,
+      so "public feed reads published posts" is unverified in a real DB.
+- [x] **M4-T5 Seed migrated posts** - `src/lib/news/seed.ts` (typed) + `supabase/seed/seed_posts.sql`
+      (historical posts, correct dates). Images empty pending consent + Storage upload.
+
+`docs/ADMIN_SETUP.md` documents the reproducible setup and the RLS verification steps.
 
 ## Milestone 5 - Protected mobile admin workflow
 
-All tasks **not started** (M5-T1 … M5-T7).
+- [~] **M5-T1 Google OAuth configuration** - auth code + `docs/ADMIN_SETUP.md` §6 (provider + redirect
+      URLs). Not verified against a live project (needs the club to enable Google + add admins).
+- [x] **M5-T2 Auth context and protected gate** - `AuthProvider` (session, `is_admin` RPC, sign-in/out);
+      anonymous → login, non-admin → denial, admin → panel.
+- [x] **M5-T3 Admin post list** - title, date, tag, edit action, "new post" CTA.
+- [x] **M5-T4 Post form and validation** - title/body/date/tag/link/photos with concise inline errors.
+- [x] **M5-T5 Mobile image picker and compression** - multi-select, type/size validation, canvas
+      resize + compress to JPEG, previews + remove.
+- [x] **M5-T6 Create/edit/delete and cleanup** - repository mutations (`listAll`/`create`/`update`/
+      `remove`), storage upload/remove, orphan cleanup on cancel/delete/partial-upload.
+- [ ] **M5-T7 Two-minute publishing verification** - `docs/qa-admin.md` not created; requires a live
+      Supabase project + a real phone test.
 
 ## Milestone 6 - Accessibility, SEO, legacy compatibility
 
-- [ ] **M6-T1 Accessibility pass** - no `docs/qa-accessibility.md`; primitives/menu/FAQ/image controls
-      are keyboard-operable but no systematic audit yet.
-- [ ] **M6-T2 Metadata and social sharing** - `react-helmet-async` not installed; no per-route
-      titles/descriptions/canonical.
-- [ ] **M6-T3 Sitemap and robots** - no `robots.txt`/sitemap (Footer links to them; they 404).
-- [ ] **M6-T4 Legacy redirects** - no `vercel.json` for `/index.html`, `/zasady.html`, etc.
+- [x] **M6-T1 Accessibility pass** - `docs/qa-accessibility.md` documents landmarks/headings/keyboard/
+      focus/contrast/reduced-motion; no critical issues found.
+- [x] **M6-T2 Metadata and social sharing** - `react-helmet-async` + `PageMeta` set per-route title/
+      description/canonical/OpenGraph (and `noindex` on `/admin`).
+- [x] **M6-T3 Sitemap and robots** - `public/robots.txt` + `public/sitemap.xml` (public routes only),
+      valid `favicon.png`.
+- [x] **M6-T4 Legacy redirects** - `vercel.json` with permanent redirects for `/index.html`,
+      `/zasady.html`, `/kontakt.html`, `/wydarzenia.html`, `/galeria.html` + SPA deep-link fallback.
 
 ## Milestone 7 - Content, governance, deployment
 
-All tasks **not started** (M7-T1 … M7-T6).
+- [~] **M7-T1 Replace placeholders with approved assets** - code uses honest, non-identifying
+      content; real consented photos + club story await club input (`docs/CONTENT_APPROVAL.md`).
+- [x] **M7-T2 Governance documentation** - `docs/GOVERNANCE.md` (two-person access inventory,
+      succession, content-ownership table) with cells to fill in.
+- [x] **M7-T3 Runbook and admin guide** - `docs/ADMIN_SETUP.md` (Supabase) + `docs/RUNBOOK.md`
+      (publish/edit/delete, facts, deploy, rollback).
+- [~] **M7-T4 Production configuration and preview deployment** - `vercel.json` done; an actual
+      Vercel project + preview deployment awaits a Vercel account (club input).
+- [~] **M7-T5 Launch acceptance test** - `docs/qa-launch.md` checklist written; the human run is
+      pending a deployed preview.
+- [ ] **M7-T6 Production launch and smoke test** - not started (needs a live deployment).
 
 ---
 
@@ -126,7 +158,7 @@ All tasks **not started** (M7-T1 … M7-T6).
 5. ~~Unused components~~ — **fixed** (`Layout.tsx`, `AppLayout.tsx`, `NewsCard.tsx` removed).
 6. ~~Hardcoded user-facing strings~~ — **fixed** (all shared components now use i18n keys, including
    the Footer; `NewsPostCard` dates are locale-aware).
-7. **Missing favicon** — `index.html` references `/vite.svg` (still 404s).
+7. ~~Missing favicon~~ — **fixed** (valid `public/favicon.png` from the club logo).
 8. ~~Placeholder contact data~~ — **fixed** (removed; `clubConfig.email` unset until approved).
 9. ~~News is empty without env vars~~ — **fixed** (now distinct "unconfigured" vs empty states).
 10. **No Prettier** — still missing.
@@ -135,11 +167,13 @@ All tasks **not started** (M7-T1 … M7-T6).
 
 ## Recommended next task
 
-Part 1 (R1–R5) is complete. Part 2 remains, dependency-ordered:
+**Part 2 is code- and docs-complete** (N1–N7). Remaining work is club/human, not agent work:
 
-1. **N1 — Migrate the Go rules** (now unblocked: `zasady.html` + diagrams are vendored).
-2. **N3 — Supabase migrations, RLS and storage** (posts table, admin allowlist, policies).
+1. Fill in `docs/GOVERNANCE.md` (named holders) and `docs/CONTENT_APPROVAL.md` (facts, consent,
+   club email, story).
+2. Create a Supabase project, run the migrations, add admins (`docs/ADMIN_SETUP.md`), and smoke-test
+   the two-minute publishing flow (M5-T7).
+3. Create a Vercel project, set the env vars, deploy a preview, and run `docs/qa-launch.md`.
+4. Production launch + smoke test (M7-T6).
 
-Several Part 2 items need **club input** before their dependent work (canonical domain/DNS, official
-email + social links, venue/entrance wording, photo consent, admin Google accounts, EN/UK reviewers,
-second access holders). Do not fill those with invented facts.
+Do not fill these with invented facts — they need a named club representative.

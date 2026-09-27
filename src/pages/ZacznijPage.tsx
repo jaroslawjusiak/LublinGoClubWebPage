@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Section, Container } from '../components/primitives';
 import MeetingSection from '../components/MeetingSection';
+import RulesSection from '../components/RulesSection';
 import { meetingInfo } from '../data/club';
 
 type Interpolation = Record<string, string>;
@@ -115,6 +116,8 @@ const ZacznijPage: React.FC = () => {
             </h1>
             <p className="text-xl max-w-3xl mx-auto text-muted-text">{t('start:intro')}</p>
           </div>
+
+          <RulesSection />
 
           <div className="max-w-3xl mx-auto mb-16">
             <h2 className="text-2xl md:text-3xl font-bold mb-6 text-ink">{t('start:story_title')}</h2>
