@@ -3,23 +3,55 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Section, Container } from '../components/primitives';
 import MeetingSection from '../components/MeetingSection';
+import { meetingInfo } from '../data/club';
 
-const storyStepKeys = [
-  'start:story_step_1',
-  'start:story_step_2',
-  'start:story_step_3',
-  'start:story_step_4',
-  'start:story_step_5',
-  'start:story_step_6',
+type Interpolation = Record<string, string>;
+
+interface StoryStep {
+  key: string;
+  vars?: Interpolation;
+}
+
+interface FaqItem {
+  q: string;
+  a: string;
+  qVars?: Interpolation;
+  aVars?: Interpolation;
+}
+
+// Venue, address, room and entrance hint are interpolated from `club.ts` so a
+// single change updates the meeting section AND these instructions together.
+const storySteps: StoryStep[] = [
+  {
+    key: 'start:story_step_1',
+    vars: { address: meetingInfo.addressLine, venue: meetingInfo.venueName },
+  },
+  {
+    key: 'start:story_step_2',
+    vars: { room: meetingInfo.roomNumber, hint: meetingInfo.entranceHint },
+  },
+  { key: 'start:story_step_3' },
+  { key: 'start:story_step_4' },
+  { key: 'start:story_step_5' },
+  { key: 'start:story_step_6' },
 ];
 
-const faqItems = [
+const faqItems: FaqItem[] = [
   { q: 'start:faq_q_1', a: 'start:faq_a_1' },
   { q: 'start:faq_q_2', a: 'start:faq_a_2' },
   { q: 'start:faq_q_3', a: 'start:faq_a_3' },
   { q: 'start:faq_q_4', a: 'start:faq_a_4' },
   { q: 'start:faq_q_5', a: 'start:faq_a_5' },
-  { q: 'start:faq_q_6', a: 'start:faq_a_6' },
+  {
+    q: 'start:faq_q_6',
+    a: 'start:faq_a_6',
+    qVars: { room: meetingInfo.roomNumber },
+    aVars: {
+      address: meetingInfo.addressLine,
+      room: meetingInfo.roomNumber,
+      hint: meetingInfo.entranceHint,
+    },
+  },
 ];
 
 const FaqAccordion: React.FC = () => {
@@ -44,7 +76,7 @@ const FaqAccordion: React.FC = () => {
                 onClick={() => setOpenIndex(isOpen ? null : index)}
                 className="flex w-full items-center justify-between px-5 py-4 text-left text-lg font-semibold text-ink hover:text-kaya transition focus:outline-none focus-visible:ring-2 focus-visible:ring-kaya/70"
               >
-                <span>{t(item.q)}</span>
+                <span>{t(item.q, item.qVars)}</span>
                 <span aria-hidden="true" className="ml-4 text-kaya">
                   {isOpen ? '−' : '+'}
                 </span>
@@ -57,7 +89,7 @@ const FaqAccordion: React.FC = () => {
               hidden={!isOpen}
               className="px-5 pb-4 text-muted-text"
             >
-              {t(item.a)}
+              {t(item.a, item.aVars)}
             </div>
           </div>
         );
@@ -87,15 +119,15 @@ const ZacznijPage: React.FC = () => {
           <div className="max-w-3xl mx-auto mb-16">
             <h2 className="text-2xl md:text-3xl font-bold mb-6 text-ink">{t('start:story_title')}</h2>
             <ol className="space-y-4">
-              {storyStepKeys.map((key, index) => (
-                <li key={key} className="flex gap-4">
+              {storySteps.map((step, index) => (
+                <li key={step.key} className="flex gap-4">
                   <span
                     aria-hidden="true"
                     className="flex-shrink-0 w-8 h-8 rounded-full bg-kaya text-white font-bold flex items-center justify-center"
                   >
                     {index + 1}
                   </span>
-                  <p className="text-lg text-ink pt-1">{t(key)}</p>
+                  <p className="text-lg text-ink pt-1">{t(step.key, step.vars)}</p>
                 </li>
               ))}
             </ol>

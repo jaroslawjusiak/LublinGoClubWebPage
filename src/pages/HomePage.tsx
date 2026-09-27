@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Section, Container, Card, Button } from '../components/primitives';
 import MeetingSection from '../components/MeetingSection';
 import NewsFeed from '../components/NewsFeed';
+import { useLocale, localizePath } from '../i18n/locale';
 
 const reassuranceKeys = [
   { title: 'homepage:reassurance_1_title', text: 'homepage:reassurance_1_text' },
@@ -15,6 +16,7 @@ const reassuranceKeys = [
 
 const HomePage: React.FC = () => {
   const { t } = useTranslation();
+  const locale = useLocale();
 
   const scrollToMeeting = () => {
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -34,7 +36,7 @@ const HomePage: React.FC = () => {
               <Button onClick={scrollToMeeting} variant="primary" className="px-8 py-4 text-lg">
                 {t('hero:cta_primary')}
               </Button>
-              <Button to="/zacznij" variant="secondary" className="px-8 py-4 text-lg">
+              <Button to={localizePath('/zacznij', locale)} variant="secondary" className="px-8 py-4 text-lg">
                 {t('hero:cta_secondary')}
               </Button>
             </div>
@@ -74,7 +76,7 @@ const HomePage: React.FC = () => {
         <NewsFeed limit={3} />
 
         <div className="text-center mt-10">
-          <Link to="/aktualnosci" className="text-kaya font-semibold hover:underline">
+          <Link to={localizePath('/aktualnosci', locale)} className="text-kaya font-semibold hover:underline">
             {t('common:view_all_articles')} →
           </Link>
         </div>

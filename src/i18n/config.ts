@@ -21,6 +21,7 @@ const resources = {
     start: pl.start,
     oklubie: pl.oklubie,
     contact: pl.contact,
+    footer: pl.footer,
     aktualnosci: pl.aktualnosci,
     notFound: pl.notFound,
   },
@@ -32,6 +33,7 @@ const resources = {
     start: en.start,
     oklubie: en.oklubie,
     contact: en.contact,
+    footer: en.footer,
     aktualnosci: en.aktualnosci,
     notFound: en.notFound,
   },
@@ -42,12 +44,15 @@ i18n.use(initReactI18next).init({
   lng: 'pl',
   fallbackLng: 'pl',
   supportedLngs: ['pl', 'en', 'uk'],
-  ns: ['common', 'hero', 'homepage', 'meeting', 'start', 'oklubie', 'contact', 'aktualnosci', 'notFound'],
+  ns: ['common', 'hero', 'homepage', 'meeting', 'start', 'oklubie', 'contact', 'footer', 'aktualnosci', 'notFound'],
   defaultNS: 'common',
   interpolation: {
     escapeValue: false, // React already escapes values.
   },
   returnNull: false,
+  react: {
+    useSuspense: false, // resources are inline; language switches re-render synchronously
+  },
 });
 
 export default i18n;

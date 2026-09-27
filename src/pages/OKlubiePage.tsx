@@ -2,6 +2,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Section, Container, Button } from '../components/primitives';
+import { useLocale, localizePath } from '../i18n/locale';
 
 /**
  * About page. Content is intentionally limited to what is verifiable today:
@@ -11,6 +12,7 @@ import { Section, Container, Button } from '../components/primitives';
  */
 const OKlubiePage: React.FC = () => {
   const { t } = useTranslation();
+  const locale = useLocale();
 
   return (
     <Section id="o-klubie">
@@ -25,7 +27,7 @@ const OKlubiePage: React.FC = () => {
         </h2>
         <p className="text-lg text-ink mb-10">{t('oklubie:typical_text')}</p>
 
-        <Button to="/zacznij" variant="primary" className="px-6 py-3 text-lg">
+        <Button to={localizePath('/zacznij', locale)} variant="primary" className="px-6 py-3 text-lg">
           {t('common:cta_start_button')}
         </Button>
       </Container>

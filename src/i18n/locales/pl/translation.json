@@ -43,8 +43,8 @@
     "title": "Zacznij grać",
     "intro": "Pokażemy Ci krok po kroku, jak wygląda pierwsza wizyta w klubie.",
     "story_title": "Co się stanie, kiedy przyjdę pierwszy raz?",
-    "story_step_1": "Wejdź do Młodzieżowego Domu Kultury nr 2 przy ul. Bernardyńskiej 14a.",
-    "story_step_2": "Znajdź salę 14 (galeria na górze).",
+    "story_step_1": "Przyjdź pod adres {{address}} ({{venue}}).",
+    "story_step_2": "Twoim celem jest {{room}} ({{hint}}).",
     "story_step_3": "Powiedz, że jesteś pierwszy raz.",
     "story_step_4": "Ktoś z klubu wytłumaczy Ci podstawy i znajdzie partnera do gry.",
     "story_step_5": "Zagrasz pierwszą partię na małej planszy — to szybkie i przyjemne.",
@@ -60,8 +60,8 @@
     "faq_a_4": "Go jest dla każdego — zapraszamy dzieci, młodzież i dorosłych. Często gramy całymi rodzinami.",
     "faq_q_5": "Przychodzę sam(a) — czy to problem?",
     "faq_a_5": "Zupełnie nie. Większość osób przychodzi sama i od razu znajduje partnera do gry.",
-    "faq_q_6": "Jak znaleźć salę 14?",
-    "faq_a_6": "Wejdź do budynku przy ul. Bernardyńskiej 14a i kieruj się do galerii na górze — tam jest sala 14.",
+    "faq_q_6": "Gdzie znajduje się {{room}}?",
+    "faq_a_6": "Wejdź do budynku pod adresem {{address}} — szukane miejsce to {{room}} ({{hint}}).",
     "cta": "Przyjdź na spotkanie"
   },
   "oklubie": {
@@ -76,6 +76,13 @@
     "social_title": "Znajdź nas",
     "people_title": "Osoby do kontaktu",
     "ogs_label": "OGS"
+  },
+  "footer": {
+    "nav_heading": "Nawigacja",
+    "nav_aria": "Nawigacja stopki",
+    "contact_heading": "Skontaktuj się z nami",
+    "email_unavailable": "Adres e-mail niedostępny",
+    "address_heading": "Adres klubowy"
   },
   "aktualnosci": {
     "news_heading": "Aktualności",

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Button } from './primitives';
 import { navItems, startCta } from '../data/site';
+import { useLocale, localizePath } from '../i18n/locale';
 
 /**
  * Accessible mobile navigation. The panel is only mounted while open, so closed
@@ -11,6 +12,7 @@ import { navItems, startCta } from '../data/site';
  */
 const MobileMenu: React.FC = () => {
   const { t } = useTranslation();
+  const locale = useLocale();
   const [isOpen, setIsOpen] = useState(false);
   const close = () => setIsOpen(false);
 
@@ -60,7 +62,7 @@ const MobileMenu: React.FC = () => {
             {navItems.map((item) => (
               <li key={item.path}>
                 <Link
-                  to={item.path}
+                  to={localizePath(item.path, locale)}
                   onClick={close}
                   className="block py-3 px-2 text-lg font-medium hover:text-kaya rounded transition duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-kaya/70"
                 >
@@ -70,7 +72,12 @@ const MobileMenu: React.FC = () => {
             ))}
           </ul>
           <div className="px-4 pb-4">
-            <Button to={startCta.path} onClick={close} variant="primary" className="w-full py-3">
+            <Button
+              to={localizePath(startCta.path, locale)}
+              onClick={close}
+              variant="primary"
+              className="w-full py-3"
+            >
               {t(startCta.labelKey)}
             </Button>
           </div>

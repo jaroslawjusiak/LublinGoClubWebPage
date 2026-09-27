@@ -16,9 +16,10 @@ const tagLabelKey: Record<PostTag, string> = {
  * link) with no decorative "read more" that leads nowhere.
  */
 const NewsPostCard: React.FC<{ post: NewsPost }> = ({ post }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
-  const formattedDate = new Date(post.publishedAt).toLocaleDateString('pl-PL', {
+  const locale = i18n.resolvedLanguage ?? i18n.language ?? 'pl';
+  const formattedDate = new Date(post.publishedAt).toLocaleDateString(locale, {
     year: 'numeric',
     month: 'long',
     day: 'numeric',

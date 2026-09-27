@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { Suspense } from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import App from './App';
 
@@ -92,5 +92,20 @@ describe('App', () => {
 
     renderApp('/kontakt');
     expect(await screen.findByText(/17:00–20:00/)).toBeInTheDocument();
+  });
+
+  it('serves the /en locale route in English', async () => {
+    renderApp('/en');
+    expect(
+      await screen.findByRole('heading', { level: 1, name: 'Play Go in Lublin' }),
+    ).toBeInTheDocument();
+    await waitFor(() => expect(document.documentElement.lang).toBe('en'));
+  });
+
+  it('does not link to missing robots.txt or sitemap.xml', async () => {
+    renderApp('/');
+    await screen.findByRole('heading', { level: 1 });
+    expect(screen.queryByText('robots.txt')).not.toBeInTheDocument();
+    expect(screen.queryByText('sitemap.xml')).not.toBeInTheDocument();
   });
 });

@@ -54,12 +54,12 @@
 
 ## Milestone 2 - Routing, i18n, public pages
 
-- [~] **M2-T1 Routes and not-found** - 5 public routes + a deliberate 404. `/admin` and `/prywatnosc`
-      are intentionally not advertised yet (their content/workflows are unfinished). No locale route
-      wrapper until EN/UK content is reviewed.
+- [x] **M2-T1 Routes and not-found** - 5 public routes + a deliberate 404 + a locale route wrapper
+      (`/en/...`, `/uk/...`) that renders the same pages in another language. `/admin` and
+      `/prywatnosc` are intentionally not advertised yet (their content/workflows are unfinished).
 - [~] **M2-T2 i18n architecture** - consolidated into `src/i18n/` (`config.ts` + `locales/{pl,en}`),
-      Polish default/fallback, `supportedLngs ['pl','en','uk']`, `<html lang>` synced. **Missing:**
-      locale-prefixed routes, a `uk` resource, and a key-parity test.
+      Polish default/fallback, `supportedLngs ['pl','en','uk']`, URL-driven language + `<html lang>`
+      sync (`useLocale`/`LocaleGate`). **Missing:** a `uk` resource, and a key-parity test.
 - [x] **M2-T3 Home hero and first-visit reassurance** - hero + value proposition + two CTAs + four
       reassurance cards + non-identifying board image.
 - [x] **M2-T4 Meeting/location section** - shared `MeetingSection` (Home/Contact/Start Here) with
@@ -124,9 +124,8 @@ All tasks **not started** (M7-T1 … M7-T6).
 3. ~~Two locale trees~~ — **fixed** (consolidated into `src/i18n/`).
 4. ~~i18n config path drift~~ — **fixed** (`src/i18n/config.ts`).
 5. ~~Unused components~~ — **fixed** (`Layout.tsx`, `AppLayout.tsx`, `NewsCard.tsx` removed).
-6. **Hardcoded user-facing strings** — **mostly fixed** (`MobileMenu`, `Zacznij`, `Aktualnosci`,
-   `Home`, `Contact`, `OKlubie` use i18n keys). The `Footer` still contains a few literal Polish
-   headings/nav labels.
+6. ~~Hardcoded user-facing strings~~ — **fixed** (all shared components now use i18n keys, including
+   the Footer; `NewsPostCard` dates are locale-aware).
 7. **Missing favicon** — `index.html` references `/vite.svg` (still 404s).
 8. ~~Placeholder contact data~~ — **fixed** (removed; `clubConfig.email` unset until approved).
 9. ~~News is empty without env vars~~ — **fixed** (now distinct "unconfigured" vs empty states).

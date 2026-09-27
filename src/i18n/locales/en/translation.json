@@ -43,8 +43,8 @@
     "title": "Start playing",
     "intro": "Step by step, here's what your first visit to the club looks like.",
     "story_title": "What happens when I come for the first time?",
-    "story_step_1": "Enter Młodzieżowy Dom Kultury nr 2 at ul. Bernardyńska 14a.",
-    "story_step_2": "Find room 14 (the gallery upstairs).",
+    "story_step_1": "Come to {{address}} ({{venue}}).",
+    "story_step_2": "Your destination is {{room}} ({{hint}}).",
     "story_step_3": "Say it's your first time.",
     "story_step_4": "Someone from the club will explain the basics and find you a partner.",
     "story_step_5": "You'll play your first game on a small board — quick and enjoyable.",
@@ -60,8 +60,8 @@
     "faq_a_4": "Go is for everyone — kids, teens and adults are welcome. We often play as whole families.",
     "faq_q_5": "I'm coming alone — is that a problem?",
     "faq_a_5": "Not at all. Most people come alone and immediately find a partner to play.",
-    "faq_q_6": "How do I find room 14?",
-    "faq_a_6": "Enter the building at ul. Bernardyńska 14a and head to the gallery upstairs — room 14 is there.",
+    "faq_q_6": "Where is {{room}}?",
+    "faq_a_6": "Enter the building at {{address}} — the place you're looking for is {{room}} ({{hint}}).",
     "cta": "Come to a meeting"
   },
   "oklubie": {
@@ -76,6 +76,13 @@
     "social_title": "Find us",
     "people_title": "Contact persons",
     "ogs_label": "OGS"
+  },
+  "footer": {
+    "nav_heading": "Navigation",
+    "nav_aria": "Footer navigation",
+    "contact_heading": "Contact us",
+    "email_unavailable": "Email address unavailable",
+    "address_heading": "Club address"
   },
   "aktualnosci": {
     "news_heading": "News",

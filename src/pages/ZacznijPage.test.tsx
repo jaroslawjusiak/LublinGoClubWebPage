@@ -4,6 +4,7 @@ import { MemoryRouter } from 'react-router-dom';
 import { I18nextProvider } from 'react-i18next';
 import i18n from '../i18n/config';
 import ZacznijPage from './ZacznijPage';
+import { meetingInfo } from '../data/club';
 
 const renderPage = () =>
   render(
@@ -31,5 +32,20 @@ describe('ZacznijPage', () => {
     fireEvent.click(question);
     expect(question).toHaveAttribute('aria-expanded', 'true');
     expect(screen.getByText(/Nauczymy Cię podstaw na miejscu/)).toBeInTheDocument();
+  });
+
+  it('interpolates shared meeting facts into the story and FAQ', () => {
+    renderPage();
+
+    // Story step 1 renders the address and venue from club.ts (not hardcoded).
+    expect(
+      screen.getByText((content) =>
+        content.includes(meetingInfo.addressLine) && content.includes(meetingInfo.venueName),
+      ),
+    ).toBeInTheDocument();
+
+    // The whole page (story + FAQ + meeting section) carries the room from club.ts.
+    expect(document.body.textContent).toContain(meetingInfo.roomNumber);
+    expect(document.body.textContent).toContain(meetingInfo.entranceHint);
   });
 });
