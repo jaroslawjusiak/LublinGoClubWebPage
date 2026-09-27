@@ -1,29 +1,63 @@
+// src/components/NewsPostCard.tsx
 import React from 'react';
-import { Card } from './primitives';
-import { NewsPost } from '../types/data_models';
+import { useTranslation } from 'react-i18next';
+import { Card, Button, SmartImage } from './primitives';
+import type { NewsPost, PostTag } from '../types/data_models';
+
+const tagLabelKey: Record<PostTag, string> = {
+  spotkanie: 'aktualnosci:tag_spotkanie',
+  turniej: 'aktualnosci:tag_turniej',
+  wydarzenie: 'aktualnosci:tag_wydarzenie',
+};
 
 /**
- * @description Displays a single news post summary card.
+ * The single news card used by both the Home preview and the `/aktualnosci`
+ * feed. It renders the full post (date, tag, title, body, images, optional
+ * link) with no decorative "read more" that leads nowhere.
  */
 const NewsPostCard: React.FC<{ post: NewsPost }> = ({ post }) => {
-  const image = post.imageUrlReferences[0];
-  const tag = post.tags[0];
+  const { t } = useTranslation();
+
+  const formattedDate = new Date(post.publishedAt).toLocaleDateString('pl-PL', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
 
   return (
-    <Card className="h-full flex flex-col hover:shadow-lg transition duration-300">
-      <div className="flex gap-4">
-        <div className="w-28 h-28 flex-shrink-0 bg-gray-200 rounded overflow-hidden">
-          {image ? (
-            <img src={image} alt="" className="w-full h-full object-cover" loading="lazy" />
-          ) : null}
-        </div>
-        <div>
-          {tag ? <span className="text-xs font-semibold uppercase text-kaya">{tag}</span> : null}
-          <h3 className="text-xl font-bold leading-snug mb-2">{post.title}</h3>
-          <p className="text-muted-text text-sm mb-3">{post.summary}</p>
-          <span className="text-sm font-medium text-kaya">Czytaj dalej →</span>
-        </div>
+    <Card className="h-full flex flex-col">
+      <div className="mb-2 flex items-center gap-2">
+        <time dateTime={post.publishedAt} className="text-sm text-muted-text">
+          {formattedDate}
+        </time>
+        {post.tag ? (
+          <span className="text-xs font-semibold uppercase text-kaya">
+            {t(tagLabelKey[post.tag])}
+          </span>
+        ) : null}
       </div>
+
+      <h3 className="text-xl font-bold leading-snug mb-2 text-ink">{post.title}</h3>
+
+      {post.body ? <p className="text-muted-text mb-4 flex-grow">{post.body}</p> : null}
+
+      {post.images.length > 0 ? (
+        <div className={`grid gap-2 mb-4 ${post.images.length > 1 ? 'grid-cols-2' : ''}`}>
+          {post.images.map((url) => (
+            <div key={url} className="aspect-video rounded overflow-hidden bg-gray-200">
+              <SmartImage src={url} alt="" width={640} height={360} />
+            </div>
+          ))}
+        </div>
+      ) : null}
+
+      {post.externalUrl ? (
+        <div className="mt-auto">
+          <Button href={post.externalUrl} external variant="secondary" className="w-full py-2">
+            {t('aktualnosci:external_link')}
+          </Button>
+        </div>
+      ) : null}
     </Card>
   );
 };

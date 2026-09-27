@@ -1,54 +1,75 @@
-# Lubelski Klub Go - Architecture Report (M0-T1)
+# Lubelski Klub Go — Architecture Report
 
-**Date:** September 20, 2026
-**Author:** Senior React + TypeScript Engineer (LLM Agent)
-**Scope:** Repository Inspection for Tier A Launch Planning.
+**Last updated:** 2026-09-27
+**Scope:** Tier A launch (see `docs/WEBSITE_REBUILD_PLAN.md` and `docs/ULTIMATE_IMPLEMENTATION_PLAN.md`)
 
-## 1. High-Level Overview & Status
-The repository structure is currently a mix of development tooling boilerplate (`.opencode`) and initial documentation/project definition files. The actual application source code directory, following the plan's recommendation (M145: `src/`), does not yet contain foundational components or pages.
+## 1. Where the application lives
 
-**Status:** Initial scaffolding required. No working product features are present to inspect. We must establish the mandated structure before proceeding with implementation tasks.
+The application lives at the **repository root** — `src/`, `public/`, `index.html`,
+`vite.config.ts`, `tailwind.config.js`, etc. There is **no `web/` subdirectory** (a
+stale `web/AGENTS.md` was removed). The plan's `web/` layout was superseded by a
+root-level application.
 
-## 2. Technology Stack & Configuration
-*   **Package Manager:** NPM (Used for managing dependencies and running scripts).
-*   **Frontend Framework:** React + TypeScript (Confirmed by `package.json` and project goals).
-*   **Build Tool:** Vite (Defined in `package.json`).
-*   **Styling:** Tailwind CSS (Required via `devDependencies` and enforced by the locked architecture plan).
-*   **State Management/Data Access:** Supabase Client (`@supabase/supabase-js`) is included in dependencies, indicating its planned use as the primary data source for news and auth.
-*   **Internationalization:** Libraries are available but no core i18n files have been structured yet (Planned: `src/i18n/`).
+## 2. Stack (locked decisions)
 
-## 3. Directory Structure Assessment (Based on Plan M140-M167)
-The current repository structure is highly sparse in the functional areas. To align with the locked plan, the following conceptual directory map must be established and maintained:
+| Concern | Decision |
+| --- | --- |
+| Frontend | React 18 + TypeScript 5.9 + Vite 8 |
+| Routing | `react-router-dom` 7 (Polish routes at the root, no `/pl` prefix) |
+| Styling | Tailwind CSS 3 + a small token layer (`paper`, `ink`, `muted-text`, `border`, `kaya`) |
+| Public data | Typed files in `src/data/` — the single source of truth for club facts |
+| News DB / Auth / Storage | Supabase (Postgres + RLS + Storage) — **client wired, project not yet configured** |
+| Map | OpenStreetMap link (no API key), localized via a `locale` query param |
+| i18n | `i18next` + `react-i18next`, Polish default/fallback |
+| Tests | Vitest + Testing Library |
+| Formatting | ESLint (flat config) |
+
+## 3. Directory map
 
 ```text
 LublinGoClubWebPage/
-├── docs/                           # Documentation for process and plans
-│   ├── WEBSITE_REBUILD_PLAN.md     # Existing operational plan
-│   ├── ULTIMATE_IMPLEMENTATION_PLAN.md # Current master guide
-│   ├── ADMIN_SETUP.md              # To be created/updated (M7-T3)
-│   └── GOVERNANCE.md               # To be created (M7-T2)
-└── web/                            # Vercel project root (The actual SPA source)
-    └── src/                        # CORE APPLICATION SOURCE ROOT
-        ├── app/                    # Route components, Layouts
-        ├── components/             # Shared UI Primitives (Button, Card, etc.)
-        ├── pages/                  # Page-specific wrappers (Home, AboutPage)
-        ├── data/                   # Single Source of Truth for Config (`club.ts`)
-        ├── features/               # Complex, self-contained feature groups
-        ├── i18n/                   # Translation files and config
-        ├── lib/                    # Utility functions (NewsRepository)
-        └── types/                  # TypeScript interfaces/types
+├─ docs/                     # Plans, status, QA notes
+├─ public/                   # Served static assets (hero board image)
+│  └─ assets/
+├─ reference/legacy-site/    # Read-only copy of the old live site (NOT served)
+├─ src/
+│  ├─ components/            # Shared primitives + shared features (MeetingSection, NewsFeed, …)
+│  ├─ data/                  # club.ts, site.ts, people.ts — single source of truth
+│  ├─ i18n/                  # config.ts + locales/{pl,en}/translation.json
+│  ├─ lib/                   # supabase/client.ts, news/repository.ts (data boundaries)
+│  ├─ pages/                 # Route-level page components
+│  ├─ styles/                # global.css
+│  └─ types/                 # data_models.ts (MeetingInfo, ClubConfig, NewsPost, …)
+├─ index.html
+├─ vite.config.ts / vitest.config.ts / tailwind.config.js / postcss.config.js
+└─ eslint.config.js
 ```
 
-## 4. Technical Component Assessment & Actions Required
+## 4. Implemented (Tier A public site — R1–R4)
 
-*   **Routing:** No routing configuration files are present (`react-router-dom` is installed but routes must be defined). **Action:** Must define the main router setup in `src/App.tsx`/`src/Router.tsx`.
-*   **Styling:** The Tailwind setup appears provisioned, but global styles and utility components need to be created in the designated `styles/` location within `web/src`.
-*   **Testing:** Dev dependencies for testing are present (`vitest`, `@typescript-eslint/...`). **Action:** Initial test files must be scaffolded.
-*   **Assets:** The directory `reference/legacy-site/` exists and is reserved for the historical content (M0-T5).
+- Five public pages (`/`, `/zacznij`, `/o-klubie`, `/aktualnosci`, `/kontakt`) + a
+  deliberate 404 page.
+- Single source of truth in `src/data/` (`club.ts`, `site.ts`, `people.ts`); meeting
+  facts are rendered by a shared `MeetingSection` used on Home, Contact and Start Here.
+- News domain: one typed `NewsPost` model, one validated repository mapping, and one
+  shared `NewsFeed` used by both the Home preview and `/aktualnosci` (distinguishes
+  "unconfigured" from an empty feed).
+- Mobile navigation (mounted in the header), i18n consolidation into `src/i18n/`, and
+  `<html lang>` synchronization.
 
-## 5. Conclusion & Next Steps
-The repository currently provides the *tools* but not the *structure*. We are starting from a foundational level of code scaffolding.
+## 5. Not yet implemented
 
-**Conclusion:** No existing infrastructure needs to be preserved or modified other than setting up the correct folder structure within `web/src` and ensuring all necessary entry points (App, index.tsx) are established. The architectural assumptions locked in M140-M167 can proceed immediately as if we were starting from scratch, guided by the plan's requirements.
+- Supabase migrations, RLS, storage policies and the protected admin publishing
+  workflow (Milestones 4–5).
+- Static Go rules migration (N1) and approved real content / photo consent (N2).
+- SEO/sitemap/robots/redirects (M6), governance and launch (M7).
 
-**Next Milestone Target:** M0-T2 — Scaffold or normalize the React application. This involves creating the basic file structure (`src/`, `App.tsx`, `index.tsx`, etc.) and ensuring the development server runs successfully with a clean shell.
+See `docs/IMPLEMENTATION_STATUS.md` for the detailed per-task snapshot.
+
+## 6. Conventions
+
+- Club facts (schedule, venue, links, contacts) live in `src/data/`; components never
+  hardcode them.
+- User-facing strings use i18n keys; Polish source strings live in the `pl` resource.
+- Supabase RLS is the security boundary — never a client-only check.
+- `npm run check` (lint → typecheck → test → build) must pass before work is "done".

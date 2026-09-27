@@ -1,0 +1,96 @@
+{
+  "common": {
+    "site_name": "Lubelski Klub Go",
+    "nav_primary": "Główna nawigacja",
+    "menu": {
+      "home": "Strona główna",
+      "about": "O klubie",
+      "news": "Aktualności",
+      "events": "Kontakt",
+      "start": "Zacznij grać",
+      "toggle": "Menu"
+    },
+    "cta_start_button": "Zacznij grać",
+    "news_description": "Najnowsze turnieje, warsztaty i artykuły z życia klubu.",
+    "view_all_articles": "Zobacz wszystkie artykuły",
+    "read_more": "Czytaj dalej"
+  },
+  "hero": {
+    "title": "Zagraj w Go w Lublinie",
+    "subtitle": "Wstęp wolny i otwarty dla każdego. Nie musisz nic umieć ani nic przynosić — po prostu przyjdź.",
+    "cta_primary": "Przyjdź na spotkanie",
+    "cta_secondary": "Poznaj zasady"
+  },
+  "homepage": {
+    "reassurance_title": "Dlaczego warto przyjść?",
+    "reassurance_1_title": "Nie znasz zasad?",
+    "reassurance_1_text": "Nauczymy Cię podstaw w 15 minut — nie potrzebujesz żadnego doświadczenia.",
+    "reassurance_2_title": "Nic nie musisz przynosić",
+    "reassurance_2_text": "Plansze i kamienie są na miejscu.",
+    "reassurance_3_title": "Wstęp wolny",
+    "reassurance_3_text": "Spotkania są całkowicie darmowe.",
+    "reassurance_4_title": "Dzieci mile widziane",
+    "reassurance_4_text": "Zapraszamy dzieci, młodzież i dorosłych — często gramy całymi rodzinami.",
+    "news_title": "Aktualności"
+  },
+  "meeting": {
+    "heading": "Kiedy i gdzie?",
+    "free_entry": "Wstęp wolny",
+    "map_link": "Zobacz na mapie",
+    "directions_link": "Wyznacz dojazd"
+  },
+  "start": {
+    "title": "Zacznij grać",
+    "intro": "Pokażemy Ci krok po kroku, jak wygląda pierwsza wizyta w klubie.",
+    "story_title": "Co się stanie, kiedy przyjdę pierwszy raz?",
+    "story_step_1": "Wejdź do Młodzieżowego Domu Kultury nr 2 przy ul. Bernardyńskiej 14a.",
+    "story_step_2": "Znajdź salę 14 (galeria na górze).",
+    "story_step_3": "Powiedz, że jesteś pierwszy raz.",
+    "story_step_4": "Ktoś z klubu wytłumaczy Ci podstawy i znajdzie partnera do gry.",
+    "story_step_5": "Zagrasz pierwszą partię na małej planszy — to szybkie i przyjemne.",
+    "story_step_6": "Zostań, jak długo chcesz.",
+    "faq_title": "Najczęstsze pytania",
+    "faq_q_1": "Czy muszę znać zasady?",
+    "faq_a_1": "Nie. Nauczymy Cię podstaw na miejscu — większość osób zaczynała od zera.",
+    "faq_q_2": "Czy muszę coś przynieść?",
+    "faq_a_2": "Nie, plansze i kamienie są na miejscu. Wystarczy, że przyjdziesz.",
+    "faq_q_3": "Ile to kosztuje?",
+    "faq_a_3": "Nic. Spotkania są całkowicie darmowe.",
+    "faq_q_4": "W jakim wieku można zacząć?",
+    "faq_a_4": "Go jest dla każdego — zapraszamy dzieci, młodzież i dorosłych. Często gramy całymi rodzinami.",
+    "faq_q_5": "Przychodzę sam(a) — czy to problem?",
+    "faq_a_5": "Zupełnie nie. Większość osób przychodzi sama i od razu znajduje partnera do gry.",
+    "faq_q_6": "Jak znaleźć salę 14?",
+    "faq_a_6": "Wejdź do budynku przy ul. Bernardyńskiej 14a i kieruj się do galerii na górze — tam jest sala 14.",
+    "cta": "Przyjdź na spotkanie"
+  },
+  "oklubie": {
+    "title": "O klubie",
+    "intro": "Lubelski Klub Go to społeczność miłośników gry w Go w Lublinie.",
+    "typical_title": "Jak wygląda typowe spotkanie?",
+    "typical_text": "Gramy partie towarzyskie, uczymy początkujących i analizujemy rozgrywki. Spotkania są otwarte i bezpłatne — zapraszamy dzieci, młodzież i dorosłych. Uczymy się i bawimy razem, często całymi rodzinami."
+  },
+  "contact": {
+    "title": "Kontakt",
+    "intro": "Masz pytanie? Napisz do nas przez Facebooka lub Discorda — tam odpowiadamy najszybciej.",
+    "social_title": "Znajdź nas",
+    "people_title": "Osoby do kontaktu",
+    "ogs_label": "OGS"
+  },
+  "aktualnosci": {
+    "news_heading": "Aktualności",
+    "loading": "Ładowanie najnowszych wydarzeń…",
+    "empty": "Brak aktualnych wiadomości.",
+    "unconfigured": "Aktualności nie są jeszcze skonfigurowane.",
+    "error": "Nie udało się wczytać aktualności.",
+    "tag_spotkanie": "Spotkanie",
+    "tag_turniej": "Turniej",
+    "tag_wydarzenie": "Wydarzenie",
+    "external_link": "Zobacz więcej"
+  },
+  "notFound": {
+    "title": "Nie znaleziono strony",
+    "message": "Ta strona nie istnieje lub została przeniesiona.",
+    "back_home": "Wróć na stronę główną"
+  }
+}

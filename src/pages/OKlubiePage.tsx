@@ -1,16 +1,34 @@
 // src/pages/OKlubiePage.tsx
 import React from 'react';
-import { Section } from '../components/primitives'; // Placeholder
 import { useTranslation } from 'react-i18next';
+import { Section, Container, Button } from '../components/primitives';
 
+/**
+ * About page. Content is intentionally limited to what is verifiable today:
+ * the club's purpose and what a typical meeting is like. A fuller founding
+ * story, people bios and consented photos are added later (see N2) and must
+ * not be fabricated here.
+ */
 const OKlubiePage: React.FC = () => {
   const { t } = useTranslation();
+
   return (
     <Section id="o-klubie">
-      <div className="text-center py-10">
-        <h2 className="text-4xl font-bold mb-6">{t('oklubie:section_title')}</h2>
-        <p className="mb-8 text-lg">{t('oklubie:description')}</p>
-      </div >
+      <Container className="max-w-3xl">
+        <h1 className="text-4xl font-extrabold tracking-tight text-ink mb-6">
+          {t('oklubie:title')}
+        </h1>
+        <p className="text-xl text-muted-text mb-10">{t('oklubie:intro')}</p>
+
+        <h2 className="text-2xl md:text-3xl font-bold mb-4 text-ink">
+          {t('oklubie:typical_title')}
+        </h2>
+        <p className="text-lg text-ink mb-10">{t('oklubie:typical_text')}</p>
+
+        <Button to="/zacznij" variant="primary" className="px-6 py-3 text-lg">
+          {t('common:cta_start_button')}
+        </Button>
+      </Container>
     </Section>
   );
 };

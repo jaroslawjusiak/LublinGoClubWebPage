@@ -1,59 +1,106 @@
-import { describe, it, expect } from 'vitest';
-import { mapRowToNewsPost, SupabaseNewsRepository } from './repository';
+import { describe, it, expect, vi } from 'vitest';
+import type { SupabaseClient } from '@supabase/supabase-js';
+import { mapRowToNewsPost, SupabaseNewsRepository, type PostRow } from './repository';
+
+const validRow: PostRow = {
+  id: 'abc-123',
+  title: 'Turniej',
+  body: 'Krótki opis turnieju.',
+  tag: 'turniej',
+  image_urls: ['https://example.com/1.jpg', 'https://example.com/2.jpg'],
+  external_url: 'https://board.example.com/tournament',
+  published_at: '2023-10-14',
+  published: true,
+};
+
+function createMockClient(rows: PostRow[]) {
+  const range = vi.fn().mockResolvedValue({ data: rows, error: null, count: rows.length });
+  const order = vi.fn().mockReturnValue({ range });
+  const eq = vi.fn().mockReturnValue({ order });
+  const select = vi.fn().mockReturnValue({ eq });
+  const from = vi.fn().mockReturnValue({ select });
+  const client = { from } as unknown as SupabaseClient;
+  return { client, from, select, eq, order, range };
+}
 
 describe('mapRowToNewsPost', () => {
-  it('maps a snake_case database row into the NewsPost model', () => {
-    const post = mapRowToNewsPost({
-      id: 'abc',
+  it('maps a concrete snake_case row into the NewsPost model', () => {
+    expect(mapRowToNewsPost(validRow)).toEqual({
+      id: 'abc-123',
       title: 'Turniej',
-      excerpt: 'Krótki opis',
-      body_html: '<p>Treść</p>',
-      published_date: '2026-08-15',
-      tags: ['turniej', 'wydarzenie'],
-      image_url_references: ['img-1'],
-    });
-
-    expect(post).toEqual({
-      id: 'abc',
-      title: 'Turniej',
-      summary: 'Krótki opis',
-      bodyHtml: '<p>Treść</p>',
-      publishedDate: '2026-08-15',
-      tags: ['turniej', 'wydarzenie'],
-      imageUrlReferences: ['img-1'],
+      body: 'Krótki opis turnieju.',
+      publishedAt: '2023-10-14',
+      tag: 'turniej',
+      images: ['https://example.com/1.jpg', 'https://example.com/2.jpg'],
+      externalUrl: 'https://board.example.com/tournament',
     });
   });
 
-  it('normalises a single tag and a single image reference', () => {
+  it('normalises null body, tag, images and external link', () => {
     const post = mapRowToNewsPost({
-      slug: 'slug-1',
-      title: 'T',
-      tags: 'turniej',
-      mainImageReference: 'img-1',
+      ...validRow,
+      body: null,
+      tag: null,
+      image_urls: null,
+      external_url: null,
     });
 
-    expect(post.id).toBe('slug-1');
-    expect(post.tags).toEqual(['turniej']);
-    expect(post.imageUrlReferences).toEqual(['img-1']);
+    expect(post.body).toBe('');
+    expect(post.tag).toBeUndefined();
+    expect(post.images).toEqual([]);
+    expect(post.externalUrl).toBeUndefined();
   });
 
-  it('falls back to empty collections when optional fields are missing', () => {
-    const post = mapRowToNewsPost({ id: 'x', title: 'Bez danych' });
+  it('throws when the row is missing an id', () => {
+    expect(() => mapRowToNewsPost({ ...validRow, id: '' })).toThrow(/missing an id/);
+  });
 
-    expect(post.tags).toEqual([]);
-    expect(post.imageUrlReferences).toEqual([]);
-    expect(post.summary).toBe('');
+  it('throws when the row is missing a published date', () => {
+    expect(() => mapRowToNewsPost({ ...validRow, published_at: '' })).toThrow(
+      /missing a published date/,
+    );
+  });
+
+  it('throws when the tag is not one of the allowed values', () => {
+    expect(() => mapRowToNewsPost({ ...validRow, tag: 'warsztaty' })).toThrow(/unknown tag/);
   });
 });
 
-describe('SupabaseNewsRepository without a configured client', () => {
-  const repo = new SupabaseNewsRepository(null);
-
-  it('returns an empty page instead of throwing', async () => {
-    await expect(repo.listPublished(1, 10)).resolves.toEqual({ posts: [], totalCount: 0 });
+describe('SupabaseNewsRepository', () => {
+  it('reports unconfigured (not empty) when no client is present', async () => {
+    const repo = new SupabaseNewsRepository(null);
+    await expect(repo.listPublished(1, 10)).resolves.toEqual({ status: 'unconfigured' });
   });
 
-  it('returns null for a single post', async () => {
-    await expect(repo.getById('anything')).resolves.toBeNull();
+  it('queries published posts newest-first and maps the result', async () => {
+    const { client, from, eq, order, range } = createMockClient([validRow]);
+    const repo = new SupabaseNewsRepository(client);
+
+    const result = await repo.listPublished(1, 3);
+
+    expect(from).toHaveBeenCalledWith('posts');
+    expect(eq).toHaveBeenCalledWith('published', true);
+    expect(order).toHaveBeenCalledWith('published_at', { ascending: false });
+    expect(range).toHaveBeenCalledWith(0, 2);
+    expect(result).toEqual({
+      status: 'ok',
+      page: { posts: [mapRowToNewsPost(validRow)], totalCount: 1 },
+    });
+  });
+
+  it('propagates query errors instead of returning an empty feed', async () => {
+    const range = vi.fn().mockResolvedValue({
+      data: null,
+      error: { message: 'boom' },
+      count: null,
+    });
+    const order = vi.fn().mockReturnValue({ range });
+    const eq = vi.fn().mockReturnValue({ order });
+    const select = vi.fn().mockReturnValue({ eq });
+    const from = vi.fn().mockReturnValue({ select });
+    const client = { from } as unknown as SupabaseClient;
+    const repo = new SupabaseNewsRepository(client);
+
+    await expect(repo.listPublished(1, 10)).rejects.toThrow(/boom/);
   });
 });

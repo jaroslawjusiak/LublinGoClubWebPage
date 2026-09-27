@@ -2,9 +2,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Button, Chip } from './primitives';
+import { Button } from './primitives';
+import MobileMenu from './MobileMenu';
+import { navItems, startCta } from '../data/site';
 
-const linkClasses = 'text-sm hover:text-kaya transition focus:outline-none focus-visible:ring-2 focus-visible:ring-kaya/50 rounded';
+const linkClasses =
+  'text-sm hover:text-kaya transition focus:outline-none focus-visible:ring-2 focus-visible:ring-kaya/50 rounded';
 
 const Header: React.FC = () => {
   const { t } = useTranslation();
@@ -16,26 +19,26 @@ const Header: React.FC = () => {
           {t('common:site_name')}
         </Link>
 
-        <nav className="hidden md:flex space-x-8 items-center" aria-label={t('common:site_name')}>
-          <Link to="/" className={linkClasses}>
-            {t('common:menu.home')}
-          </Link>
-          <Link to="/o-klubie" className={linkClasses}>
-            {t('common:menu.about')}
-          </Link>
-          <Link to="/aktualnosci" className={linkClasses}>
-            {t('common:menu.news')}
-          </Link>
-          <Link to="/kontakt" className={linkClasses}>
-            {t('common:menu.events')}
-          </Link>
+        <nav
+          className="hidden md:flex space-x-8 items-center"
+          aria-label={t('common:nav_primary')}
+        >
+          {navItems.map((item) => (
+            <Link key={item.path} to={item.path} className={linkClasses}>
+              {t(item.labelKey)}
+            </Link>
+          ))}
         </nav>
 
         <div className="flex items-center space-x-4">
-          <Chip text="PL" />
-          <Button to="/zacznij" variant="primary" className="hidden sm:inline-flex py-2 px-4">
-            {t('common:menu.start')}
+          <Button
+            to={startCta.path}
+            variant="primary"
+            className="hidden md:inline-flex py-2 px-4"
+          >
+            {t(startCta.labelKey)}
           </Button>
+          <MobileMenu />
         </div>
       </div>
     </header>

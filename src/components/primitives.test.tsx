@@ -35,6 +35,18 @@ describe('primitives', () => {
     expect(screen.getByRole('button', { name: 'Click' })).toBeInTheDocument();
   });
 
+  it('renders an external link when `href` is provided', () => {
+    render(
+      <Button href="https://example.com" external>
+        Open
+      </Button>,
+    );
+    const link = screen.getByRole('link', { name: 'Open' });
+    expect(link).toHaveAttribute('href', 'https://example.com');
+    expect(link).toHaveAttribute('target', '_blank');
+    expect(link).toHaveAttribute('rel', 'noreferrer noopener');
+  });
+
   it('renders Card children', () => {
     render(<Card>card body</Card>);
     expect(screen.getByText('card body')).toBeInTheDocument();

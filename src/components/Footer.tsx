@@ -1,7 +1,7 @@
 // src/components/Footer.tsx
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaFacebookF, FaInstagram, FaYoutube } from 'react-icons/fa';
+import { FaFacebookF, FaDiscord } from 'react-icons/fa';
 import { clubConfig, meetingInfo, socialLinks } from '../data/club';
 
 const footerLinkClasses =
@@ -29,36 +29,30 @@ const Footer: React.FC = () => (
           </p>
 
           <div className="flex justify-center md:justify-start gap-6">
-            <a
-              href={socialLinks.facebook}
-              aria-label="Facebook"
-              title="Facebook"
-              target="_blank"
-              rel="noreferrer noopener"
-              className={socialLinkClasses}
-            >
-              <FaFacebookF />
-            </a>
-            <a
-              href={socialLinks.instagram}
-              aria-label="Instagram"
-              title="Instagram"
-              target="_blank"
-              rel="noreferrer noopener"
-              className={socialLinkClasses}
-            >
-              <FaInstagram />
-            </a>
-            <a
-              href={socialLinks.youtube}
-              aria-label="YouTube"
-              title="YouTube"
-              target="_blank"
-              rel="noreferrer noopener"
-              className={socialLinkClasses}
-            >
-              <FaYoutube />
-            </a>
+            {socialLinks.facebook ? (
+              <a
+                href={socialLinks.facebook}
+                aria-label="Facebook"
+                title="Facebook"
+                target="_blank"
+                rel="noreferrer noopener"
+                className={socialLinkClasses}
+              >
+                <FaFacebookF />
+              </a>
+            ) : null}
+            {socialLinks.discord ? (
+              <a
+                href={socialLinks.discord}
+                aria-label="Discord"
+                title="Discord"
+                target="_blank"
+                rel="noreferrer noopener"
+                className={socialLinkClasses}
+              >
+                <FaDiscord />
+              </a>
+            ) : null}
           </div>
         </div>
 
@@ -99,7 +93,6 @@ const Footer: React.FC = () => (
         {/* Column 3: Contact details */}
         <div className="text-center md:text-left">
           <h3 className="text-2xl font-bold text-kaya mb-6">Skontaktuj się z nami</h3>
-          <p className="mb-4">{clubConfig.phone ?? 'Numer telefonu niedostępny'}</p>
           <p className="mb-2">
             {clubConfig.email ? (
               <a href={`mailto:${clubConfig.email}`} className="hover:text-kaya transition">
@@ -114,6 +107,9 @@ const Footer: React.FC = () => (
             <p>{meetingInfo.venueName}</p>
             <p>
               {meetingInfo.addressLine}, {meetingInfo.roomNumber}
+            </p>
+            <p>
+              {meetingInfo.postalCode} {meetingInfo.city}
             </p>
           </div>
         </div>

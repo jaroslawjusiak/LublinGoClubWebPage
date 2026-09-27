@@ -29,10 +29,12 @@ type ButtonVariant = 'primary' | 'secondary';
 
 /**
  * UI primitive: button. Renders a react-router `Link` when `to` is provided,
- * otherwise a native `<button>`.
+ * an external/plain `<a>` when `href` is provided, otherwise a native `<button>`.
  */
 export const Button: React.FC<{
   to?: string;
+  href?: string;
+  external?: boolean;
   type?: 'button' | 'submit' | 'reset';
   children: React.ReactNode;
   className?: string;
@@ -41,6 +43,8 @@ export const Button: React.FC<{
   disabled?: boolean;
 }> = ({
   to,
+  href,
+  external = false,
   type = 'button',
   children,
   className = '',
@@ -61,6 +65,19 @@ export const Button: React.FC<{
       <Link to={to} className={classes} onClick={onClick}>
         {children}
       </Link>
+    );
+  }
+
+  if (href) {
+    return (
+      <a
+        href={href}
+        className={classes}
+        onClick={onClick}
+        {...(external ? { target: '_blank', rel: 'noreferrer noopener' } : {})}
+      >
+        {children}
+      </a>
     );
   }
 

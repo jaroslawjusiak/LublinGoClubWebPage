@@ -1,26 +1,37 @@
-import React, { useState } from 'react';
+// src/components/MobileMenu.tsx
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Chip } from './primitives';
+import { useTranslation } from 'react-i18next';
+import { Button } from './primitives';
+import { navItems, startCta } from '../data/site';
 
 /**
- * @description An accessible mobile navigation menu with a state-driven toggle.
+ * Accessible mobile navigation. The panel is only mounted while open, so closed
+ * links are never focusable, and it closes on navigation or Escape.
  */
 const MobileMenu: React.FC = () => {
+  const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
+  const close = () => setIsOpen(false);
 
-  const toggleMenu = () => {
-    setIsOpen((open) => !open);
-  };
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') close();
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [isOpen]);
 
   return (
-    <div className="md:hidden">
+    <div className="relative md:hidden">
       <button
         type="button"
-        onClick={toggleMenu}
+        onClick={() => setIsOpen((open) => !open)}
         className="p-2 text-ink hover:bg-gray-100 rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-kaya/70"
         aria-expanded={isOpen}
         aria-controls="mobile-menu-list"
-        aria-label="Menu"
+        aria-label={t('common:menu.toggle')}
       >
         <svg
           className="w-6 h-6"
@@ -39,35 +50,32 @@ const MobileMenu: React.FC = () => {
         </svg>
       </button>
 
-      <div
-        id="mobile-menu-list"
-        className={`overflow-hidden transition-all duration-300 ease-in-out ${
-          isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
-        }`}
-        aria-hidden={!isOpen}
-      >
-        <nav className="flex flex-col p-4 border-t border-border space-y-2">
-          <Link to="/zacznij" className="block py-3 text-lg font-medium hover:text-kaya transition duration-150">
-            Zacznij
-          </Link>
-          <Link to="/o-klubie" className="block py-3 text-lg font-medium hover:text-kaya transition duration-150">
-            O klubie
-          </Link>
-          <Link to="/aktualnosci" className="block py-3 text-lg font-medium hover:text-kaya transition duration-150">
-            Aktualności
-          </Link>
-          <Link to="/kontakt" className="block py-3 text-lg font-medium hover:text-kaya transition duration-150">
-            Kontakt
-          </Link>
-
-          <div className="flex justify-between items-center pt-4 border-t border-border mt-2">
-            <Chip text="PL" />
-            <Button to="/zacznij" variant="primary" className="py-2 px-4">
-              Zacznij grać
+      {isOpen && (
+        <nav
+          id="mobile-menu-list"
+          aria-label={t('common:nav_primary')}
+          className="absolute right-0 top-full mt-2 w-64 bg-paper border border-border rounded-lg shadow-lg z-50"
+        >
+          <ul className="p-4 space-y-1">
+            {navItems.map((item) => (
+              <li key={item.path}>
+                <Link
+                  to={item.path}
+                  onClick={close}
+                  className="block py-3 px-2 text-lg font-medium hover:text-kaya rounded transition duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-kaya/70"
+                >
+                  {t(item.labelKey)}
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <div className="px-4 pb-4">
+            <Button to={startCta.path} onClick={close} variant="primary" className="w-full py-3">
+              {t(startCta.labelKey)}
             </Button>
           </div>
         </nav>
-      </div>
+      )}
     </div>
   );
 };

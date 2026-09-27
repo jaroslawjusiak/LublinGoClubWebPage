@@ -1,29 +1,39 @@
-// src/config/i18n.ts
+// src/i18n/config.ts
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
-import pl from '../locales/pl/translation.json';
-import en from '../locales/en/translation.json';
+import pl from './locales/pl/translation.json';
+import en from './locales/en/translation.json';
 
 /**
  * Each top-level group in the translation JSON is exposed as an i18next namespace,
  * so components can use keys like `common:menu.home` or `homepage:cta_button`.
- * Polish is the default and the fallback language.
+ *
+ * Polish is the default and fallback language. English is present as a partial,
+ * unreviewed skeleton; Ukrainian has no resource yet, so `uk` falls back to Polish.
  */
 const resources = {
   pl: {
     common: pl.common,
     hero: pl.hero,
     homepage: pl.homepage,
+    meeting: pl.meeting,
+    start: pl.start,
     oklubie: pl.oklubie,
+    contact: pl.contact,
     aktualnosci: pl.aktualnosci,
+    notFound: pl.notFound,
   },
   en: {
     common: en.common,
     hero: en.hero,
     homepage: en.homepage,
+    meeting: en.meeting,
+    start: en.start,
     oklubie: en.oklubie,
+    contact: en.contact,
     aktualnosci: en.aktualnosci,
+    notFound: en.notFound,
   },
 };
 
@@ -31,7 +41,8 @@ i18n.use(initReactI18next).init({
   resources,
   lng: 'pl',
   fallbackLng: 'pl',
-  ns: ['common', 'hero', 'homepage', 'oklubie', 'aktualnosci'],
+  supportedLngs: ['pl', 'en', 'uk'],
+  ns: ['common', 'hero', 'homepage', 'meeting', 'start', 'oklubie', 'contact', 'aktualnosci', 'notFound'],
   defaultNS: 'common',
   interpolation: {
     escapeValue: false, // React already escapes values.

@@ -1,9 +1,0 @@
-{
-  "fallbackLng": "pl",
-  "supportedLngs": ["pl", "en", "uk"],
-  "messages": {
-    "common": {
-      "cta_start_button": "Zacznij Grać" 
-    }
-  }
-}

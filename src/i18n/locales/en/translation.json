@@ -1,0 +1,96 @@
+{
+  "common": {
+    "site_name": "Lubelski Klub Go",
+    "nav_primary": "Main navigation",
+    "menu": {
+      "home": "Home",
+      "about": "About",
+      "news": "News",
+      "events": "Contact",
+      "start": "Start playing",
+      "toggle": "Menu"
+    },
+    "cta_start_button": "Start playing",
+    "news_description": "The latest tournaments, workshops and articles from club life.",
+    "view_all_articles": "View all articles",
+    "read_more": "Read more"
+  },
+  "hero": {
+    "title": "Play Go in Lublin",
+    "subtitle": "Free entry and open to everyone. You don't need to know anything or bring anything — just come.",
+    "cta_primary": "Come to a meeting",
+    "cta_secondary": "Learn the rules"
+  },
+  "homepage": {
+    "reassurance_title": "Why come?",
+    "reassurance_1_title": "Don't know the rules?",
+    "reassurance_1_text": "We'll teach you the basics in 15 minutes — no experience needed.",
+    "reassurance_2_title": "Nothing to bring",
+    "reassurance_2_text": "Boards and stones are provided.",
+    "reassurance_3_title": "Free entry",
+    "reassurance_3_text": "Meetings are completely free.",
+    "reassurance_4_title": "Children welcome",
+    "reassurance_4_text": "Kids, teens and adults are all welcome — we often play as whole families.",
+    "news_title": "News"
+  },
+  "meeting": {
+    "heading": "When and where?",
+    "free_entry": "Free entry",
+    "map_link": "View on map",
+    "directions_link": "Get directions"
+  },
+  "start": {
+    "title": "Start playing",
+    "intro": "Step by step, here's what your first visit to the club looks like.",
+    "story_title": "What happens when I come for the first time?",
+    "story_step_1": "Enter Młodzieżowy Dom Kultury nr 2 at ul. Bernardyńska 14a.",
+    "story_step_2": "Find room 14 (the gallery upstairs).",
+    "story_step_3": "Say it's your first time.",
+    "story_step_4": "Someone from the club will explain the basics and find you a partner.",
+    "story_step_5": "You'll play your first game on a small board — quick and enjoyable.",
+    "story_step_6": "Stay as long as you like.",
+    "faq_title": "Frequently asked questions",
+    "faq_q_1": "Do I need to know the rules?",
+    "faq_a_1": "No. We'll teach you the basics on the spot — most people started from zero.",
+    "faq_q_2": "Do I need to bring anything?",
+    "faq_a_2": "No, boards and stones are provided. Just come.",
+    "faq_q_3": "How much does it cost?",
+    "faq_a_3": "Nothing. Meetings are completely free.",
+    "faq_q_4": "What age can I start?",
+    "faq_a_4": "Go is for everyone — kids, teens and adults are welcome. We often play as whole families.",
+    "faq_q_5": "I'm coming alone — is that a problem?",
+    "faq_a_5": "Not at all. Most people come alone and immediately find a partner to play.",
+    "faq_q_6": "How do I find room 14?",
+    "faq_a_6": "Enter the building at ul. Bernardyńska 14a and head to the gallery upstairs — room 14 is there.",
+    "cta": "Come to a meeting"
+  },
+  "oklubie": {
+    "title": "About the club",
+    "intro": "The Lublin Go Club is a community of Go enthusiasts in Lublin.",
+    "typical_title": "What does a typical meeting look like?",
+    "typical_text": "We play casual games, teach beginners and review games. Meetings are open and free — kids, teens and adults are all welcome. We learn and have fun together, often as whole families."
+  },
+  "contact": {
+    "title": "Contact",
+    "intro": "Have a question? Message us on Facebook or Discord — we answer fastest there.",
+    "social_title": "Find us",
+    "people_title": "Contact persons",
+    "ogs_label": "OGS"
+  },
+  "aktualnosci": {
+    "news_heading": "News",
+    "loading": "Loading the latest news…",
+    "empty": "No news yet.",
+    "unconfigured": "News is not configured yet.",
+    "error": "Couldn't load news.",
+    "tag_spotkanie": "Meeting",
+    "tag_turniej": "Tournament",
+    "tag_wydarzenie": "Event",
+    "external_link": "Read more"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "message": "This page does not exist or has been moved.",
+    "back_home": "Back to the home page"
+  }
+}

@@ -1,0 +1,176 @@
+body {
+  background-color: #bfaf71;
+}
+footer {
+  padding-top: 1.5em;
+  margin-top: 3em;
+  margin-bottom: 1.5em;
+  margin-left: 2em;
+  margin-right: 2em;
+  border-top: dimgray 1px solid;
+}
+
+img.logo {
+  margin-right: 0.2em;
+  width: 2em;
+}
+
+.club-name {
+  margin-top: 0.5em;
+  text-align: center;
+  font-size: 6em;
+  font-family: "Kaushan Script";
+}
+
+.club-link {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+
+.club-link a {
+  font-size: 1.2em;
+  color: #222;
+  font-family: "Dosis";
+  font-weight: 600;
+  word-spacing: 0.1em;
+  letter-spacing: 0.05em;
+  margin-left: 0.3em;
+}
+
+.club-link a:hover {
+  color: #888;
+}
+
+.navbar {
+  padding: 0;
+}
+.navbar-brand {
+  color: beige;
+  letter-spacing: 0.05em;
+  font-size: 2em;
+  font-family: "Kaushan Script";
+}
+.nav-item {
+  margin-left: 10px;
+}
+.nav-link {
+  color: beige;
+  font-size: 1.5em;
+  letter-spacing: 0.1em;
+  font-family: "Kaushan Script";
+}
+.navbar-background {
+  background-color: #503c24;
+}
+
+.section-header {
+  font-size: 3em;
+  text-align: center;
+  font-family: "Dosis";
+  font-weight: 600;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.section-header a {
+  color: #222;
+}
+
+.centered-content p {
+  font-size: 1.5em;
+  text-align: center;
+  font-family: "Dosis";
+  font-weight: 500;
+  margin-bottom: 0.3em;
+  word-spacing: 0.1em;
+}
+
+.contact-layout {
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
+.card {
+  font-family: "Dosis";
+  background-color: khaki;
+}
+
+.card-title {
+  font-weight: 600;
+  font-size: 1.5em;
+}
+
+.card p {
+  margin: 0;
+  font-size: 1.3em;
+}
+
+.card-body p strong {
+  padding-right: 0.3em;
+}
+
+#carouselExampleCaptions {
+  width: 50%;
+  text-align: center;
+}
+
+.poster {
+  text-align: center;
+}
+
+.justified-content {
+  font-family: "Dosis";
+  font-size: 1.3em;
+}
+.justified-content p {
+  margin: 0;
+}
+
+.justified-content p.extra {
+  margin: 0;
+  padding-bottom: 20px;
+}
+
+.justified-content a {
+  color: #222;
+}
+
+.row p {
+  margin: 0;
+  padding-bottom: 20px;
+  font-family: "Dosis";
+  font-size: 1.3em;
+}
+
+.alert {
+  text-align: center;
+  color: crimson;
+  font-family: "Dosis";
+  font-size: 1.5em;
+  font-weight: 600;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  letter-spacing: 0.2em;
+  word-spacing: 0.5em;
+}
+
+/* Bootstrap 'lg' breakpoint */
+@media (max-width: 992px) {
+  .club-name {
+    font-size: 4em;
+  }
+}
+
+/* Bootstrap 'md' breakpoint */
+@media (max-width: 768px) {
+  .club-name {
+    font-size: 3em;
+  }
+}
+
+/* Bootstrap 'sm' breakpoint */
+@media (max-width: 576px) {
+  .club-name {
+    font-size: 2em;
+  }
+}
