@@ -40,12 +40,15 @@ const draftPost: NewsPost = {
   images: [],
 };
 
-const renderForm = (initial?: NewsPost) =>
-  render(
+const renderForm = (initial?: NewsPost) => {
+  const utils = render(
     <I18nextProvider i18n={i18n}>
       <PostForm initial={initial} onDone={() => {}} />
     </I18nextProvider>,
   );
+  const form = utils.container.querySelector('form') as HTMLFormElement;
+  return { ...utils, form };
+};
 
 beforeEach(() => {
   vi.clearAllMocks();
@@ -61,13 +64,13 @@ describe('PostForm', () => {
     expect(screen.queryByRole('button', { name: 'Zapisz' })).not.toBeInTheDocument();
   });
 
-  it('creates a draft when the admin saves as draft', async () => {
+  it('submitting a new post (Enter) saves it as a draft, never published', async () => {
     vi.mocked(newsRepository.create).mockResolvedValue(draftPost);
-    renderForm();
+    const { form } = renderForm();
 
     fireEvent.change(screen.getByLabelText('Tytuł'), { target: { value: 'Tytuł szkicu' } });
     fireEvent.change(screen.getByLabelText('Treść'), { target: { value: 'Treść' } });
-    fireEvent.click(screen.getByRole('button', { name: 'Zapisz szkic' }));
+    fireEvent.submit(form);
 
     await waitFor(() => expect(newsRepository.create).toHaveBeenCalled());
     expect(newsRepository.create).toHaveBeenCalledWith(
@@ -75,7 +78,7 @@ describe('PostForm', () => {
     );
   });
 
-  it('creates a published post when the admin publishes', async () => {
+  it('the explicit "Opublikuj" button publishes a new post', async () => {
     vi.mocked(newsRepository.create).mockResolvedValue(publishedPost);
     renderForm();
 
@@ -89,16 +92,30 @@ describe('PostForm', () => {
     );
   });
 
-  it('preserves the published status when editing an already-published post', async () => {
+  it('submitting a draft (Enter) keeps it a draft', async () => {
+    vi.mocked(newsRepository.update).mockResolvedValue(draftPost);
+    const { form } = renderForm(draftPost);
+
+    fireEvent.change(screen.getByLabelText('Treść'), { target: { value: 'Zmieniona treść' } });
+    fireEvent.submit(form);
+
+    await waitFor(() => expect(newsRepository.update).toHaveBeenCalled());
+    expect(newsRepository.update).toHaveBeenCalledWith(
+      'draft-1',
+      expect.objectContaining({ published: false }),
+    );
+  });
+
+  it('submitting a published post (Enter) preserves its published status', async () => {
     vi.mocked(newsRepository.update).mockResolvedValue(publishedPost);
-    renderForm(publishedPost);
+    const { form } = renderForm(publishedPost);
 
     // No "save draft" action is offered, so an edit cannot accidentally unpublish.
     expect(screen.queryByRole('button', { name: 'Zapisz szkic' })).not.toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Zapisz' })).toBeInTheDocument();
 
     fireEvent.change(screen.getByLabelText('Treść'), { target: { value: 'Zmieniona treść' } });
-    fireEvent.click(screen.getByRole('button', { name: 'Zapisz' }));
+    fireEvent.submit(form);
 
     await waitFor(() => expect(newsRepository.update).toHaveBeenCalled());
     expect(newsRepository.update).toHaveBeenCalledWith(

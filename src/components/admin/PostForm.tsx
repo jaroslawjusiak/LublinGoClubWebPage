@@ -38,6 +38,8 @@ const PostForm: React.FC<PostFormProps> = ({ initial, onDone }) => {
   };
 
   const handleSubmit = async (publish: boolean) => {
+    // Guard against double-submission (e.g. Enter while a save is in flight).
+    if (saving) return;
     if (!validate()) return;
 
     setSaving(true);
@@ -89,9 +91,20 @@ const PostForm: React.FC<PostFormProps> = ({ initial, onDone }) => {
     onDone();
   };
 
+  /**
+   * Implicit form submission (pressing Enter in a text field, or activating the
+   * default submit button) always performs the *safe* action: save as a draft
+   * for a new post or a draft, and preserve the published status when editing a
+   * published post. Publishing is a separate, explicit action ("Opublikuj").
+   */
+  const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    void handleSubmit(initial?.published === true);
+  };
+
   return (
     <Card>
-      <form onSubmit={(e) => e.preventDefault()} noValidate>
+      <form onSubmit={handleFormSubmit} noValidate>
         <h2 className="text-2xl font-bold mb-6 text-ink">
           {initial ? t('admin:edit_post') : t('admin:new_post')}
         </h2>
@@ -199,8 +212,7 @@ const PostForm: React.FC<PostFormProps> = ({ initial, onDone }) => {
         <div className="flex flex-wrap gap-3 mt-8">
           {initial?.published ? (
             <Button
-              type="button"
-              onClick={() => void handleSubmit(true)}
+              type="submit"
               variant="primary"
               disabled={saving}
               className="px-6 py-3"
@@ -209,12 +221,7 @@ const PostForm: React.FC<PostFormProps> = ({ initial, onDone }) => {
             </Button>
           ) : (
             <>
-              <Button
-                type="button"
-                onClick={() => void handleSubmit(false)}
-                disabled={saving}
-                className="px-6 py-3"
-              >
+              <Button type="submit" disabled={saving} className="px-6 py-3">
                 {saving ? t('admin:saving') : t('admin:save_draft')}
               </Button>
               <Button
