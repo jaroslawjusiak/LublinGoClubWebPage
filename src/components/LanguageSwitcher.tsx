@@ -21,13 +21,17 @@ const LanguageSwitcher: React.FC<{ className?: string }> = ({ className = '' }) 
   const locale = useLocale();
   const { pathname } = useLocation();
 
+  // `/admin` is not locale-prefixed, so switching language there would produce a
+  // dead route (/en/admin, /uk/admin). Hide the switcher on the admin page.
+  if (pathname === '/admin') return null;
+
   // Normalise the current URL to its Polish (default) form, then re-prefix it.
   const basePath = locale === 'pl' ? pathname : pathname.replace(`/${locale}`, '') || '/';
 
   return (
     <nav
       aria-label={t('common:language_label')}
-      className={`flex items-center gap-1.5 md:gap-2 ${className}`.trim()}
+      className={`flex items-center gap-2 ${className}`.trim()}
     >
       {LANGUAGES.map((lang) => {
         const active = lang.code === locale;
@@ -37,14 +41,14 @@ const LanguageSwitcher: React.FC<{ className?: string }> = ({ className = '' }) 
             to={localizePath(basePath, lang.code)}
             aria-current={active ? 'page' : undefined}
             aria-label={lang.name}
-            className={`inline-flex items-center gap-1 md:gap-1.5 text-xs md:text-sm font-medium rounded px-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-kaya/70 ${
+            className={`inline-flex items-center gap-1.5 text-sm font-medium rounded px-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-kaya/70 ${
               active ? 'text-kaya font-bold' : 'text-ink hover:text-kaya'
             }`}
           >
-            <span className="inline-block h-3 w-4 sm:h-3.5 sm:w-5 shrink-0 overflow-hidden rounded-sm border border-border">
+            <span className="inline-block h-3.5 w-5 shrink-0 overflow-hidden rounded-sm border border-border">
               <img src={lang.flag} alt="" className="h-full w-full object-cover" />
             </span>
-            <span className="hidden sm:inline">{lang.label}</span>
+            <span>{lang.label}</span>
           </Link>
         );
       })}

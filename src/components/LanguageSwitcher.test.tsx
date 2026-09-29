@@ -43,4 +43,10 @@ describe('LanguageSwitcher', () => {
 
     expect(screen.getByTestId('pathname')).toHaveTextContent('/uk/zacznij');
   });
+
+  it('is hidden on the admin page (no locale-prefixed admin route)', () => {
+    renderSwitcher('/admin');
+
+    expect(screen.queryByRole('link')).not.toBeInTheDocument();
+  });
 });
