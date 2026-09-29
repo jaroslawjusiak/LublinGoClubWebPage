@@ -193,15 +193,21 @@ post's status; the public feed still shows only published posts (RLS + `listPubl
 
 ---
 
-## Recommended next task
+## Next session
 
-**Part 2 is code- and docs-complete** (N1–N7). Remaining work is club/human, not agent work:
+**Start here (code, unblocked — no club input):**
 
-1. Fill in `docs/GOVERNANCE.md` (named holders) and `docs/CONTENT_APPROVAL.md` (facts, consent,
-   club email, story).
-2. Finalize the production Supabase project and admins (a dev project already exists) and
-   smoke-test the two-minute publishing flow (M5-T7), including the new draft/publish actions.
-3. Create a Vercel project, set the env vars, deploy a preview, and run `docs/qa-launch.md`.
-4. Production launch + smoke test (M7-T6).
+1. **QA gates** — write the still-missing checklists: `docs/qa-public-pages.md` (M2-T9),
+   `docs/qa-news.md` (M3-T5), `docs/qa-admin.md` (M5-T7). These unblock the human acceptance pass.
+2. **`dayOfWeek` → i18n key** (R2 deferral) — the meeting section still renders the Polish
+   `meetingInfo.dayOfWeek` ("środa") in EN/UK; localize it ("Wednesday" / "середа").
+3. **Typography scale** (M1-T3) — add the display/h1/h2/body/caption scale.
+4. **`NewsImage` + per-image alt** (M1-T1) — model per-photo alt/caption for accessibility.
 
-Do not fill these with invented facts — they need a named club representative.
+**Club/human work (blocked — needs a named club representative):**
+
+- Fill `docs/GOVERNANCE.md` (named holders) and `docs/CONTENT_APPROVAL.md` (facts, consent,
+  club email, story).
+- Production Supabase + Vercel preview + `docs/qa-launch.md`; production launch (M7-T6).
+
+Do not fill these with invented facts.
