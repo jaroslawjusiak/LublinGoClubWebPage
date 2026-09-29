@@ -9,8 +9,9 @@ import en from './locales/en/translation.json';
  * Each top-level group in the translation JSON is exposed as an i18next namespace,
  * so components can use keys like `common:menu.home` or `homepage:cta_button`.
  *
- * Polish is the default and fallback language. English is present as a partial,
- * unreviewed skeleton; Ukrainian has no resource yet, so `uk` falls back to Polish.
+ * Polish is the default and fallback language. English has full key coverage
+ * (enforced by the pl↔en parity test) but its wording is unreviewed; Ukrainian
+ * has no resource yet, so `uk` falls back to Polish.
  */
 const resources = {
   pl: {

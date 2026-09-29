@@ -14,3 +14,17 @@
 body {
   background-color: var(--color-paper);
 }
+
+/* Respect users who prefer reduced motion: disable non-essential transitions
+   and animations globally (hover/focus colour shifts are instant instead).
+   This also neutralises any CSS `scroll-behavior: smooth` for those users. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
