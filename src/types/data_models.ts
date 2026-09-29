@@ -81,6 +81,7 @@ export interface NewsPost {
   title: string;        // Primary title
   body: string;         // Short body text (the full content; no HTML)
   publishedAt: string;  // ISO 8601 date, e.g. "2023-11-18"
+  published: boolean;   // True when visible publicly; false means it is a draft
   tag?: PostTag;        // Optional single tag
   images: string[];     // 0-4 image URLs (Supabase Storage references)
   externalUrl?: string; // Optional external link (e.g. tournament page)

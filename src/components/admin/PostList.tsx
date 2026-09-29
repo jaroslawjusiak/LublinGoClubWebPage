@@ -37,13 +37,22 @@ const PostList: React.FC<PostListProps> = ({ posts, onNew, onEdit }) => {
           {posts.map((post) => (
             <li key={post.id} className="p-4 flex flex-col sm:flex-row sm:items-center gap-3">
               <div className="flex-1 min-w-0">
-                <p className="text-sm text-muted-text">
-                  {new Date(post.publishedAt).toLocaleDateString(locale, {
-                    year: 'numeric',
-                    month: 'short',
-                    day: 'numeric',
-                  })}
-                </p>
+                <div className="flex items-center gap-2">
+                  <p className="text-sm text-muted-text">
+                    {new Date(post.publishedAt).toLocaleDateString(locale, {
+                      year: 'numeric',
+                      month: 'short',
+                      day: 'numeric',
+                    })}
+                  </p>
+                  <span
+                    className={`text-xs font-semibold uppercase ${
+                      post.published ? 'text-green-700' : 'text-amber-700'
+                    }`}
+                  >
+                    {post.published ? t('admin:status_published') : t('admin:status_draft')}
+                  </span>
+                </div>
                 <h3 className="font-semibold text-ink truncate">{post.title}</h3>
                 {post.tag ? (
                   <span className="text-xs font-semibold uppercase text-kaya">

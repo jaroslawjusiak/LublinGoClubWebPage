@@ -1,8 +1,15 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { Suspense } from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import App from './App';
+
+// Keep the app-shell tests deterministic regardless of whether the developer has
+// Supabase env vars set: the news repository reports "unconfigured" when there
+// is no client, and no network request is made.
+vi.mock('./lib/supabase/client', () => ({
+  getSupabaseClient: () => null,
+}));
 
 const renderApp = (route = '/') =>
   render(

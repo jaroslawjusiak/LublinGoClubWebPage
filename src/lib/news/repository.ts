@@ -26,6 +26,8 @@ export interface NewsPostInput {
   title: string;
   body: string;
   publishedAt: string;
+  /** Whether the post should be visible publicly (false = draft). */
+  published: boolean;
   tag?: PostTag;
   images: string[];
   externalUrl?: string;
@@ -36,7 +38,7 @@ export interface INewsRepository {
   listPublished(page: number, limit: number): Promise<NewsListResult>;
   /** All posts (RLS lets admins see unpublished drafts too), newest first. */
   listAll(): Promise<NewsPost[]>;
-  /** Create and immediately publish a post. */
+  /** Create a post as a draft or published, according to `input.published`. */
   create(input: NewsPostInput): Promise<NewsPost>;
   /** Update a post. */
   update(id: string, input: NewsPostInput): Promise<NewsPost>;
@@ -90,13 +92,14 @@ export function mapRowToNewsPost(row: PostRow): NewsPost {
     title: row.title,
     body: row.body ?? '',
     publishedAt: row.published_at,
+    published: row.published,
     tag,
     images: row.image_urls ?? [],
     externalUrl: row.external_url ?? undefined,
   };
 }
 
-/** Builds the insert/update row from the admin input (always published). */
+/** Builds the insert/update row from the admin input (draft or published). */
 function toRow(input: NewsPostInput): Omit<PostRow, 'id'> {
   return {
     title: input.title,
@@ -105,7 +108,7 @@ function toRow(input: NewsPostInput): Omit<PostRow, 'id'> {
     image_urls: input.images,
     external_url: input.externalUrl ?? null,
     published_at: input.publishedAt,
-    published: true,
+    published: input.published,
   };
 }
 

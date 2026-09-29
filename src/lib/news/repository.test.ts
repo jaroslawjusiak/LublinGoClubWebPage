@@ -30,6 +30,7 @@ describe('mapRowToNewsPost', () => {
       title: 'Turniej',
       body: 'Krótki opis turnieju.',
       publishedAt: '2023-10-14',
+      published: true,
       tag: 'turniej',
       images: ['https://example.com/1.jpg', 'https://example.com/2.jpg'],
       externalUrl: 'https://board.example.com/tournament',
@@ -108,10 +109,16 @@ describe('SupabaseNewsRepository', () => {
     const repo = new SupabaseNewsRepository(null);
     await expect(repo.listAll()).rejects.toThrow(/not configured/);
     await expect(
-      repo.create({ title: 'x', body: 'y', publishedAt: '2024-01-01', images: [] }),
+      repo.create({ title: 'x', body: 'y', publishedAt: '2024-01-01', published: true, images: [] }),
     ).rejects.toThrow(/not configured/);
     await expect(
-      repo.update('id', { title: 'x', body: 'y', publishedAt: '2024-01-01', images: [] }),
+      repo.update('id', {
+        title: 'x',
+        body: 'y',
+        publishedAt: '2024-01-01',
+        published: true,
+        images: [],
+      }),
     ).rejects.toThrow(/not configured/);
     await expect(repo.remove('id')).rejects.toThrow(/not configured/);
   });
@@ -145,6 +152,7 @@ describe('SupabaseNewsRepository', () => {
       title: 'Nowy',
       body: 'Treść',
       publishedAt: '2024-01-01',
+      published: true,
       tag: 'spotkanie',
       images: ['https://example.com/a.jpg'],
       externalUrl: 'https://example.com',
@@ -162,7 +170,38 @@ describe('SupabaseNewsRepository', () => {
     expect(post.id).toBe('new-id');
   });
 
-  it('update writes the post by id', async () => {
+  it('create inserts a draft when published is false', async () => {
+    const single = vi.fn().mockResolvedValue({
+      data: { ...validRow, id: 'draft-id', published: false },
+      error: null,
+    });
+    const select = vi.fn().mockReturnValue({ single });
+    const insert = vi.fn().mockReturnValue({ select });
+    const from = vi.fn().mockReturnValue({ insert });
+    const client = { from } as unknown as SupabaseClient;
+    const repo = new SupabaseNewsRepository(client);
+
+    const post = await repo.create({
+      title: 'Szkic',
+      body: 'Treść',
+      publishedAt: '2024-01-01',
+      published: false,
+      images: [],
+    });
+
+    expect(insert).toHaveBeenCalledWith({
+      title: 'Szkic',
+      body: 'Treść',
+      tag: null,
+      image_urls: [],
+      external_url: null,
+      published_at: '2024-01-01',
+      published: false,
+    });
+    expect(post.published).toBe(false);
+  });
+
+  it('update writes the post by id preserving its published status', async () => {
     const single = vi.fn().mockResolvedValue({ data: validRow, error: null });
     const select = vi.fn().mockReturnValue({ single });
     const eq = vi.fn().mockReturnValue({ select });
@@ -175,10 +214,19 @@ describe('SupabaseNewsRepository', () => {
       title: 'Turniej',
       body: 'Krótki opis turnieju.',
       publishedAt: '2023-10-14',
+      published: true,
       images: [],
     });
 
-    expect(update).toHaveBeenCalled();
+    expect(update).toHaveBeenCalledWith({
+      title: 'Turniej',
+      body: 'Krótki opis turnieju.',
+      tag: null,
+      image_urls: [],
+      external_url: null,
+      published_at: '2023-10-14',
+      published: true,
+    });
     expect(eq).toHaveBeenCalledWith('id', 'abc-123');
   });
 

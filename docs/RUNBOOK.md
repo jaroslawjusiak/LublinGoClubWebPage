@@ -10,12 +10,21 @@ edits to `src/` require a deploy.
 3. Tap **Nowy wpis**.
 4. Fill **Tytuł** and **Treść**, the date (defaults to today), an optional tag and link.
 5. Add up to 4 photos (they are validated, compressed and uploaded automatically).
-6. Tap **Zapisz**. The post is published immediately.
+6. Choose how to save:
+   - **Opublikuj** — the post goes live in the public feed immediately.
+   - **Zapisz szkic** — the post is saved as a draft and stays hidden from the
+     public feed until you publish it later.
+
+New posts are drafts by default — nothing is published unless you tap **Opublikuj**.
 
 ## Edit or delete a post
 
-1. `/admin` → tap **Edytuj** on the post.
-2. Change the fields/photos, then **Zapisz**.
+1. `/admin` → tap **Edytuj** on the post. The list shows each post's status
+   (**Opublikowany** / **Szkic**).
+2. Change the fields/photos, then save:
+   - Editing a **published** post only offers **Zapisz**, which keeps it published
+     (it cannot be accidentally turned into a draft).
+   - Editing a **draft** offers **Zapisz szkic** and **Opublikuj**.
 3. To remove, tap **Usuń** and confirm — the post and its stored photos are removed.
 
 ## Change meeting information (single source of truth)

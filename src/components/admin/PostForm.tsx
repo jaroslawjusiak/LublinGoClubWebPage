@@ -37,8 +37,7 @@ const PostForm: React.FC<PostFormProps> = ({ initial, onDone }) => {
     return Object.keys(next).length === 0;
   };
 
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
+  const handleSubmit = async (publish: boolean) => {
     if (!validate()) return;
 
     setSaving(true);
@@ -47,6 +46,7 @@ const PostForm: React.FC<PostFormProps> = ({ initial, onDone }) => {
       title: title.trim(),
       body: body.trim(),
       publishedAt: new Date(publishedAt).toISOString(),
+      published: publish,
       tag: tag || undefined,
       images,
       externalUrl: externalUrl.trim() || undefined,
@@ -91,7 +91,7 @@ const PostForm: React.FC<PostFormProps> = ({ initial, onDone }) => {
 
   return (
     <Card>
-      <form onSubmit={handleSubmit} noValidate>
+      <form onSubmit={(e) => e.preventDefault()} noValidate>
         <h2 className="text-2xl font-bold mb-6 text-ink">
           {initial ? t('admin:edit_post') : t('admin:new_post')}
         </h2>
@@ -197,9 +197,37 @@ const PostForm: React.FC<PostFormProps> = ({ initial, onDone }) => {
         ) : null}
 
         <div className="flex flex-wrap gap-3 mt-8">
-          <Button type="submit" variant="primary" disabled={saving} className="px-6 py-3">
-            {saving ? t('admin:saving') : t('admin:save')}
-          </Button>
+          {initial?.published ? (
+            <Button
+              type="button"
+              onClick={() => void handleSubmit(true)}
+              variant="primary"
+              disabled={saving}
+              className="px-6 py-3"
+            >
+              {saving ? t('admin:saving') : t('admin:save')}
+            </Button>
+          ) : (
+            <>
+              <Button
+                type="button"
+                onClick={() => void handleSubmit(false)}
+                disabled={saving}
+                className="px-6 py-3"
+              >
+                {saving ? t('admin:saving') : t('admin:save_draft')}
+              </Button>
+              <Button
+                type="button"
+                onClick={() => void handleSubmit(true)}
+                variant="primary"
+                disabled={saving}
+                className="px-6 py-3"
+              >
+                {t('admin:publish')}
+              </Button>
+            </>
+          )}
           <Button type="button" onClick={() => void handleCancel()} disabled={saving} className="px-6 py-3">
             {t('admin:cancel')}
           </Button>

@@ -10,6 +10,7 @@ const base: NewsPost = {
   title: 'Turniej w Lublinie',
   body: 'Krótki opis turnieju.',
   publishedAt: '2023-10-14',
+  published: true,
   images: [],
 };
 

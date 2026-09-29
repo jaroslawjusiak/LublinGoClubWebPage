@@ -86,7 +86,12 @@
     "privacy_link": "Privacy policy"
   },
   "rules": {},
-  "admin": {},
+  "admin": {
+    "save_draft": "Save draft",
+    "publish": "Publish",
+    "status_draft": "Draft",
+    "status_published": "Published"
+  },
   "privacy": {},
   "meta": {},
   "aktualnosci": {

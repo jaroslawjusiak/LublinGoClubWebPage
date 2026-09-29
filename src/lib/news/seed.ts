@@ -21,6 +21,7 @@ export const historicalNewsSeed: NewsPost[] = [
       'W dniach 18–19 listopada 2023 braliśmy udział w Akira Hello World — lubelskim festiwalu ' +
       'kultur Wschodu, gdzie promowaliśmy grę Go wśród mieszkańców Lublina.',
     publishedAt: '2023-11-18',
+    published: true,
     tag: 'wydarzenie',
     images: [],
     externalUrl: 'https://akiracon.pl/',
@@ -32,6 +33,7 @@ export const historicalNewsSeed: NewsPost[] = [
       'W dniach 14–15 października 2023 nasi klubowicze wzięli udział w największym turnieju Go ' +
       'w Polsce. Blisko 200 graczy z Europy i Azji rywalizowało w Bibliotece Uniwersytetu Warszawskiego.',
     publishedAt: '2023-10-14',
+    published: true,
     tag: 'turniej',
     images: [],
     externalUrl: 'https://board.szalenisamuraje.org/tournaments/3rd-china-town-weiqi-cup',
