@@ -1,6 +1,6 @@
 # Lubelski Klub Go - Implementation Status Checklist
 
-**Created:** 2026-09-20 · **Last updated:** 2026-09-29 (Tier B drafts + explicit publishing)
+**Created:** 2026-09-20 · **Last updated:** 2026-09-29 (drafts, i18n parity + EN/UK, reduced-motion, sticky CTA, Prettier, language switcher)
 **Purpose:** Single, honest snapshot of what is done vs. missing, measured against
 `docs/ULTIMATE_IMPLEMENTATION_PLAN.md` and the actual code in this repository.
 
@@ -12,13 +12,13 @@
 
 **This file is a status snapshot, not a task.** Update it after each milestone gate.
 
-**Gate command for every task:** `npm run check` (lint -> typecheck -> test -> build).
+**Gate command for every task:** `npm run check` (lint → format:check → typecheck → test → build).
 
 ---
 
 ## Repository snapshot (verified 2026-09-29)
 
-- Build gate: **green** - lint clean, `tsc --noEmit` clean, **68/68 tests pass**, `vite build` succeeds.
+- Build gate: **green** - lint clean, `tsc --noEmit` clean, **81/81 tests pass**, `vite build` succeeds.
 - Application location: **repository root** (`src/`, `public/`), not `web/`.
 - Package manager: npm. Stack: React 18 + TypeScript 5.9 + Vite 8, Tailwind 3, react-router-dom 7, i18next.
 - `public/assets/` (hero board image) and `reference/legacy-site/` (old site) now exist.
@@ -26,7 +26,9 @@
 - Supabase: a live project is configured in the developer's environment — public feed
   (published-only), Google sign-in, admin allowlist and admin post writes are verified.
 - Tier B "drafts + explicit publishing" is implemented (see the Tier B section below).
-- Missing for later tasks: **Prettier** (still).
+- Prettier configured (`.prettierrc.json` + `format`/`format:check` scripts; codebase formatted).
+- i18n: PL (default/fallback) + EN + UK resources; pl↔en↔uk key-parity test; a flag-based
+  language switcher (`LanguageSwitcher`, SVG flags in `public/flags/`) is always visible in the header.
 
 ---
 
@@ -35,8 +37,8 @@
 - [x] **M0-T1 Inspect the repository** - `docs/ARCHITECTURE.md` corrected to describe the
       root-level app (no more `web/` / non-existent `reference/` claims).
 - [x] **M0-T2 Scaffold/normalize the React app** - dev server and production build work.
-- [~] **M0-T3 Quality tooling** - `check`/`lint`/`typecheck`/`test`/`build` all work (68 tests).
-  **Missing: Prettier** (the plan's locked stack is "ESLint + Prettier").
+- [x] **M0-T3 Quality tooling** - `check`/`lint`/`format:check`/`typecheck`/`test`/`build` all work
+      (81 tests); Prettier added (`.prettierrc.json`, `format`/`format:check`).
 - [x] **M0-T4 Project instructions for LLM sessions** - root `AGENTS.md` + setup `README.md`.
 - [x] **M0-T5 Vendor the legacy site** - `reference/legacy-site/` holds the old HTML, CSS, logo,
       poster, rules diagrams and event photos, plus a provenance/consent note.
@@ -48,21 +50,23 @@
   images are `string[]` URLs (no per-image alt); a decision on per-photo alt/captions is deferred.
 - [x] **M1-T2 Single source of truth** - `club.ts` + `site.ts` + `people.ts`; placeholder phone/email
       removed; a test rejects personal phone/Gmail as the primary channel.
-- [~] **M1-T3 Design tokens** - tokens + `global.css` exist. **Missing:** explicit typography scale
-  and a global reduced-motion rule (only the Home scroll-to-meeting respects it today).
+- [~] **M1-T3 Design tokens** - tokens + `global.css` exist; global `prefers-reduced-motion` rule
+  added. **Missing:** explicit typography scale.
 - [x] **M1-T4 Shared UI primitives** - `Container`/`Section`/`Button`/`Card`/`Chip`/`SmartImage`;
       `Button` renders `<button>`, `<Link>` or `<a>` (external).
-- [~] **M1-T5 Application shell** - `MobileMenu` mounted in `Header`; `Layout`/`AppLayout` deleted.
-  **Remaining:** the sticky mobile "Przyjdź w środę" CTA is not added yet (deferred polish).
+- [x] **M1-T5 Application shell** - `MobileMenu` mounted in `Header`; `Layout`/`AppLayout` deleted;
+      sticky mobile "Przyjdź w środę" CTA (`MobileCta`) and a flag-based language switcher
+      (`LanguageSwitcher`, flags always visible in the header) added.
 
 ## Milestone 2 - Routing, i18n, public pages
 
 - [x] **M2-T1 Routes and not-found** - 5 public routes + a deliberate 404 + a locale route wrapper
       (`/en/...`, `/uk/...`) that renders the same pages in another language. `/admin` and
       `/prywatnosc` are intentionally not advertised yet (their content/workflows are unfinished).
-- [~] **M2-T2 i18n architecture** - consolidated into `src/i18n/` (`config.ts` + `locales/{pl,en}`),
-  Polish default/fallback, `supportedLngs ['pl','en','uk']`, URL-driven language + `<html lang>`
-  sync (`useLocale`/`LocaleGate`). **Missing:** a `uk` resource, and a key-parity test.
+- [x] **M2-T2 i18n architecture** - consolidated into `src/i18n/` (`config.ts` + `locales/{pl,en,uk}`),
+      Polish default/fallback, `supportedLngs ['pl','en','uk']`, URL-driven language + `<html lang>`
+      sync (`useLocale`/`LocaleGate`); pl↔en↔uk key-parity test added. EN/UK wording is an unreviewed
+      machine skeleton (human review deferred).
 - [x] **M2-T3 Home hero and first-visit reassurance** - hero + value proposition + two CTAs + four
       reassurance cards + non-identifying board image.
 - [x] **M2-T4 Meeting/location section** - shared `MeetingSection` (Home/Contact/Start Here) with
@@ -168,7 +172,7 @@ post's status; the public feed still shows only published posts (RLS + `listPubl
 - [x] **Admin list** - shows "Szkic" / "Opublikowany" per post.
 - [x] **i18n** - PL/EN keys (`save_draft`, `publish`, `status_draft`, `status_published`).
 - [x] **Tests** - repository + `PostForm`/`PostList` component tests for save-draft, publish and
-      status preservation on edit (68 tests total).
+      status preservation on edit (81 tests total).
 - [x] **Docs** - `docs/RUNBOOK.md` updated with the draft-vs-publish flow.
 
 ---
@@ -185,7 +189,7 @@ post's status; the public feed still shows only published posts (RLS + `listPubl
 7. ~~Missing favicon~~ — **fixed** (valid `public/favicon.png` from the club logo).
 8. ~~Placeholder contact data~~ — **fixed** (removed; `clubConfig.email` unset until approved).
 9. ~~News is empty without env vars~~ — **fixed** (now distinct "unconfigured" vs empty states).
-10. **No Prettier** — still missing.
+10. ~~No Prettier~~ — **fixed** (`.prettierrc.json` + `format`/`format:check`; codebase formatted).
 
 ---
 

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Button } from './primitives';
 import MobileMenu from './MobileMenu';
+import LanguageSwitcher from './LanguageSwitcher';
 import { navItems, startCta } from '../data/site';
 import { useLocale, localizePath } from '../i18n/locale';
 
@@ -19,7 +20,7 @@ const Header: React.FC = () => {
       <div className="container mx-auto max-w-[1200px] flex justify-between items-center py-4 px-4 sm:px-6 lg:px-8">
         <Link
           to={localizePath('/', locale)}
-          className="text-2xl font-extrabold text-ink tracking-wide"
+          className="whitespace-nowrap text-base sm:text-xl md:text-2xl font-extrabold text-ink tracking-wide"
         >
           {t('common:site_name')}
         </Link>
@@ -32,7 +33,8 @@ const Header: React.FC = () => {
           ))}
         </nav>
 
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center gap-2 md:gap-4">
+          <LanguageSwitcher />
           <Button
             to={localizePath(startCta.path, locale)}
             variant="primary"

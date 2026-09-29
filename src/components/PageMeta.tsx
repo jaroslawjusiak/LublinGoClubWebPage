@@ -18,6 +18,7 @@ const ROUTE_META: Record<string, MetaEntry> = {
   '/aktualnosci': { title: 'meta:news_title', description: 'meta:news_description' },
   '/kontakt': { title: 'meta:contact_title', description: 'meta:contact_description' },
   '/prywatnosc': { title: 'meta:privacy_title', description: 'meta:privacy_description' },
+  '/admin': { title: 'meta:admin_title', description: 'meta:admin_description' },
 };
 
 const NOT_FOUND: MetaEntry = {
@@ -43,7 +44,9 @@ const PageMeta: React.FC = () => {
     <Helmet>
       <title>{t(meta.title)}</title>
       <meta name="description" content={t(meta.description)} />
-      {ROUTE_META[normalized] ? <link rel="canonical" href={canonical} /> : null}
+      {ROUTE_META[normalized] && normalized !== '/admin' ? (
+        <link rel="canonical" href={canonical} />
+      ) : null}
       <meta property="og:title" content={t(meta.title)} />
       <meta property="og:description" content={t(meta.description)} />
       <meta property="og:type" content="website" />

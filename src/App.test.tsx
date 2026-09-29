@@ -125,4 +125,9 @@ describe('App', () => {
       screen.getByRole('heading', { level: 2, name: 'Zgoda na wykorzystanie wizerunku' }),
     ).toBeInTheDocument();
   });
+
+  it('gives the admin route a proper document title (not the not-found title)', async () => {
+    renderApp('/admin');
+    await waitFor(() => expect(document.title).toContain('Panel administratora'));
+  });
 });

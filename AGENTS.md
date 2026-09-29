@@ -56,6 +56,10 @@ recovery/remaining-work notes in `docs/RECOVERY_AND_REMAINING_WORK.md`.
 
 ## Reporting
 
-1. Read task + prerequisites. 2. Inspect repo. 3. Implement smallest change.
-2. Run `npm run check`. 5. Browser-check UI changes. 6. Report changed files, checks,
-   observations, unresolved issues. 7. Stop until Definition of Done is satisfied.
+1. Read task + prerequisites.
+2. Inspect repo.
+3. Implement smallest change.
+4. Run `npm run check`.
+5. Browser-check UI changes.
+6. Report changed files, checks, observations, unresolved issues.
+7. Stop until Definition of Done is satisfied.

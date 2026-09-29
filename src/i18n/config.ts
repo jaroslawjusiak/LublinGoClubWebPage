@@ -4,14 +4,14 @@ import { initReactI18next } from 'react-i18next';
 
 import pl from './locales/pl/translation.json';
 import en from './locales/en/translation.json';
+import uk from './locales/uk/translation.json';
 
 /**
  * Each top-level group in the translation JSON is exposed as an i18next namespace,
  * so components can use keys like `common:menu.home` or `homepage:cta_button`.
  *
- * Polish is the default and fallback language. English has full key coverage
- * (enforced by the pl↔en parity test) but its wording is unreviewed; Ukrainian
- * has no resource yet, so `uk` falls back to Polish.
+ * Polish is the default and fallback language. English and Ukrainian have full
+ * key coverage (enforced by the parity test) but their wording is unreviewed.
  */
 const resources = {
   pl: {
@@ -45,6 +45,22 @@ const resources = {
     meta: en.meta,
     aktualnosci: en.aktualnosci,
     notFound: en.notFound,
+  },
+  uk: {
+    common: uk.common,
+    hero: uk.hero,
+    homepage: uk.homepage,
+    meeting: uk.meeting,
+    start: uk.start,
+    oklubie: uk.oklubie,
+    contact: uk.contact,
+    footer: uk.footer,
+    rules: uk.rules,
+    admin: uk.admin,
+    privacy: uk.privacy,
+    meta: uk.meta,
+    aktualnosci: uk.aktualnosci,
+    notFound: uk.notFound,
   },
 };
 

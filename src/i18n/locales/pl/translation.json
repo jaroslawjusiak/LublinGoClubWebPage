@@ -13,7 +13,8 @@
     "cta_start_button": "Zacznij grać",
     "news_description": "Najnowsze turnieje, warsztaty i artykuły z życia klubu.",
     "view_all_articles": "Zobacz wszystkie artykuły",
-    "read_more": "Czytaj dalej"
+    "read_more": "Czytaj dalej",
+    "language_label": "Język"
   },
   "hero": {
     "title": "Zagraj w Go w Lublinie",
@@ -175,6 +176,8 @@
     "contact_description": "Skontaktuj się z nami — Facebook, Discord i szczegóły spotkania.",
     "privacy_title": "Polityka prywatności — Lubelski Klub Go",
     "privacy_description": "Jakie dane przetwarzamy i jak dbamy o zgodę na wykorzystanie wizerunku.",
+    "admin_title": "Panel administratora — Lubelski Klub Go",
+    "admin_description": "Panel administratora Lubelskiego Klubu Go.",
     "notfound_title": "Nie znaleziono strony — Lubelski Klub Go",
     "notfound_description": "Ta strona nie istnieje lub została przeniesiona."
   },

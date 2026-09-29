@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import pl from './pl/translation.json';
 import en from './en/translation.json';
+import uk from './uk/translation.json';
 
 /**
  * Flattens a nested translation resource into a list of dotted leaf keys,
@@ -19,21 +20,25 @@ function flattenKeys(obj: Record<string, unknown>, prefix = ''): string[] {
   return keys.sort();
 }
 
-describe('translation key parity (pl ↔ en)', () => {
-  it('every Polish key has an English counterpart', () => {
-    const enKeys = new Set(flattenKeys(en));
+const reference = flattenKeys(pl);
+const referenceSet = new Set(reference);
 
-    const missingInEn = flattenKeys(pl).filter((key) => !enKeys.has(key));
+const targets = { en, uk } as const;
 
-    // Empty means no Polish string silently falls back because EN lacks its key.
-    expect(missingInEn).toEqual([]);
-  });
+describe('translation key parity (pl ↔ en ↔ uk)', () => {
+  for (const [lang, resource] of Object.entries(targets)) {
+    it(`every Polish key has a ${lang} counterpart`, () => {
+      const keys = flattenKeys(resource);
+      const missing = reference.filter((key) => !keys.includes(key));
 
-  it('every English key exists in Polish (no orphan keys)', () => {
-    const plKeys = new Set(flattenKeys(pl));
+      // Empty means no Polish string silently falls back because `lang` lacks its key.
+      expect(missing).toEqual([]);
+    });
 
-    const orphanInEn = flattenKeys(en).filter((key) => !plKeys.has(key));
+    it(`${lang} has no keys missing from Polish (no orphan keys)`, () => {
+      const orphan = flattenKeys(resource).filter((key) => !referenceSet.has(key));
 
-    expect(orphanInEn).toEqual([]);
-  });
+      expect(orphan).toEqual([]);
+    });
+  }
 });

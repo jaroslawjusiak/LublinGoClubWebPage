@@ -13,7 +13,8 @@
     "cta_start_button": "Start playing",
     "news_description": "The latest tournaments, workshops and articles from club life.",
     "view_all_articles": "View all articles",
-    "read_more": "Read more"
+    "read_more": "Read more",
+    "language_label": "Language"
   },
   "hero": {
     "title": "Play Go in Lublin",
@@ -175,6 +176,8 @@
     "contact_description": "Get in touch — Facebook, Discord and meeting details.",
     "privacy_title": "Privacy policy — Lubelski Klub Go",
     "privacy_description": "What data we process and how we handle image-use consent.",
+    "admin_title": "Admin panel — Lubelski Klub Go",
+    "admin_description": "Lubelski Klub Go admin panel.",
     "notfound_title": "Page not found — Lubelski Klub Go",
     "notfound_description": "This page does not exist or has been moved."
   },
