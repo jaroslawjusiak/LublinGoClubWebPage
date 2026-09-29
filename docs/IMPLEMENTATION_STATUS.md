@@ -1,6 +1,6 @@
 # Lubelski Klub Go - Implementation Status Checklist
 
-**Created:** 2026-09-20 · **Last updated:** 2026-09-27 (after R1–R5)
+**Created:** 2026-09-20 · **Last updated:** 2026-09-29 (Tier B drafts + explicit publishing)
 **Purpose:** Single, honest snapshot of what is done vs. missing, measured against
 `docs/ULTIMATE_IMPLEMENTATION_PLAN.md` and the actual code in this repository.
 
@@ -16,14 +16,17 @@
 
 ---
 
-## Repository snapshot (verified 2026-09-27)
+## Repository snapshot (verified 2026-09-29)
 
-- Build gate: **green** - lint clean, `tsc --noEmit` clean, **41/41 tests pass**, `vite build` succeeds.
+- Build gate: **green** - lint clean, `tsc --noEmit` clean, **68/68 tests pass**, `vite build` succeeds.
 - Application location: **repository root** (`src/`, `public/`), not `web/`.
 - Package manager: npm. Stack: React 18 + TypeScript 5.9 + Vite 8, Tailwind 3, react-router-dom 7, i18next.
 - `public/assets/` (hero board image) and `reference/legacy-site/` (old site) now exist.
 - Root `AGENTS.md` and a setup `README.md` now exist.
-- Missing for later tasks: `supabase/`, `vercel.json`, Prettier, a real favicon.
+- Supabase: a live project is configured in the developer's environment — public feed
+  (published-only), Google sign-in, admin allowlist and admin post writes are verified.
+- Tier B "drafts + explicit publishing" is implemented (see the Tier B section below).
+- Missing for later tasks: **Prettier** (still).
 
 ---
 
@@ -32,7 +35,7 @@
 - [x] **M0-T1 Inspect the repository** - `docs/ARCHITECTURE.md` corrected to describe the
       root-level app (no more `web/` / non-existent `reference/` claims).
 - [x] **M0-T2 Scaffold/normalize the React app** - dev server and production build work.
-- [~] **M0-T3 Quality tooling** - `check`/`lint`/`typecheck`/`test`/`build` all work (41 tests).
+- [~] **M0-T3 Quality tooling** - `check`/`lint`/`typecheck`/`test`/`build` all work (68 tests).
       **Missing: Prettier** (the plan's locked stack is "ESLint + Prettier").
 - [x] **M0-T4 Project instructions for LLM sessions** - root `AGENTS.md` + setup `README.md`.
 - [x] **M0-T5 Vendor the legacy site** - `reference/legacy-site/` holds the old HTML, CSS, logo,
@@ -99,9 +102,10 @@
       public-read-published + admin-only write RLS).
 - [x] **M4-T3 Image bucket and storage policies** - `0003_storage.sql` (`news-images` bucket, image
       MIME allowlist + size limit, public reads + admin-only writes).
-- [~] **M4-T4 Supabase client and repository implementation** - client getter, `.env.example`, row
-      mapping, null-safety and tests (descending order, error propagation) done. No live project yet,
-      so "public feed reads published posts" is unverified in a real DB.
+- [x] **M4-T4 Supabase client and repository implementation** - client getter, `.env.example`, row
+      mapping, null-safety and tests (descending order, error propagation) done. A live Supabase
+      project is configured in the developer's environment, so "public feed reads published posts"
+      is verified in a real DB (RLS is the security boundary).
 - [x] **M4-T5 Seed migrated posts** - `src/lib/news/seed.ts` (typed) + `supabase/seed/seed_posts.sql`
       (historical posts, correct dates). Images empty pending consent + Storage upload.
 
@@ -109,11 +113,13 @@
 
 ## Milestone 5 - Protected mobile admin workflow
 
-- [~] **M5-T1 Google OAuth configuration** - auth code + `docs/ADMIN_SETUP.md` §6 (provider + redirect
-      URLs). Not verified against a live project (needs the club to enable Google + add admins).
+- [x] **M5-T1 Google OAuth configuration** - auth code + `docs/ADMIN_SETUP.md` §6 (provider + redirect
+      URLs). Verified in the developer's live project (Google sign-in + admin allowlist work);
+      production admins still to be added by the club.
 - [x] **M5-T2 Auth context and protected gate** - `AuthProvider` (session, `is_admin` RPC, sign-in/out);
       anonymous → login, non-admin → denial, admin → panel.
-- [x] **M5-T3 Admin post list** - title, date, tag, edit action, "new post" CTA.
+- [x] **M5-T3 Admin post list** - title, date, tag, post status (draft/published), edit action,
+      "new post" CTA.
 - [x] **M5-T4 Post form and validation** - title/body/date/tag/link/photos with concise inline errors.
 - [x] **M5-T5 Mobile image picker and compression** - multi-select, type/size validation, canvas
       resize + compress to JPEG, previews + remove.
@@ -147,6 +153,24 @@
       pending a deployed preview.
 - [ ] **M7-T6 Production launch and smoke test** - not started (needs a live deployment).
 
+## Tier B - drafts and explicit publishing (added after Tier A)
+
+Implemented as one Tier B task (previously a Tier A non-goal: "post scheduling or drafts").
+New posts are drafts by default; the admin can **save draft** or **publish**; editing an
+already-published post cannot accidentally turn it into a draft; the admin list shows each
+post's status; the public feed still shows only published posts (RLS + `listPublished`).
+
+- [x] **Model + repository** - `NewsPost.published` and `NewsPostInput.published` thread the flag
+      through `mapRowToNewsPost` and `toRow`; `create`/`update` no longer hardcode `published: true`.
+      No migration was needed (the `published` column already existed, default `false`).
+- [x] **Admin form** - draft-by-default with explicit "Zapisz szkic" / "Opublikuj" actions; editing a
+      published post offers only "Zapisz" (preserves `published: true`).
+- [x] **Admin list** - shows "Szkic" / "Opublikowany" per post.
+- [x] **i18n** - PL/EN keys (`save_draft`, `publish`, `status_draft`, `status_published`).
+- [x] **Tests** - repository + `PostForm`/`PostList` component tests for save-draft, publish and
+      status preservation on edit (68 tests total).
+- [x] **Docs** - `docs/RUNBOOK.md` updated with the draft-vs-publish flow.
+
 ---
 
 ## Cross-cutting issues and architecture drift
@@ -171,8 +195,8 @@
 
 1. Fill in `docs/GOVERNANCE.md` (named holders) and `docs/CONTENT_APPROVAL.md` (facts, consent,
    club email, story).
-2. Create a Supabase project, run the migrations, add admins (`docs/ADMIN_SETUP.md`), and smoke-test
-   the two-minute publishing flow (M5-T7).
+2. Finalize the production Supabase project and admins (a dev project already exists) and
+   smoke-test the two-minute publishing flow (M5-T7), including the new draft/publish actions.
 3. Create a Vercel project, set the env vars, deploy a preview, and run `docs/qa-launch.md`.
 4. Production launch + smoke test (M7-T6).
 
