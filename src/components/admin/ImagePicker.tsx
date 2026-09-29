@@ -73,7 +73,10 @@ const ImagePicker: React.FC<ImagePickerProps> = ({ images, onChange }) => {
       {images.length > 0 ? (
         <ul className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-3">
           {images.map((url, index) => (
-            <li key={url} className="relative aspect-square rounded overflow-hidden border border-border">
+            <li
+              key={url}
+              className="relative aspect-square rounded overflow-hidden border border-border"
+            >
               <img src={url} alt="" className="w-full h-full object-cover" />
               <button
                 type="button"

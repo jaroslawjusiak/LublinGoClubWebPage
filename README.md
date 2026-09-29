@@ -24,15 +24,15 @@ VITE_SUPABASE_ANON_KEY=
 
 ## Commands
 
-| Command | What it does |
-| --- | --- |
-| `npm run dev` | Start the Vite dev server |
-| `npm run build` | Type-check and build for production |
-| `npm run preview` | Preview the production build |
-| `npm run lint` | ESLint |
-| `npm run typecheck` | `tsc --noEmit` |
-| `npm run test` | Vitest (with coverage) |
-| `npm run check` | lint → typecheck → test → build (the required gate) |
+| Command             | What it does                                        |
+| ------------------- | --------------------------------------------------- |
+| `npm run dev`       | Start the Vite dev server                           |
+| `npm run build`     | Type-check and build for production                 |
+| `npm run preview`   | Preview the production build                        |
+| `npm run lint`      | ESLint                                              |
+| `npm run typecheck` | `tsc --noEmit`                                      |
+| `npm run test`      | Vitest (with coverage)                              |
+| `npm run check`     | lint → typecheck → test → build (the required gate) |
 
 ## Deployment (Vercel)
 

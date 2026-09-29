@@ -39,10 +39,8 @@ export const meetingInfo: MeetingInfo = {
   entranceHint: 'Galeria na górze',
   // Base map/directions URLs. The `MeetingSection` appends `&locale=<lang>` at
   // render time so the map opens in the same language as the page.
-  mapUrl:
-    'https://www.openstreetmap.org/search?query=Bernardy%C5%84ska%2014a%2C%20Lublin',
-  directionsUrl:
-    'https://www.openstreetmap.org/directions?to=Bernardy%C5%84ska%2014a%2C%20Lublin',
+  mapUrl: 'https://www.openstreetmap.org/search?query=Bernardy%C5%84ska%2014a%2C%20Lublin',
+  directionsUrl: 'https://www.openstreetmap.org/directions?to=Bernardy%C5%84ska%2014a%2C%20Lublin',
 };
 
 // --- SOCIAL LINKS ---

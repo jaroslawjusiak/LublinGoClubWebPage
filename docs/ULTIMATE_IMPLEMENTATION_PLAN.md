@@ -102,22 +102,22 @@ Sign in
 
 These decisions are intentionally locked so the LLM does not make a different architectural choice halfway through the project.
 
-| Concern | Decision | Reason |
-|---|---|---|
-| Frontend | React + TypeScript + Vite | Simple, familiar, easy to deploy as a static frontend |
-| Routing | `react-router-dom` | Explicit route table and locale-prefixed routes |
-| Styling | Tailwind CSS plus a small token layer | Fast local-LLM implementation without losing visual consistency |
-| Public data | Typed files in `src/data/` | Meeting/configuration data remains versioned and easy to review |
-| News database | Supabase Postgres | Persistent, free-tier-compatible publishing without code deploys |
-| Authentication | Supabase Auth with Google OAuth | No password reset burden for volunteers |
-| Authorization | Supabase `admins` table plus Postgres RLS | Enforced at the data layer, not merely in the UI |
-| Image storage | Supabase Storage | Persistent image URLs and access policies in the same platform |
-| Map | OpenStreetMap embed or link | Avoids API keys and unnecessary tracking |
-| Hosting | Vercel free tier | Static deployment, preview URLs and redirect support |
-| i18n | `i18next` + `react-i18next` | Locale resources and fallback behavior are explicit |
-| SEO | `react-helmet-async`, generated sitemap and robots | Appropriate for a Vite SPA with basic metadata requirements |
-| Tests | Vitest, Testing Library, accessibility checks where practical | Fast feedback for a local LLM |
-| Formatting | ESLint + Prettier | Deterministic checks after every task |
+| Concern        | Decision                                                      | Reason                                                           |
+| -------------- | ------------------------------------------------------------- | ---------------------------------------------------------------- |
+| Frontend       | React + TypeScript + Vite                                     | Simple, familiar, easy to deploy as a static frontend            |
+| Routing        | `react-router-dom`                                            | Explicit route table and locale-prefixed routes                  |
+| Styling        | Tailwind CSS plus a small token layer                         | Fast local-LLM implementation without losing visual consistency  |
+| Public data    | Typed files in `src/data/`                                    | Meeting/configuration data remains versioned and easy to review  |
+| News database  | Supabase Postgres                                             | Persistent, free-tier-compatible publishing without code deploys |
+| Authentication | Supabase Auth with Google OAuth                               | No password reset burden for volunteers                          |
+| Authorization  | Supabase `admins` table plus Postgres RLS                     | Enforced at the data layer, not merely in the UI                 |
+| Image storage  | Supabase Storage                                              | Persistent image URLs and access policies in the same platform   |
+| Map            | OpenStreetMap embed or link                                   | Avoids API keys and unnecessary tracking                         |
+| Hosting        | Vercel free tier                                              | Static deployment, preview URLs and redirect support             |
+| i18n           | `i18next` + `react-i18next`                                   | Locale resources and fallback behavior are explicit              |
+| SEO            | `react-helmet-async`, generated sitemap and robots            | Appropriate for a Vite SPA with basic metadata requirements      |
+| Tests          | Vitest, Testing Library, accessibility checks where practical | Fast feedback for a local LLM                                    |
+| Formatting     | ESLint + Prettier                                             | Deterministic checks after every task                            |
 
 ### Route convention
 
@@ -637,24 +637,24 @@ Verify query strings and avoid redirect loops.
 
 ## 11. Traceability matrix
 
-| Master requirement | Tasks |
-|---|---|
-| Homepage, CTA, meeting/location/map | M1-T2, M2-T3, M2-T4 |
-| First-visit story and FAQ | M2-T5 |
-| Improved static Go rules | M2-T6 |
-| About and typical meeting | M2-T7 |
-| Contact without Tier A form | M2-T8 |
-| Single source of truth | M1-T2, M2-T4 |
-| Recent news feed | M3-T1 through M3-T5, M4-T5 |
-| Mobile admin publishing | M5-T1 through M5-T7 |
-| Real photography and consent | M2-T7, M7-T1 |
-| Accessibility | M1-T4, M1-T5, M6-T1 |
-| Privacy and photo policy | M2-T8, M7-T2 |
-| i18n-ready architecture | M2-T2 |
-| SEO and sitemap | M6-T2, M6-T3 |
-| Legacy redirects | M6-T4 |
-| Governance and continuity | M7-T2, M7-T3 |
-| Deployment and launch verification | M7-T4 through M7-T6 |
+| Master requirement                  | Tasks                      |
+| ----------------------------------- | -------------------------- |
+| Homepage, CTA, meeting/location/map | M1-T2, M2-T3, M2-T4        |
+| First-visit story and FAQ           | M2-T5                      |
+| Improved static Go rules            | M2-T6                      |
+| About and typical meeting           | M2-T7                      |
+| Contact without Tier A form         | M2-T8                      |
+| Single source of truth              | M1-T2, M2-T4               |
+| Recent news feed                    | M3-T1 through M3-T5, M4-T5 |
+| Mobile admin publishing             | M5-T1 through M5-T7        |
+| Real photography and consent        | M2-T7, M7-T1               |
+| Accessibility                       | M1-T4, M1-T5, M6-T1        |
+| Privacy and photo policy            | M2-T8, M7-T2               |
+| i18n-ready architecture             | M2-T2                      |
+| SEO and sitemap                     | M6-T2, M6-T3               |
+| Legacy redirects                    | M6-T4                      |
+| Governance and continuity           | M7-T2, M7-T3               |
+| Deployment and launch verification  | M7-T4 through M7-T6        |
 
 ---
 
@@ -683,18 +683,18 @@ Do not implement these in Tier A:
 
 ## 13. Known risks and mitigations
 
-| Risk | Mitigation |
-|---|---|
-| CMS work delays launch | Finish public pages and seed read-only feed before admin work |
-| Local LLM changes architecture | Lock decisions in this document and `AGENTS.md` |
-| Unauthorized admin mutation | Enforce Supabase RLS and test anonymous/non-admin mutations |
-| Persistent storage mistake | Never write production content to JSON or deployed filesystem |
-| Photo/privacy issue | Require recorded consent and default to non-identifying images |
-| Stale meeting information | Keep all facts in `club.ts` and test shared rendering |
-| Scope expansion | Treat Tier B/C list as a hard boundary |
-| Volunteer departure | Maintain two-person access inventory and succession note |
-| Translation quality problem | Ship architecture first; require human EN/UK reviewers |
-| Deployment route failures | Test deep links and redirects on the actual preview domain |
+| Risk                           | Mitigation                                                     |
+| ------------------------------ | -------------------------------------------------------------- |
+| CMS work delays launch         | Finish public pages and seed read-only feed before admin work  |
+| Local LLM changes architecture | Lock decisions in this document and `AGENTS.md`                |
+| Unauthorized admin mutation    | Enforce Supabase RLS and test anonymous/non-admin mutations    |
+| Persistent storage mistake     | Never write production content to JSON or deployed filesystem  |
+| Photo/privacy issue            | Require recorded consent and default to non-identifying images |
+| Stale meeting information      | Keep all facts in `club.ts` and test shared rendering          |
+| Scope expansion                | Treat Tier B/C list as a hard boundary                         |
+| Volunteer departure            | Maintain two-person access inventory and succession note       |
+| Translation quality problem    | Ship architecture first; require human EN/UK reviewers         |
+| Deployment route failures      | Test deep links and redirects on the actual preview domain     |
 
 ---
 

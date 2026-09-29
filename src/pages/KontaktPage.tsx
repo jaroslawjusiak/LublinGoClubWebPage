@@ -29,7 +29,12 @@ const KontaktPage: React.FC = () => {
           </h2>
           <div className="flex flex-col sm:flex-row gap-4 mb-12">
             {socialLinks.facebook ? (
-              <Button href={socialLinks.facebook} external variant="secondary" className="py-3 px-6">
+              <Button
+                href={socialLinks.facebook}
+                external
+                variant="secondary"
+                className="py-3 px-6"
+              >
                 <FaFacebookF className="mr-2" aria-hidden="true" />
                 Facebook
               </Button>

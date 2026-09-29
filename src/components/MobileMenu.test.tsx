@@ -38,9 +38,6 @@ describe('MobileMenu', () => {
     renderMenu();
     fireEvent.click(screen.getByRole('button', { name: 'Menu' }));
     fireEvent.click(screen.getByRole('link', { name: 'Aktualności' }));
-    expect(screen.getByRole('button', { name: 'Menu' })).toHaveAttribute(
-      'aria-expanded',
-      'false',
-    );
+    expect(screen.getByRole('button', { name: 'Menu' })).toHaveAttribute('aria-expanded', 'false');
   });
 });

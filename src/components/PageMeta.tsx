@@ -20,7 +20,10 @@ const ROUTE_META: Record<string, MetaEntry> = {
   '/prywatnosc': { title: 'meta:privacy_title', description: 'meta:privacy_description' },
 };
 
-const NOT_FOUND: MetaEntry = { title: 'meta:notfound_title', description: 'meta:notfound_description' };
+const NOT_FOUND: MetaEntry = {
+  title: 'meta:notfound_title',
+  description: 'meta:notfound_description',
+};
 
 /**
  * Sets per-route title, description, canonical and OpenGraph basics. The active

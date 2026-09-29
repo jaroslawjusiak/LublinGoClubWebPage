@@ -109,7 +109,13 @@ describe('SupabaseNewsRepository', () => {
     const repo = new SupabaseNewsRepository(null);
     await expect(repo.listAll()).rejects.toThrow(/not configured/);
     await expect(
-      repo.create({ title: 'x', body: 'y', publishedAt: '2024-01-01', published: true, images: [] }),
+      repo.create({
+        title: 'x',
+        body: 'y',
+        publishedAt: '2024-01-01',
+        published: true,
+        images: [],
+      }),
     ).rejects.toThrow(/not configured/);
     await expect(
       repo.update('id', {

@@ -1,6 +1,5 @@
 # Lubelski Klub Go — Website Analysis & Rebuild Concept
 
-
 ---
 
 ## 0. Central principle
@@ -25,20 +24,20 @@ Live site: <https://lubelski-klub-go.vercel.app/> (also reachable via `lubelski-
 
 ### 1.1 Page inventory
 
-| Page | Content found | State / verdict |
-|---|---|---|
-| `index.html` | Club logo, poster image, meeting info (Wednesdays 17:00–20:00, MDK nr 2, ul. Bernardyńska 14a, room 14), "meetings are free", invitation for kids/teens/adults/families, link to rules | **Core info is valuable**, but the page is a static poster — no call to action, no photos of real people, nothing that answers "what will my first visit look like?" |
-| `zasady.html` | Illustrated explanation of Go rules: board, liberties ("oddechy"), atari, capturing, territory, dead stones, ko, eyes, life & death — with 4 diagrams | **Best content on the site.** Well written, beginner-oriented, in Polish. Worth keeping almost as-is, with editorial polish (typos: *bezpośednie*, *oddechy* → *oddechu*, *byc*, *się się*) and restructuring into shorter sections |
-| `kontakt.html` | Two contact persons (emails, one phone number, OGS nicknames) + meeting info repeated | **Keep the data**, rethink the presentation. Publishing raw personal emails/phone invites spam — switch to a club-level contact channel (see §4.5) |
-| `wydarzenia.html` | Two events from **2023** (Akira Hello World festival, 3rd China Town Weiqi Cup) with photo carousel | Content is stale (2 years old) and reads as "the club stopped existing". **This page is the strongest argument for the admin-panel/news-feed idea** — event coverage must be effortless to publish or it dies |
-| `galeria.html` | "Strona w trakcie przygotowania. Zapraszamy niebawem!" | Placeholder since launch. **Drop as a separate page** — fold photos into news posts (see §4.1) |
-| everything else | 404 | Dead/misleading links must not exist in the new site |
+| Page              | Content found                                                                                                                                                                          | State / verdict                                                                                                                                                                                                                     |
+| ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `index.html`      | Club logo, poster image, meeting info (Wednesdays 17:00–20:00, MDK nr 2, ul. Bernardyńska 14a, room 14), "meetings are free", invitation for kids/teens/adults/families, link to rules | **Core info is valuable**, but the page is a static poster — no call to action, no photos of real people, nothing that answers "what will my first visit look like?"                                                                |
+| `zasady.html`     | Illustrated explanation of Go rules: board, liberties ("oddechy"), atari, capturing, territory, dead stones, ko, eyes, life & death — with 4 diagrams                                  | **Best content on the site.** Well written, beginner-oriented, in Polish. Worth keeping almost as-is, with editorial polish (typos: _bezpośednie_, _oddechy_ → _oddechu_, _byc_, _się się_) and restructuring into shorter sections |
+| `kontakt.html`    | Two contact persons (emails, one phone number, OGS nicknames) + meeting info repeated                                                                                                  | **Keep the data**, rethink the presentation. Publishing raw personal emails/phone invites spam — switch to a club-level contact channel (see §4.5)                                                                                  |
+| `wydarzenia.html` | Two events from **2023** (Akira Hello World festival, 3rd China Town Weiqi Cup) with photo carousel                                                                                    | Content is stale (2 years old) and reads as "the club stopped existing". **This page is the strongest argument for the admin-panel/news-feed idea** — event coverage must be effortless to publish or it dies                       |
+| `galeria.html`    | "Strona w trakcie przygotowania. Zapraszamy niebawem!"                                                                                                                                 | Placeholder since launch. **Drop as a separate page** — fold photos into news posts (see §4.1)                                                                                                                                      |
+| everything else   | 404                                                                                                                                                                                    | Dead/misleading links must not exist in the new site                                                                                                                                                                                |
 
 ### 1.2 Key problems (beyond outdated content)
 
 1. **No answer to the newcomer's real questions.** Someone who has never played Go wants to know:
-   *Is it for me? Will I feel awkward showing up alone? Do I need to know the rules first? Do I need
-   to buy anything? Is it OK to bring a child?* None of this is addressed explicitly.
+   _Is it for me? Will I feel awkward showing up alone? Do I need to know the rules first? Do I need
+   to buy anything? Is it OK to bring a child?_ None of this is addressed explicitly.
 2. **No proof of life.** The freshest visible content is from 2023. For a club site, a single recent
    photo with a date is worth more than any amount of static text.
 3. **No call to action.** There is no "Come this Wednesday — here's the map" button, no link to
@@ -87,11 +86,12 @@ Live site: <https://lubelski-klub-go.vercel.app/> (also reachable via `lubelski-
 
 ## 3. Target audience & site goals
 
-**Primary persona:** an adult or parent in Lublin who has *never played Go* — heard about it from a
+**Primary persona:** an adult or parent in Lublin who has _never played Go_ — heard about it from a
 friend, a manga/anime (Hikaru no Go), the AlphaGo story, or a festival stand. They need reassurance
 and a low-friction path to the first visit.
 
 **Secondary personas:**
+
 1. A parent looking for a logic/strategy activity for their child.
 2. A player who already plays online (OGS/Fox) and just moved to Lublin — needs schedule, address, level of play.
 3. Ukrainian residents and international students — need EN/UK content.
@@ -103,7 +103,7 @@ Every page should be judged against that goal.
 **Hard success metric (so we can tell if the rebuild worked):**
 
 - **Primary:** number of first-time visitors per month who say they found the club through the
-  website — measured the simplest possible way: *ask newcomers at the door* and keep a tally.
+  website — measured the simplest possible way: _ask newcomers at the door_ and keep a tally.
 - **Secondary (optional, privacy-friendly analytics only):** clicks on "Przyjdź w środę",
   map/directions clicks, contact clicks, traffic from Facebook. No invasive tracking, no cookie
   banners if avoidable.
@@ -128,12 +128,12 @@ Five public pages. Nothing more at launch — better a small finished site than 
 ### 4.1 Home page
 
 - **Hero:** one strong real photo from a club meeting (people at boards, ideally with kids and
-  adults visible), headline like *"Zagraj w Go w Lublinie — pierwsze spotkanie za darmo, zawsze w
-  środę"*, and two buttons: **"Przyjdź w środę"** (scrolls to when/where + map) and
+  adults visible), headline like _"Zagraj w Go w Lublinie — pierwsze spotkanie za darmo, zawsze w
+  środę"_, and two buttons: **"Przyjdź w środę"** (scrolls to when/where + map) and
   **"Poznaj zasady w 5 minut"** (→ `/zacznij`).
 - **"Twoja pierwsza wizyta" strip:** 3–4 cards answering the newcomer's fears:
-  *Nie znasz zasad? Nauczymy Cię w 15 minut. — Nic nie musisz przynosić. — Wstęp wolny. —
-  Dzieci mile widziane.*
+  _Nie znasz zasad? Nauczymy Cię w 15 minut. — Nic nie musisz przynosić. — Wstęp wolny. —
+  Dzieci mile widziane._
 - **Latest news:** the 3 most recent posts from the feed (proves the club is alive).
 - **When & where:** schedule + embedded map (Google Maps / OpenStreetMap) + photo of the building
   entrance ("szukaj sali 14, galeria na górze") — small detail, huge for first-visit anxiety.
@@ -151,12 +151,12 @@ Exactly the format you described, and it's the right call:
 
 **Admin panel:**
 
-- **The requirement, stated mechanism-neutrally:** *two or three non-technical club members must
-  be able to publish a post safely from a phone.* That — not any particular auth technology — is
+- **The requirement, stated mechanism-neutrally:** _two or three non-technical club members must
+  be able to publish a post safely from a phone._ That — not any particular auth technology — is
   what the implementation must satisfy.
 - Google/GitHub OAuth (as originally proposed) with an allowlist of 2–5 admin accounts and no
   public registration remains the leading candidate — managed "sign in with Google" is often the
-  *lowest*-maintenance option (no passwords to store, reset, or leak). But the stack decision in
+  _lowest_-maintenance option (no passwords to store, reset, or leak). But the stack decision in
   step 2 should pick the simplest mechanism that satisfies the requirement above, not start from
   "we need OAuth".
 - One screen: list of posts + "new post" form (title, text, photo upload with automatic
@@ -169,6 +169,7 @@ Exactly the format you described, and it's the right call:
 Rework of `zasady.html` into a two-part page:
 
 **Part A — the game (excellent static diagrams at launch, interactive later):**
+
 - Keep the existing pedagogical sequence, split into short steps
   (1. plansza i kamienie → 2. oddechy → 3. zbijanie i atari → 4. terytorium → 5. ko → 6. oczy).
 - **Launch with polished static diagrams.** An interactive board widget (visitor places the
@@ -176,12 +177,12 @@ Rework of `zasady.html` into a two-part page:
   §6) — but a custom board is exactly the kind of "little JavaScript widget" that turns into
   "why does capture state misbehave on mobile?". **The launch must not depend on it.**
 - Author the content so that each static diagram is a self-contained exercise ("Black to
-  capture — where?" with the answer shown below) that can later be *swapped 1:1* for an
+  capture — where?" with the answer shown below) that can later be _swapped 1:1_ for an
   interactive version without rewriting the page.
-- A 30-second pitch of *why* Go is special (4000 years old, simple rules / deep strategy,
+- A 30-second pitch of _why_ Go is special (4000 years old, simple rules / deep strategy,
   AlphaGo, Hikaru no Go) — a hook, not a lecture.
 - "Want more?" links: interactive tutorials (e.g. online-go.com/learn-to-play-go), OGS, and…
-  the club itself: *"najlepiej nauczysz się u nas — przyjdź w środę"*.
+  the club itself: _"najlepiej nauczysz się u nas — przyjdź w środę"_.
 
 **Part B — "Co się stanie, kiedy przyjdę pierwszy raz?" (the mini-story):**
 
@@ -198,17 +199,19 @@ This is likely the single most useful piece of new content on the site: an FAQ a
 questions, the story removes the need to ask them.
 
 **Part C — the first visit FAQ + expectation setting:**
+
 - Czy muszę znać zasady? / Czy muszę coś przynieść? / Ile to kosztuje? (nic) /
   W jakim wieku można zacząć? / Przychodzę sam(a) — czy to problem? / Jak znaleźć salę 14?
 - **Explicit expectation-setting ("who this is for"), phrased positively:**
-  *"Nie musisz być szachistą. Nie musisz znać anime. Nie musisz być dobry w matematyce.
-  Nie musisz mieć żadnego doświadczenia."* And honestly framing the club's character:
-  *"Jeśli szukasz turniejowej rywalizacji — też ją u nas znajdziesz, ale większość spotkań to
-  spokojna gra i nauka."* This prevents visitors from forming the wrong mental model of the club.
+  _"Nie musisz być szachistą. Nie musisz znać anime. Nie musisz być dobry w matematyce.
+  Nie musisz mieć żadnego doświadczenia."_ And honestly framing the club's character:
+  _"Jeśli szukasz turniejowej rywalizacji — też ją u nas znajdziesz, ale większość spotkań to
+  spokojna gra i nauka."_ This prevents visitors from forming the wrong mental model of the club.
 
 ### 4.4 About the club (`/o-klubie`)
 
 New content to write (currently missing entirely):
+
 - Short club story: when it started, connection with MDK nr 2, who runs it.
 - People: a few friendly bios/photos of regulars & organizers (with consent), their ranks/OGS nicks.
 - **"Jak wygląda typowe spotkanie?" with 2–3 real photographs** — teaching games, casual games,
@@ -243,7 +246,7 @@ New content to write (currently missing entirely):
 - Language switcher in the header (`PL / EN / УК`), language reflected in the URL
   (`/en/...`, `/uk/...`) for shareability and SEO.
 - Ukrainian version deserves care beyond translation: an explicit welcoming sentence
-  (*"Запрошуємо українців — мова не є бар'єром у Go"*) — Go is literally a game you can play
+  (_"Запрошуємо українців — мова не є бар'єром у Go"_) — Go is literally a game you can play
   without a common language, which is a beautiful message for this audience.
 
 ---
@@ -253,7 +256,7 @@ New content to write (currently missing entirely):
 - **Aesthetic:** minimal, lots of whitespace, black & white as the base (Go stones) with **one**
   warm accent color (e.g. the amber/wood tone of a goban — kaya wood). Subtle board-grid or
   stone motifs as decoration, not as noise. Modern but calm; no anime-style clutter — the site
-  should feel welcoming to a 10-year-old's parent *and* a 60-year-old chess player.
+  should feel welcoming to a 10-year-old's parent _and_ a 60-year-old chess player.
 - **Typography-first design:** a clean sans for UI, generous font sizes; the content is short, so
   let it breathe.
 - **Mobile-first:** most first-time visitors will arrive from a Facebook link on a phone.
@@ -322,7 +325,7 @@ straightforward project takes 3× longer than expected. This section is the expl
 ### Non-goals
 
 - **Non-goal:** a Go server, game records database, member accounts, forums — the community lives
-  on Facebook/Discord/OGS; the site is the *front door*, not the living room (§0).
+  on Facebook/Discord/OGS; the site is the _front door_, not the living room (§0).
 - **Non-goal (v1):** translating dynamic news content.
 
 ### Constraints
@@ -354,18 +357,18 @@ this was never defined:
   if the primary volunteer disappears.
 - **Content ownership table** — every piece of content has a named maintainer:
 
-| Content | Who maintains it |
-|---|---|
-| Meeting time / location | named person (single source of truth) |
-| News posts | any admin |
-| EN translation | named reviewer |
-| UK translation | named reviewer |
-| About-club page | organizer |
-| Contact information | organizer |
-| Photos in posts | whoever publishes the post (bound by the consent policy) |
+| Content                 | Who maintains it                                         |
+| ----------------------- | -------------------------------------------------------- |
+| Meeting time / location | named person (single source of truth)                    |
+| News posts              | any admin                                                |
+| EN translation          | named reviewer                                           |
+| UK translation          | named reviewer                                           |
+| About-club page         | organizer                                                |
+| Contact information     | organizer                                                |
+| Photos in posts         | whoever publishes the post (bound by the consent policy) |
 
-  (Names to be filled in during the PR discussion — the requirement is that **no cell is empty
-  at launch**.)
+(Names to be filled in during the PR discussion — the requirement is that **no cell is empty
+at launch**.)
 
 ---
 
@@ -389,7 +392,7 @@ Still open:
    (Machine-translate + native review is fine; machine-only for UK would undermine the welcoming
    intent.) Names go into the ownership table in §7.
 6. **Facebook page:** should the site embed/link the FB feed, or is the new admin-panel feed
-   intended to *replace* posting on Facebook (recommendation: post on the site, share the link on FB)?
+   intended to _replace_ posting on Facebook (recommendation: post on the site, share the link on FB)?
 7. **Access inventory & succession (§7):** which two people hold access to each system today, and
    where should the succession note live?
 

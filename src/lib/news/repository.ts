@@ -17,9 +17,7 @@ export interface NewsPage {
  * `listPublished` distinguishes a missing Supabase configuration (dev without
  * env vars) from a real, but empty, published feed.
  */
-export type NewsListResult =
-  | { status: 'ok'; page: NewsPage }
-  | { status: 'unconfigured' };
+export type NewsListResult = { status: 'ok'; page: NewsPage } | { status: 'unconfigured' };
 
 /** Fields an admin provides when creating or editing a post. */
 export interface NewsPostInput {
@@ -174,11 +172,7 @@ export class SupabaseNewsRepository implements INewsRepository {
   async create(input: NewsPostInput): Promise<NewsPost> {
     const client = this.requireClient();
 
-    const { data, error } = await client
-      .from('posts')
-      .insert(toRow(input))
-      .select()
-      .single();
+    const { data, error } = await client.from('posts').insert(toRow(input)).select().single();
 
     if (error) {
       throw new Error(`Failed to create news post: ${error.message}`);

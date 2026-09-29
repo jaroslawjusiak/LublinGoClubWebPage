@@ -9,7 +9,9 @@ import { Link } from 'react-router-dom';
 export const Container: React.FC<{ className?: string; children: React.ReactNode }> = ({
   className = '',
   children,
-}) => <div className={`container mx-auto px-4 sm:px-6 lg:px-8 ${className}`.trim()}>{children}</div>;
+}) => (
+  <div className={`container mx-auto px-4 sm:px-6 lg:px-8 ${className}`.trim()}>{children}</div>
+);
 
 /**
  * @component Section

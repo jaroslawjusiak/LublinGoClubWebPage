@@ -44,8 +44,9 @@ describe('ZacznijPage', () => {
 
     // Story step 1 renders the address and venue from club.ts (not hardcoded).
     expect(
-      screen.getByText((content) =>
-        content.includes(meetingInfo.addressLine) && content.includes(meetingInfo.venueName),
+      screen.getByText(
+        (content) =>
+          content.includes(meetingInfo.addressLine) && content.includes(meetingInfo.venueName),
       ),
     ).toBeInTheDocument();
 

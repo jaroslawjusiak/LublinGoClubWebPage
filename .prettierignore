@@ -1,0 +1,20 @@
+# Dependencies and build output
+node_modules/
+dist/
+dist-ssr/
+coverage/
+
+# Vendored reference copy and SQL migrations (not Prettier-formatted)
+reference/
+supabase/
+
+# Local tooling / agent artifacts
+.opencode/
+.playwright-mcp/
+
+# Secrets and env files
+.env
+.env.*
+
+# Generated lockfile (managed by npm)
+package-lock.json

@@ -24,10 +24,7 @@ const Header: React.FC = () => {
           {t('common:site_name')}
         </Link>
 
-        <nav
-          className="hidden md:flex space-x-8 items-center"
-          aria-label={t('common:nav_primary')}
-        >
+        <nav className="hidden md:flex space-x-8 items-center" aria-label={t('common:nav_primary')}>
           {navItems.map((item) => (
             <Link key={item.path} to={localizePath(item.path, locale)} className={linkClasses}>
               {t(item.labelKey)}

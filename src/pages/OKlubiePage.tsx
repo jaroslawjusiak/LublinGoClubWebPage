@@ -27,7 +27,11 @@ const OKlubiePage: React.FC = () => {
         </h2>
         <p className="text-lg text-ink mb-10">{t('oklubie:typical_text')}</p>
 
-        <Button to={localizePath('/zacznij', locale)} variant="primary" className="px-6 py-3 text-lg">
+        <Button
+          to={localizePath('/zacznij', locale)}
+          variant="primary"
+          className="px-6 py-3 text-lg"
+        >
           {t('common:cta_start_button')}
         </Button>
       </Container>

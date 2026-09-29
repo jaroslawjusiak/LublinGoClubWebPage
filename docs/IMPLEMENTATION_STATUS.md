@@ -36,7 +36,7 @@
       root-level app (no more `web/` / non-existent `reference/` claims).
 - [x] **M0-T2 Scaffold/normalize the React app** - dev server and production build work.
 - [~] **M0-T3 Quality tooling** - `check`/`lint`/`typecheck`/`test`/`build` all work (68 tests).
-      **Missing: Prettier** (the plan's locked stack is "ESLint + Prettier").
+  **Missing: Prettier** (the plan's locked stack is "ESLint + Prettier").
 - [x] **M0-T4 Project instructions for LLM sessions** - root `AGENTS.md` + setup `README.md`.
 - [x] **M0-T5 Vendor the legacy site** - `reference/legacy-site/` holds the old HTML, CSS, logo,
       poster, rules diagrams and event photos, plus a provenance/consent note.
@@ -44,16 +44,16 @@
 ## Milestone 1 - Content, configuration, design foundation
 
 - [~] **M1-T1 Define domain types** - `MeetingInfo`, `ClubConfig`, `SocialLinks`, `NavItem`,
-      `Person`, `NewsPost`, `PostTag`, `Locale` all defined. **`NewsImage` is not modeled** — post
-      images are `string[]` URLs (no per-image alt); a decision on per-photo alt/captions is deferred.
+  `Person`, `NewsPost`, `PostTag`, `Locale` all defined. **`NewsImage` is not modeled** — post
+  images are `string[]` URLs (no per-image alt); a decision on per-photo alt/captions is deferred.
 - [x] **M1-T2 Single source of truth** - `club.ts` + `site.ts` + `people.ts`; placeholder phone/email
       removed; a test rejects personal phone/Gmail as the primary channel.
 - [~] **M1-T3 Design tokens** - tokens + `global.css` exist. **Missing:** explicit typography scale
-      and a global reduced-motion rule (only the Home scroll-to-meeting respects it today).
+  and a global reduced-motion rule (only the Home scroll-to-meeting respects it today).
 - [x] **M1-T4 Shared UI primitives** - `Container`/`Section`/`Button`/`Card`/`Chip`/`SmartImage`;
       `Button` renders `<button>`, `<Link>` or `<a>` (external).
 - [~] **M1-T5 Application shell** - `MobileMenu` mounted in `Header`; `Layout`/`AppLayout` deleted.
-      **Remaining:** the sticky mobile "Przyjdź w środę" CTA is not added yet (deferred polish).
+  **Remaining:** the sticky mobile "Przyjdź w środę" CTA is not added yet (deferred polish).
 
 ## Milestone 2 - Routing, i18n, public pages
 
@@ -61,8 +61,8 @@
       (`/en/...`, `/uk/...`) that renders the same pages in another language. `/admin` and
       `/prywatnosc` are intentionally not advertised yet (their content/workflows are unfinished).
 - [~] **M2-T2 i18n architecture** - consolidated into `src/i18n/` (`config.ts` + `locales/{pl,en}`),
-      Polish default/fallback, `supportedLngs ['pl','en','uk']`, URL-driven language + `<html lang>`
-      sync (`useLocale`/`LocaleGate`). **Missing:** a `uk` resource, and a key-parity test.
+  Polish default/fallback, `supportedLngs ['pl','en','uk']`, URL-driven language + `<html lang>`
+  sync (`useLocale`/`LocaleGate`). **Missing:** a `uk` resource, and a key-parity test.
 - [x] **M2-T3 Home hero and first-visit reassurance** - hero + value proposition + two CTAs + four
       reassurance cards + non-identifying board image.
 - [x] **M2-T4 Meeting/location section** - shared `MeetingSection` (Home/Contact/Start Here) with
@@ -73,7 +73,7 @@
       (board, liberties, capture/atari, territory, ko, eyes/life-death) with typo-fixed Polish and
       the original static diagrams (meaningful alt). Interactive board remains deferred.
 - [~] **M2-T7 About page** - honest, minimal "purpose + typical meeting" content. Full club story,
-      people bios and consented photos pending approval (N2).
+  people bios and consented photos pending approval (N2).
 - [x] **M2-T8 Contact and privacy pages** - Contact done (channels + shared meeting + OGS handles);
       `/prywatnosc` (privacy notice + photo-consent policy) done and linked from the footer.
 - [ ] **M2-T9 Public-pages milestone gate** - `docs/qa-public-pages.md` not created (browser checks
@@ -85,8 +85,8 @@
       `listPublished` with a discriminated `ok` vs `unconfigured` result. (`getById` removed — no
       detail route.)
 - [~] **M3-T2 Seed data and migration format** - historical posts prepared in `src/lib/news/seed.ts`
-      (correct 2023 dates, tags, external links); images intentionally empty pending photo consent
-      and Supabase Storage upload.
+  (correct 2023 dates, tags, external links); images intentionally empty pending photo consent
+  and Supabase Storage upload.
 - [x] **M3-T3 PostCard and simple image viewing** - `NewsPostCard` renders date, tag, title, body,
       0–4 images and an optional external link; `NewsCard.tsx` (unused duplicate) removed.
 - [x] **M3-T4 Public feed and Home preview** - one shared `NewsFeed` for Home preview (3) and
@@ -142,15 +142,15 @@
 ## Milestone 7 - Content, governance, deployment
 
 - [~] **M7-T1 Replace placeholders with approved assets** - code uses honest, non-identifying
-      content; real consented photos + club story await club input (`docs/CONTENT_APPROVAL.md`).
+  content; real consented photos + club story await club input (`docs/CONTENT_APPROVAL.md`).
 - [x] **M7-T2 Governance documentation** - `docs/GOVERNANCE.md` (two-person access inventory,
       succession, content-ownership table) with cells to fill in.
 - [x] **M7-T3 Runbook and admin guide** - `docs/ADMIN_SETUP.md` (Supabase) + `docs/RUNBOOK.md`
       (publish/edit/delete, facts, deploy, rollback).
 - [~] **M7-T4 Production configuration and preview deployment** - `vercel.json` done; an actual
-      Vercel project + preview deployment awaits a Vercel account (club input).
+  Vercel project + preview deployment awaits a Vercel account (club input).
 - [~] **M7-T5 Launch acceptance test** - `docs/qa-launch.md` checklist written; the human run is
-      pending a deployed preview.
+  pending a deployed preview.
 - [ ] **M7-T6 Production launch and smoke test** - not started (needs a live deployment).
 
 ## Tier B - drafts and explicit publishing (added after Tier A)

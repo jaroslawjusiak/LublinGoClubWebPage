@@ -28,7 +28,10 @@ const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 border-b pb-12 mb-8">
           {/* Column 1: Club info and social links */}
           <div className="text-center md:text-left">
-            <h2 id="site-footer-heading" className="text-3xl font-extrabold text-ink tracking-wide mb-4">
+            <h2
+              id="site-footer-heading"
+              className="text-3xl font-extrabold text-ink tracking-wide mb-4"
+            >
               {clubConfig.name}
             </h2>
             <p className="text-muted-text max-w-[280px] mb-6 mx-auto md:mx-0">

@@ -12,17 +12,17 @@ root-level application.
 
 ## 2. Stack (locked decisions)
 
-| Concern | Decision |
-| --- | --- |
-| Frontend | React 18 + TypeScript 5.9 + Vite 8 |
-| Routing | `react-router-dom` 7 (Polish routes at the root, no `/pl` prefix) |
-| Styling | Tailwind CSS 3 + a small token layer (`paper`, `ink`, `muted-text`, `border`, `kaya`) |
-| Public data | Typed files in `src/data/` — the single source of truth for club facts |
-| News DB / Auth / Storage | Supabase (Postgres + RLS + Storage) — **client wired, project not yet configured** |
-| Map | OpenStreetMap link (no API key), localized via a `locale` query param |
-| i18n | `i18next` + `react-i18next`, Polish default/fallback |
-| Tests | Vitest + Testing Library |
-| Formatting | ESLint (flat config) |
+| Concern                  | Decision                                                                              |
+| ------------------------ | ------------------------------------------------------------------------------------- |
+| Frontend                 | React 18 + TypeScript 5.9 + Vite 8                                                    |
+| Routing                  | `react-router-dom` 7 (Polish routes at the root, no `/pl` prefix)                     |
+| Styling                  | Tailwind CSS 3 + a small token layer (`paper`, `ink`, `muted-text`, `border`, `kaya`) |
+| Public data              | Typed files in `src/data/` — the single source of truth for club facts                |
+| News DB / Auth / Storage | Supabase (Postgres + RLS + Storage) — **client wired, project not yet configured**    |
+| Map                      | OpenStreetMap link (no API key), localized via a `locale` query param                 |
+| i18n                     | `i18next` + `react-i18next`, Polish default/fallback                                  |
+| Tests                    | Vitest + Testing Library                                                              |
+| Formatting               | ESLint (flat config)                                                                  |
 
 ## 3. Directory map
 

@@ -5,7 +5,7 @@
 export interface MeetingInfo {
   dayOfWeek: string; // Display label for the default language, e.g. "środa" (see note below)
   startTime: string; // HH:MM - e.g., "17:00"
-  endTime: string;   // HH:MM - e.g., "20:00"
+  endTime: string; // HH:MM - e.g., "20:00"
   venueName: string; // Full official name of the location
   addressLine: string; // Street address line 1, e.g. "ul. Bernardyńska 14a"
   postalCode: string; // e.g. "20-950"
@@ -26,13 +26,13 @@ export interface MeetingInfo {
  * @description Defines global, immutable configuration details about the club itself.
  */
 export interface ClubConfig {
-    name: string;
-    slogan: string; // Short value proposition for the website
-    canonicalDomain: string; // The primary domain
-    isFreeEntry: boolean;
-    // Club-level public contact channel. Intentionally absent until a real,
-    // club-owned address is approved by an organizer (never a personal phone or Gmail).
-    email?: string;
+  name: string;
+  slogan: string; // Short value proposition for the website
+  canonicalDomain: string; // The primary domain
+  isFreeEntry: boolean;
+  // Club-level public contact channel. Intentionally absent until a real,
+  // club-owned address is approved by an organizer (never a personal phone or Gmail).
+  email?: string;
 }
 
 /**
@@ -40,10 +40,10 @@ export interface ClubConfig {
  * should be set here; leave a field undefined until an organizer confirms it.
  */
 export interface SocialLinks {
-    facebook?: string;
-    discord?: string;
-    ogs?: string; // OGS club group (URL not yet verified)
-    polishGoAssociation?: string; // Polish Go Association (URL not yet verified)
+  facebook?: string;
+  discord?: string;
+  ogs?: string; // OGS club group (URL not yet verified)
+  polishGoAssociation?: string; // Polish Go Association (URL not yet verified)
 }
 
 /**
@@ -51,8 +51,8 @@ export interface SocialLinks {
  * literal string, so the same list can be reused for any locale.
  */
 export interface NavItem {
-    path: string;
-    labelKey: string;
+  path: string;
+  labelKey: string;
 }
 
 // src/types/person.ts
@@ -77,13 +77,13 @@ export type PostTag = 'spotkanie' | 'turniej' | 'wydarzenie';
  * repository mapping never needs to guess column names or fill in empty values.
  */
 export interface NewsPost {
-  id: string;           // UUID primary key
-  title: string;        // Primary title
-  body: string;         // Short body text (the full content; no HTML)
-  publishedAt: string;  // ISO 8601 date, e.g. "2023-11-18"
-  published: boolean;   // True when visible publicly; false means it is a draft
-  tag?: PostTag;        // Optional single tag
-  images: string[];     // 0-4 image URLs (Supabase Storage references)
+  id: string; // UUID primary key
+  title: string; // Primary title
+  body: string; // Short body text (the full content; no HTML)
+  publishedAt: string; // ISO 8601 date, e.g. "2023-11-18"
+  published: boolean; // True when visible publicly; false means it is a draft
+  tag?: PostTag; // Optional single tag
+  images: string[]; // 0-4 image URLs (Supabase Storage references)
   externalUrl?: string; // Optional external link (e.g. tournament page)
 }
 

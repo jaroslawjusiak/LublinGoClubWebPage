@@ -38,8 +38,8 @@ representative before going live. Tick every box.
 
 ## Sign-off
 
-| Role | Name | Date |
-| --- | --- | --- |
-| Owner (facts + content) | | |
-| Reviewer (translation) | | |
-| Second access holder | | |
+| Role                    | Name | Date |
+| ----------------------- | ---- | ---- |
+| Owner (facts + content) |      |      |
+| Reviewer (translation)  |      |      |
+| Second access holder    |      |      |

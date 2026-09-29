@@ -53,7 +53,22 @@ i18n.use(initReactI18next).init({
   lng: 'pl',
   fallbackLng: 'pl',
   supportedLngs: ['pl', 'en', 'uk'],
-  ns: ['common', 'hero', 'homepage', 'meeting', 'start', 'oklubie', 'contact', 'footer', 'rules', 'admin', 'privacy', 'meta', 'aktualnosci', 'notFound'],
+  ns: [
+    'common',
+    'hero',
+    'homepage',
+    'meeting',
+    'start',
+    'oklubie',
+    'contact',
+    'footer',
+    'rules',
+    'admin',
+    'privacy',
+    'meta',
+    'aktualnosci',
+    'notFound',
+  ],
   defaultNS: 'common',
   interpolation: {
     escapeValue: false, // React already escapes values.

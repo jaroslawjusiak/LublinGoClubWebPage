@@ -26,8 +26,8 @@ const MeetingSection: React.FC = () => {
 
         <div className="max-w-2xl mx-auto text-center text-lg text-ink space-y-2 mb-8">
           <p className="text-2xl font-semibold">
-            <span className="capitalize">{meetingInfo.dayOfWeek}</span>,{' '}
-            {meetingInfo.startTime}–{meetingInfo.endTime}
+            <span className="capitalize">{meetingInfo.dayOfWeek}</span>, {meetingInfo.startTime}–
+            {meetingInfo.endTime}
           </p>
           <p>{meetingInfo.venueName}</p>
           <p>

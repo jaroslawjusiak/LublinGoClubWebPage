@@ -211,12 +211,7 @@ const PostForm: React.FC<PostFormProps> = ({ initial, onDone }) => {
 
         <div className="flex flex-wrap gap-3 mt-8">
           {initial?.published ? (
-            <Button
-              type="submit"
-              variant="primary"
-              disabled={saving}
-              className="px-6 py-3"
-            >
+            <Button type="submit" variant="primary" disabled={saving} className="px-6 py-3">
               {saving ? t('admin:saving') : t('admin:save')}
             </Button>
           ) : (
@@ -235,7 +230,12 @@ const PostForm: React.FC<PostFormProps> = ({ initial, onDone }) => {
               </Button>
             </>
           )}
-          <Button type="button" onClick={() => void handleCancel()} disabled={saving} className="px-6 py-3">
+          <Button
+            type="button"
+            onClick={() => void handleCancel()}
+            disabled={saving}
+            className="px-6 py-3"
+          >
             {t('admin:cancel')}
           </Button>
           {initial ? (

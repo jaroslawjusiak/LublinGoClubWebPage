@@ -37,14 +37,14 @@ recovery/remaining-work notes in `docs/RECOVERY_AND_REMAINING_WORK.md`.
 
 ## Directory map (`src/`)
 
-| Path | Purpose |
-| :--- | :--- |
-| `data/` | Single source of truth for club configuration (read-only, typed). |
+| Path          | Purpose                                                                                     |
+| :------------ | :------------------------------------------------------------------------------------------ |
+| `data/`       | Single source of truth for club configuration (read-only, typed).                           |
 | `components/` | Shared UI primitives (`primitives.tsx`) and shared features (`MeetingSection`, `NewsFeed`). |
-| `pages/` | Route-level page components (`HomePage`, `ZacznijPage`, …). |
-| `i18n/` | i18n config + locale resources (`pl` default/fallback). |
-| `lib/` | Data boundaries (`news/repository.ts`, `supabase/client.ts`). |
-| `types/` | TypeScript definitions (`data_models.ts`). |
+| `pages/`      | Route-level page components (`HomePage`, `ZacznijPage`, …).                                 |
+| `i18n/`       | i18n config + locale resources (`pl` default/fallback).                                     |
+| `lib/`        | Data boundaries (`news/repository.ts`, `supabase/client.ts`).                               |
+| `types/`      | TypeScript definitions (`data_models.ts`).                                                  |
 
 ## Forbidden
 
@@ -57,5 +57,5 @@ recovery/remaining-work notes in `docs/RECOVERY_AND_REMAINING_WORK.md`.
 ## Reporting
 
 1. Read task + prerequisites. 2. Inspect repo. 3. Implement smallest change.
-4. Run `npm run check`. 5. Browser-check UI changes. 6. Report changed files, checks,
-observations, unresolved issues. 7. Stop until Definition of Done is satisfied.
+2. Run `npm run check`. 5. Browser-check UI changes. 6. Report changed files, checks,
+   observations, unresolved issues. 7. Stop until Definition of Done is satisfied.

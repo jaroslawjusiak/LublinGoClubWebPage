@@ -120,7 +120,9 @@ const ZacznijPage: React.FC = () => {
           <RulesSection />
 
           <div className="max-w-3xl mx-auto mb-16">
-            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-ink">{t('start:story_title')}</h2>
+            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-ink">
+              {t('start:story_title')}
+            </h2>
             <ol className="space-y-4">
               {storySteps.map((step, index) => (
                 <li key={step.key} className="flex gap-4">

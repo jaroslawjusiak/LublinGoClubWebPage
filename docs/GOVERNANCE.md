@@ -7,14 +7,14 @@ system and each piece of content, and how access is handed over.
 
 ## Access inventory — two named holders per system
 
-| System | Primary | Secondary | Notes |
-| --- | --- | --- | --- |
-| Domain registrar / DNS (`lubelski-klub-go.pl`) | [name] | [name] | registrar account |
-| Hosting (Vercel) | [name] | [name] | Vercel team |
-| GitHub repository | [name] | [name] | repo admin |
-| Supabase (database / auth / storage) | [name] | [name] | Supabase org |
-| Club email | [name] | [name] | mailbox / provider |
-| Admin panel (Google accounts in `admins`) | [name] | [name] | see `docs/ADMIN_SETUP.md` §5 |
+| System                                         | Primary | Secondary | Notes                        |
+| ---------------------------------------------- | ------- | --------- | ---------------------------- |
+| Domain registrar / DNS (`lubelski-klub-go.pl`) | [name]  | [name]    | registrar account            |
+| Hosting (Vercel)                               | [name]  | [name]    | Vercel team                  |
+| GitHub repository                              | [name]  | [name]    | repo admin                   |
+| Supabase (database / auth / storage)           | [name]  | [name]    | Supabase org                 |
+| Club email                                     | [name]  | [name]    | mailbox / provider           |
+| Admin panel (Google accounts in `admins`)      | [name]  | [name]    | see `docs/ADMIN_SETUP.md` §5 |
 
 ## Succession — how to hand over each system
 
@@ -28,13 +28,13 @@ system and each piece of content, and how access is handed over.
 
 ## Content ownership — one named maintainer per piece
 
-| Content | Maintainer |
-| --- | --- |
-| Meeting time / location (`src/data/club.ts`) | [name] |
-| News posts | any admin |
-| Club story / About page | [name] |
-| Contact information / social links | [name] |
-| Go rules (`/zacznij`) | [name] |
-| EN translation (reviewer) | [name] |
-| UK translation (reviewer) | [name] |
-| Photos in posts | whoever publishes (bound by the photo-consent policy) |
+| Content                                      | Maintainer                                            |
+| -------------------------------------------- | ----------------------------------------------------- |
+| Meeting time / location (`src/data/club.ts`) | [name]                                                |
+| News posts                                   | any admin                                             |
+| Club story / About page                      | [name]                                                |
+| Contact information / social links           | [name]                                                |
+| Go rules (`/zacznij`)                        | [name]                                                |
+| EN translation (reviewer)                    | [name]                                                |
+| UK translation (reviewer)                    | [name]                                                |
+| Photos in posts                              | whoever publishes (bound by the photo-consent policy) |

@@ -36,7 +36,11 @@ const HomePage: React.FC = () => {
               <Button onClick={scrollToMeeting} variant="primary" className="px-8 py-4 text-lg">
                 {t('hero:cta_primary')}
               </Button>
-              <Button to={localizePath('/zacznij', locale)} variant="secondary" className="px-8 py-4 text-lg">
+              <Button
+                to={localizePath('/zacznij', locale)}
+                variant="secondary"
+                className="px-8 py-4 text-lg"
+              >
                 {t('hero:cta_secondary')}
               </Button>
             </div>
@@ -76,7 +80,10 @@ const HomePage: React.FC = () => {
         <NewsFeed limit={3} />
 
         <div className="text-center mt-10">
-          <Link to={localizePath('/aktualnosci', locale)} className="text-kaya font-semibold hover:underline">
+          <Link
+            to={localizePath('/aktualnosci', locale)}
+            className="text-kaya font-semibold hover:underline"
+          >
             {t('common:view_all_articles')} →
           </Link>
         </div>

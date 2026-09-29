@@ -8,6 +8,7 @@ import { useLocale } from './i18n/locale';
 import { AuthProvider } from './lib/supabase/auth';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import MobileCta from './components/MobileCta';
 import PageMeta from './components/PageMeta';
 import ScrollToTop from './components/ScrollToTop';
 import HomePage from './pages/HomePage';
@@ -67,7 +68,7 @@ const LocaleLayout: React.FC = () => {
 };
 
 const AppShell: React.FC = () => (
-  <div className="min-h-screen flex flex-col bg-paper text-ink">
+  <div className="min-h-screen flex flex-col bg-paper text-ink pb-20 md:pb-0">
     <PageMeta />
     <ScrollToTop />
     <Header />
@@ -94,6 +95,7 @@ const AppShell: React.FC = () => (
       </Routes>
     </main>
     <Footer />
+    <MobileCta />
   </div>
 );
 
