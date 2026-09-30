@@ -25,29 +25,45 @@ const HomePage: React.FC = () => {
 
   return (
     <>
-      <Section id="home-hero" spacing="none">
-        <div className="min-h-[380px] flex flex-col items-center justify-center text-center py-16">
-          <div className="max-w-3xl px-4">
-            <h1 className="text-display font-medium text-ink mb-6">{t('hero:title')}</h1>
-            <p className="text-xl text-muted-text mb-10 max-w-2xl mx-auto">{t('hero:subtitle')}</p>
-            <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <Button onClick={scrollToMeeting} variant="primary" className="text-lg">
+      <Section id="home-hero" spacing="hero">
+        <Container className="grid items-center gap-8 min-[960px]:grid-cols-[45fr_55fr] min-[960px]:gap-10">
+          <div className="min-w-0">
+            <h1 className="text-display font-medium text-ink mb-6 max-w-[12ch]">
+              {t('hero:title')}
+            </h1>
+            <p className="text-lead text-muted-text mb-8 max-w-[45ch]">{t('hero:subtitle')}</p>
+            <div className="flex flex-col min-[400px]:flex-row min-[400px]:flex-wrap gap-3">
+              <Button onClick={scrollToMeeting} variant="primary">
                 {t('hero:cta_primary')}
               </Button>
-              <Button to={localizePath('/zacznij', locale)} variant="secondary" className="text-lg">
+              <Button to={localizePath('/zacznij', locale)} variant="secondary">
                 {t('hero:cta_secondary')}
               </Button>
             </div>
           </div>
-          <img
-            src="/assets/go-board.png"
-            alt=""
-            width={800}
-            height={248}
-            loading="eager"
-            className="mx-auto mt-12 w-full max-w-2xl px-4 rounded-lg"
-          />
-        </div>
+          <picture className="block min-w-0 overflow-hidden rounded-xl">
+            <source
+              type="image/avif"
+              srcSet="/assets/hero/goban-goke-640.avif 640w, /assets/hero/goban-goke-960.avif 960w, /assets/hero/goban-goke-1440.avif 1440w"
+              sizes="(min-width: 1200px) 603px, (min-width: 1024px) calc(55vw - 57px), (min-width: 960px) calc(55vw - 44px), (min-width: 360px) calc(100vw - 40px), calc(100vw - 32px)"
+            />
+            <source
+              type="image/webp"
+              srcSet="/assets/hero/goban-goke-640.webp 640w, /assets/hero/goban-goke-960.webp 960w, /assets/hero/goban-goke-1440.webp 1440w"
+              sizes="(min-width: 1200px) 603px, (min-width: 1024px) calc(55vw - 57px), (min-width: 960px) calc(55vw - 44px), (min-width: 360px) calc(100vw - 40px), calc(100vw - 32px)"
+            />
+            <img
+              src="/assets/hero/goban-goke-960.jpg"
+              srcSet="/assets/hero/goban-goke-640.jpg 640w, /assets/hero/goban-goke-960.jpg 960w, /assets/hero/goban-goke-1440.jpg 1440w"
+              sizes="(min-width: 1200px) 603px, (min-width: 1024px) calc(55vw - 57px), (min-width: 960px) calc(55vw - 44px), (min-width: 360px) calc(100vw - 40px), calc(100vw - 32px)"
+              alt=""
+              width={1440}
+              height={1080}
+              loading="eager"
+              className="block aspect-[4/3] h-auto w-full object-cover object-center"
+            />
+          </picture>
+        </Container>
       </Section>
 
       <Container className="py-16">

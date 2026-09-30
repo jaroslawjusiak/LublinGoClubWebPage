@@ -31,7 +31,7 @@ const LanguageSwitcher: React.FC<{ className?: string }> = ({ className = '' }) 
   return (
     <nav
       aria-label={t('common:language_label')}
-      className={`flex items-center gap-2 ${className}`.trim()}
+      className={`flex flex-wrap items-center gap-2 ${className}`.trim()}
     >
       {LANGUAGES.map((lang) => {
         const active = lang.code === locale;
@@ -41,8 +41,10 @@ const LanguageSwitcher: React.FC<{ className?: string }> = ({ className = '' }) 
             to={localizePath(basePath, lang.code)}
             aria-current={active ? 'page' : undefined}
             aria-label={lang.name}
-            className={`inline-flex items-center gap-1.5 text-sm font-medium rounded px-1  ${
-              active ? 'text-brand font-bold' : 'text-ink hover:text-brand'
+            className={`inline-flex min-h-11 items-center gap-1.5 text-sm font-medium rounded px-1 ${
+              active
+                ? 'text-brand font-bold underline underline-offset-4'
+                : 'text-ink hover:text-brand'
             }`}
           >
             <span className="inline-block h-3.5 w-5 shrink-0 overflow-hidden rounded-sm border border-border">

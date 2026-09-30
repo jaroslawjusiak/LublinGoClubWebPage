@@ -1,42 +1,43 @@
 // src/components/Header.tsx
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Button, Container } from './primitives';
 import MobileMenu from './MobileMenu';
 import LanguageSwitcher from './LanguageSwitcher';
+import BrandMark from './BrandMark';
 import { navItems, startCta } from '../data/site';
 import { useLocale, localizePath } from '../i18n/locale';
-
-const linkClasses = 'text-sm hover:text-brand transition  rounded';
 
 const Header: React.FC = () => {
   const { t } = useTranslation();
   const locale = useLocale();
 
   return (
-    <header className="sticky top-0 z-50 bg-paper shadow-sm border-b">
+    <header className="relative min-[1100px]:sticky top-0 z-50 bg-paper border-b border-border">
       <Container>
-        <div className="flex items-center justify-between py-3">
-          <Link
-            to={localizePath('/', locale)}
-            className="whitespace-nowrap text-xl md:text-2xl font-extrabold text-ink tracking-wide"
-          >
-            {t('common:site_name')}
-          </Link>
+        <div className="flex flex-wrap items-center justify-between gap-4 py-4">
+          <BrandMark />
 
           <nav
-            className="hidden min-[1100px]:flex space-x-8 items-center"
+            className="hidden min-[1100px]:flex gap-5 items-center"
             aria-label={t('common:nav_primary')}
           >
             {navItems.map((item) => (
-              <Link key={item.path} to={localizePath(item.path, locale)} className={linkClasses}>
+              <NavLink
+                key={item.path}
+                to={localizePath(item.path, locale)}
+                end={item.path === '/'}
+                className={({ isActive }) =>
+                  `inline-flex min-h-11 items-center rounded text-sm hover:text-brand transition-colors ${isActive ? 'text-brand underline decoration-2 underline-offset-8' : 'text-ink'}`
+                }
+              >
                 {t(item.labelKey)}
-              </Link>
+              </NavLink>
             ))}
           </nav>
 
-          <div className="flex items-center gap-2 md:gap-4">
+          <div className="ml-auto flex shrink-0 items-center gap-2 md:gap-4">
             <div className="hidden min-[1100px]:block">
               <LanguageSwitcher />
             </div>

@@ -18,7 +18,7 @@ const MeetingSection: React.FC = () => {
   const directionsUrl = `${meetingInfo.directionsUrl}&locale=${locale}`;
 
   return (
-    <Section id="spotkania" className="bg-gray-50">
+    <Section id="spotkania" className="bg-gray-50 scroll-mt-44 min-[1100px]:scroll-mt-28">
       <Container>
         <h2 className="text-3xl md:text-4xl font-medium text-center mb-8 text-ink">
           {t('meeting:heading')}

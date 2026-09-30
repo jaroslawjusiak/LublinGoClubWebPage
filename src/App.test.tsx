@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from 'vitest';
 import { Suspense } from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor, within } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import App from './App';
 
@@ -24,8 +24,12 @@ describe('App', () => {
   it('mounts the layout with the club name and navigation', async () => {
     renderApp();
 
-    // The brand link in the header is unique.
-    expect(await screen.findByRole('link', { name: 'Lubelski Klub Go' })).toBeInTheDocument();
+    // Both shell regions share the brand; the header retains its home link.
+    const header = await screen.findByRole('banner');
+    expect(within(header).getByRole('link', { name: 'Lubelski Klub Go' })).toHaveAttribute(
+      'href',
+      '/',
+    );
     // "Aktualności" appears in both the header and footer navigation.
     expect((await screen.findAllByRole('link', { name: 'Aktualności' })).length).toBeGreaterThan(0);
   });

@@ -40,4 +40,15 @@ describe('MobileMenu', () => {
     fireEvent.click(screen.getByRole('link', { name: 'Aktualności' }));
     expect(screen.getByRole('button', { name: 'Menu' })).toHaveAttribute('aria-expanded', 'false');
   });
+
+  it('restores focus to the toggle when Escape closes the open menu', () => {
+    renderMenu();
+    const toggle = screen.getByRole('button', { name: 'Menu' });
+    fireEvent.click(toggle);
+    screen.getByRole('link', { name: 'Aktualności' }).focus();
+    fireEvent.keyDown(window, { key: 'Escape' });
+    expect(toggle).toHaveAttribute('aria-expanded', 'false');
+    expect(toggle).toHaveFocus();
+    expect(screen.queryByRole('link', { name: 'Aktualności' })).not.toBeInTheDocument();
+  });
 });

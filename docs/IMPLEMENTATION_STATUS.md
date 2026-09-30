@@ -18,8 +18,8 @@
 
 ## Repository snapshot (verified 2026-09-30)
 
-- Build gate: **green** - lint/format clean, `tsc --noEmit` clean, **102/102 tests pass**, `vite build` succeeds (V2, 2026-09-30).
-- Papier i goban: **V2 complete** — local licensed Noto fonts, hero/brand assets, semantic tokens and shared primitives. [V2 evidence and limits](design/V2-zasoby-i-fundament.md); Home/shared-shell layout remains V3.
+- Build gate: **green** - lint/format clean, `tsc --noEmit` clean, **103/103 tests pass**, `vite build` succeeds (V3.1, 2026-09-30).
+- Papier i goban: **V2 and V3.1 complete** — local assets, semantic tokens/primitives, shared brand, Header, Footer and responsive hero. [V2 evidence and limits](design/V2-zasoby-i-fundament.md); [V3.1 evidence and limits](design/V3.1-naglowek-stopka-hero.md). Reassurance, meetings layout, news, mobile CTA and full Home/shared-shell reviews remain in V3.
 - Application location: **repository root** (`src/`, `public/`), not `web/`.
 - Package manager: npm. Stack: React 18 + TypeScript 5.9 + Vite 8, Tailwind 3, react-router-dom 7, i18next.
 - `public/assets/` (hero board image) and `reference/legacy-site/` (old site) now exist.
