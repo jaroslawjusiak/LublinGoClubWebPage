@@ -65,4 +65,3 @@ A real club photograph is preferable for About; do not fabricate members or even
 - https://learn.chatgpt.com/docs/build-skills
 - https://learn.chatgpt.com/docs/extend/mcp?surface=cli
 - https://github.com/microsoft/playwright-mcp
-

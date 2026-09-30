@@ -76,7 +76,7 @@ recovery/remaining-work notes in `docs/RECOVERY_AND_REMAINING_WORK.md`.
   including old OpenCode skill guidance. Architecture and functional boundaries remain locked.
 - Use project skills in `.agents/skills/`; agent definitions and setup are in `.codex/`.
 - Podczas wdrażania planu „Papier i goban” główny Codex pełni
-rolę orkiestratora:
+  rolę orkiestratora:
   - Deleguj kolejne etapy implementacji do frontend_implementer.
   - Każde zadanie określ przez zakres, referencje i kryteria odbioru.
   - Zlecaj ocenę wyglądu visual_reviewer, a kontrolę regresji
@@ -92,4 +92,3 @@ rolę orkiestratora:
 - Keep model and Playwright settings inherited from the maintainer's local config.
 - This setup does not itself request website implementation, deployment or data mutations;
   execute only the stage assigned in the user's next task.
-

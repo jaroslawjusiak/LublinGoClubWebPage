@@ -1,6 +1,6 @@
 ---
 name: accessibility-wcag
-description: "Implement or review LKG UI accessibility during the redesign: keyboard navigation, focus, landmarks, menu, FAQ, images, contrast, reflow and admin form feedback."
+description: 'Implement or review LKG UI accessibility during the redesign: keyboard navigation, focus, landmarks, menu, FAQ, images, contrast, reflow and admin form feedback.'
 ---
 
 # Accessibility
@@ -24,5 +24,3 @@ description: "Implement or review LKG UI accessibility during the redesign: keyb
 
 Record concrete findings with route, state and evidence. Coordinate browser ownership
 through browser-visual-verification. Do not change application code when reviewing.
-
-

@@ -32,18 +32,18 @@ Treści z makiety nie zastępują istniejących tłumaczeń. Skrócone etykiety 
 
 ### 3.1 Kolory
 
-| Token semantyczny | Wartość początkowa | Rola |
-|---|---|---|
-| paper | #F6F1E7 | Tło strony |
-| surface | #FFFCF7 | Jasne powierzchnie kart i formularzy |
-| sand | #E9DDC9 | Pas informacji, panel spotkań |
-| ink | #252824 | Podstawowy tekst |
-| muted-text | #596158 | Tekst pomocniczy |
-| border | #CFC7B8 | Separatory dekoracyjne |
-| brand | #29483F | Przyciski główne, stopka |
-| brand-hover | #203A32 | Hover głównego przycisku |
-| accent | #B34C38 | Mały akcent czerwony |
-| on-brand | #FFF9EF | Tekst na ciemnym tle |
+| Token semantyczny | Wartość początkowa | Rola                                 |
+| ----------------- | ------------------ | ------------------------------------ |
+| paper             | #F6F1E7            | Tło strony                           |
+| surface           | #FFFCF7            | Jasne powierzchnie kart i formularzy |
+| sand              | #E9DDC9            | Pas informacji, panel spotkań        |
+| ink               | #252824            | Podstawowy tekst                     |
+| muted-text        | #596158            | Tekst pomocniczy                     |
+| border            | #CFC7B8            | Separatory dekoracyjne               |
+| brand             | #29483F            | Przyciski główne, stopka             |
+| brand-hover       | #203A32            | Hover głównego przycisku             |
+| accent            | #B34C38            | Mały akcent czerwony                 |
+| on-brand          | #FFF9EF            | Tekst na ciemnym tle                 |
 
 Wartości są startowe; przed użyciem sprawdzić kontrast konkretnych par. Minimum 4,5:1 dla zwykłego tekstu, 3:1 dla dużego tekstu oraz wymagających tego elementów interfejsu. Dekoracyjny border nie jest automatycznie wystarczającym obrysem inputu. Error/success/warning mają osobne semantyczne style i etykiety; nie przekolorowywać błędów na zieleń marki.
 
@@ -53,15 +53,15 @@ Obecne `kaya` nie powinno dalej oznaczać jednocześnie marki, focusu i czerwone
 
 Propozycja do makiety i prototypu: **Noto Serif** dla publicznych nagłówków oraz **Noto Sans** dla treści, nawigacji i panelu administratora. Przed zatwierdzeniem fontów sprawdzić rzeczywiste pliki, licencję, polskie znaki i ukraińską cyrylicę; nie oceniać wyłącznie łacińskiego nagłówka. Wariant alternatywny: wszystkie teksty w dopracowanym sans, jeśli właściciel uzna serif za zbyt formalny.
 
-| Styl | Desktop | Telefon | Grubość / interlinia |
-|---|---|---|---|
-| Hero | 56–64 px | 36–42 px | Serif 500–600 / 1,10 |
+| Styl         | Desktop  | Telefon  | Grubość / interlinia |
+| ------------ | -------- | -------- | -------------------- |
+| Hero         | 56–64 px | 36–42 px | Serif 500–600 / 1,10 |
 | H1 podstrony | 44–48 px | 32–36 px | Serif 500–600 / 1,15 |
-| H2 | 32–36 px | 26–30 px | Serif 500–600 / 1,20 |
-| H3 | 20–24 px | 20–22 px | Sans 600 / 1,30 |
-| Lead | 18–20 px | 18 px | Sans 400 / 1,55 |
-| Body | 16–18 px | 16 px | Sans 400 / 1,65 |
-| Meta | 14 px | 14 px | Sans 400–500 / 1,45 |
+| H2           | 32–36 px | 26–30 px | Serif 500–600 / 1,20 |
+| H3           | 20–24 px | 20–22 px | Sans 600 / 1,30      |
+| Lead         | 18–20 px | 18 px    | Sans 400 / 1,55      |
+| Body         | 16–18 px | 16 px    | Sans 400 / 1,65      |
+| Meta         | 14 px    | 14 px    | Sans 400–500 / 1,45  |
 
 Użyć płynnych rozmiarów tam, gdzie ma to sens; tekstu nie zmniejszać w celu ukrycia błędów układu. Akapity ograniczyć do około 60–70 znaków w wierszu. Nie wymuszać łamania polskiego tytułu znacznikiem `<br>` wspólnym dla wszystkich języków. Wąska kolumna i `text-wrap: balance` mogą zapewnić podobny efekt.
 
@@ -125,16 +125,16 @@ Sprawdzić istniejący komponent przed zmianą. Jeśli pasek jest sticky/fixed: 
 
 ## 5. Podstrony i panel
 
-| Widok / plik | Wymagana zmiana | Zachowanie do ochrony |
-|---|---|---|
-| `OKlubiePage.tsx` | Spójny PageIntro; opis i zdjęcie w dwóch kolumnach, lekkie zaproszenie | Bez wymyślania historii, członków i osiągnięć |
-| `ZacznijPage.tsx` | Nowy PageIntro, uporządkowane sekcje zasad, kroki i FAQ | Kolejność instrukcji, działanie accordionu i dostępne nazwy |
-| `RulesSection.tsx` | Spójne ramki i odstępy diagramów; proporcje obrazów zachowane | Czytelność siatki i poprawność przykładów; nie zastępować ich generowanymi diagramami |
-| `AktualnosciPage.tsx`, `NewsFeed.tsx`, `NewsPostCard.tsx` | Wspólne karty i stany, estetyczne wpisy z obrazem i bez | Dane, daty, cała istniejąca treść i zachowanie obrazów |
-| `KontaktPage.tsx` | PageIntro, kanały kontaktu w czytelnym układzie, wspólna sekcja spotkań | Fakty i osoby tylko z konfiguracji, brak nowego formularza |
-| `PrivacyPage.tsx` | Wąska kolumna tekstu, hierarchia i listy | Pełna treść, czytelne linki |
-| `NotFoundPage.tsx` | Mały motyw planszy, czytelna akcja powrotu | Prawidłowy lokalizowany link |
-| `AdminPage.tsx` i `components/admin/*` | Kolory, typografia sans, inputs, odstępy, focus, statusy, przyciski | Logowanie, uprawnienia, edycja, publikacja, upload, błędy, potwierdzenia |
+| Widok / plik                                              | Wymagana zmiana                                                         | Zachowanie do ochrony                                                                 |
+| --------------------------------------------------------- | ----------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| `OKlubiePage.tsx`                                         | Spójny PageIntro; opis i zdjęcie w dwóch kolumnach, lekkie zaproszenie  | Bez wymyślania historii, członków i osiągnięć                                         |
+| `ZacznijPage.tsx`                                         | Nowy PageIntro, uporządkowane sekcje zasad, kroki i FAQ                 | Kolejność instrukcji, działanie accordionu i dostępne nazwy                           |
+| `RulesSection.tsx`                                        | Spójne ramki i odstępy diagramów; proporcje obrazów zachowane           | Czytelność siatki i poprawność przykładów; nie zastępować ich generowanymi diagramami |
+| `AktualnosciPage.tsx`, `NewsFeed.tsx`, `NewsPostCard.tsx` | Wspólne karty i stany, estetyczne wpisy z obrazem i bez                 | Dane, daty, cała istniejąca treść i zachowanie obrazów                                |
+| `KontaktPage.tsx`                                         | PageIntro, kanały kontaktu w czytelnym układzie, wspólna sekcja spotkań | Fakty i osoby tylko z konfiguracji, brak nowego formularza                            |
+| `PrivacyPage.tsx`                                         | Wąska kolumna tekstu, hierarchia i listy                                | Pełna treść, czytelne linki                                                           |
+| `NotFoundPage.tsx`                                        | Mały motyw planszy, czytelna akcja powrotu                              | Prawidłowy lokalizowany link                                                          |
+| `AdminPage.tsx` i `components/admin/*`                    | Kolory, typografia sans, inputs, odstępy, focus, statusy, przyciski     | Logowanie, uprawnienia, edycja, publikacja, upload, błędy, potwierdzenia              |
 
 Na O klubie preferowane jest prawdziwe zdjęcie spotkania dostarczone przez właściciela. Bez niego zastosować kadr samego sprzętu lub kompozycję typograficzną; nie przedstawiać wygenerowanych ludzi jako członków klubu. Brak zdjęcia nie może pozostawiać dziury w layoucie.
 
@@ -154,16 +154,16 @@ Docelowe foldery: `public/assets/brand/`, `public/assets/hero/`, opcjonalnie `pu
 
 ## 7. Mapa techniczna
 
-| Obszar | Pliki / zadanie |
-|---|---|
-| System stylów | `tailwind.config.js`, `src/styles/global.css`: tokeny, fonty, skala, focus, ograniczenie szerokości |
-| Primitives | `src/components/primitives.tsx`: Container, Section z jawnymi wariantami, Button ze wspólną wysokością/paddingiem, Card/Chip/SmartImage |
-| Marka | Nowy mały `BrandMark.tsx`, opcjonalnie `PageIntro.tsx`; bez nadmiernej abstrakcji |
-| Otoczka | `Header.tsx`, `Footer.tsx`, `LanguageSwitcher.tsx`, `MobileMenu.tsx`, `MobileCta.tsx` |
-| Główna | `HomePage.tsx`, `MeetingSection.tsx`, komponenty aktualności |
-| Podstrony | Pliki wymienione w sekcji 5 |
-| Tłumaczenia | `src/i18n/locales/{pl,en,uk}/translation.json`: tylko potrzebne nowe klucze, pełny parytet |
-| Dokumentacja | `AGENTS.md`, `docs/ULTIMATE_IMPLEMENTATION_PLAN.md`, status wdrożenia i plan wizualny |
+| Obszar        | Pliki / zadanie                                                                                                                         |
+| ------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| System stylów | `tailwind.config.js`, `src/styles/global.css`: tokeny, fonty, skala, focus, ograniczenie szerokości                                     |
+| Primitives    | `src/components/primitives.tsx`: Container, Section z jawnymi wariantami, Button ze wspólną wysokością/paddingiem, Card/Chip/SmartImage |
+| Marka         | Nowy mały `BrandMark.tsx`, opcjonalnie `PageIntro.tsx`; bez nadmiernej abstrakcji                                                       |
+| Otoczka       | `Header.tsx`, `Footer.tsx`, `LanguageSwitcher.tsx`, `MobileMenu.tsx`, `MobileCta.tsx`                                                   |
+| Główna        | `HomePage.tsx`, `MeetingSection.tsx`, komponenty aktualności                                                                            |
+| Podstrony     | Pliki wymienione w sekcji 5                                                                                                             |
+| Tłumaczenia   | `src/i18n/locales/{pl,en,uk}/translation.json`: tylko potrzebne nowe klucze, pełny parytet                                              |
+| Dokumentacja  | `AGENTS.md`, `docs/ULTIMATE_IMPLEMENTATION_PLAN.md`, status wdrożenia i plan wizualny                                                   |
 
 Obecne Section łączy `py-16` z klasami przekazywanymi przez rodzica. Nie zakładać, że kolejność stringów Tailwinda rozstrzyga konflikt. Wprowadzić jednoznaczne warianty spacingu i usuwać konkurujące utilities w miejscach użycia. Podobnie uporządkować Container, który obecnie bywa zastępowany lokalną szerokością nagłówka i stopki.
 

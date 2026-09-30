@@ -1,6 +1,6 @@
 ---
 name: club-data-source-of-truth
-description: "Render LKG meeting details, social links, people and navigation during redesign without inventing or duplicating facts. Use for Home, MeetingSection, Contact, Header and Footer."
+description: 'Render LKG meeting details, social links, people and navigation during redesign without inventing or duplicating facts. Use for Home, MeetingSection, Contact, Header and Footer.'
 ---
 
 # Club facts
@@ -22,5 +22,3 @@ Read the actual owners before changing their presentation:
 
 Check that Home, Contact and Footer agree after changes. Changing presentation does
 not authorize editing club facts or production content.
-
-

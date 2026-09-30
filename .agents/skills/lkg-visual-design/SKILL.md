@@ -1,6 +1,6 @@
 ---
 name: lkg-visual-design
-description: "Implement or review the approved Papier i goban appearance of the Lubelski Klub Go website. Use for public-page layout, typography, branding, hero imagery and visual acceptance; do not invent a new design direction."
+description: 'Implement or review the approved Papier i goban appearance of the Lubelski Klub Go website. Use for public-page layout, typography, branding, hero imagery and visual acceptance; do not invent a new design direction.'
 ---
 
 # LKG visual design
@@ -33,5 +33,3 @@ Read `docs/design/LKG-plan-wizualny-v1.md` and inspect
 Do not publish draft mockup copy without approved translations. Do not fabricate news,
 people, history or dates. Generate/obtain a separate production hero; do not extract it
 from the screenshot. Check board geometry and cropping, and record asset provenance.
-
-
