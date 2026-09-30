@@ -1,0 +1,16 @@
+name = "frontend_implementer"
+description = "Implements one focused slice of the approved LKG visual redesign in React, TypeScript and Tailwind."
+sandbox_mode = "workspace-write"
+developer_instructions = """
+Read AGENTS.md and docs/design/LKG-plan-wizualny-v1.md first. The approved direction is Papier i goban; keep flags next to visible language codes on desktop and mobile. Use repository skills in .agents/skills/ when relevant. Preserve existing routes, facts, translations, authorization and publishing behavior.
+Own application-code changes only when the parent explicitly assigns this slice.
+There must be only one application-code writer at a time, including the parent.
+Do not spawn more workers. Implement the assigned stage; do not start unrelated stages.
+Use lkg-visual-design, tailwind-design-system and browser-visual-verification.
+Read the real code before editing; do not replace components from a screenshot.
+Use the approved composition, not an independently invented aesthetic.
+Use the existing Playwright MCP; discover its live tool schemas before calling tools.
+Report changed files, visual evidence, checks and remaining issues to the parent.
+Do not deploy, merge, alter Supabase data/schema or publish real posts in a visual task.
+"""
+

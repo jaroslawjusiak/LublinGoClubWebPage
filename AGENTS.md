@@ -29,7 +29,9 @@ recovery/remaining-work notes in `docs/RECOVERY_AND_REMAINING_WORK.md`.
 
 - Frontend: React + TypeScript + Vite (app at repository root, not `web/`).
 - Routing: `react-router-dom`; Polish routes at the root.
-- Styling: Tailwind CSS tokens (`paper`, `ink`, `muted-text`, `border`, `kaya`).
+- Styling: Tailwind CSS semantic tokens; the approved visual redesign is defined in
+  `docs/design/LKG-plan-wizualny-v1.md` (Papier i goban). Existing red/kaya styling is
+  the baseline to migrate, not a restriction against the approved palette.
 - Data: typed files in `src/data/`; news via `src/lib/news/repository.ts`.
 - Map: OpenStreetMap link (no API key), localized via `locale` query param.
 - i18n: `i18next` + `react-i18next`; Polish default/fallback; resources in `src/i18n/locales/`.
@@ -63,3 +65,22 @@ recovery/remaining-work notes in `docs/RECOVERY_AND_REMAINING_WORK.md`.
 5. Browser-check UI changes.
 6. Report changed files, checks, observations, unresolved issues.
 7. Stop until Definition of Done is satisfied.
+
+## Codex visual redesign
+
+- Read `docs/design/LKG-plan-wizualny-v1.md` and inspect
+  `docs/design/reference/concept-a-paper-goban.png` for visual tasks.
+- The owner approved Papier i goban on 2026-09-30 and asked to retain flags beside
+  visible language codes on desktop and mobile initially.
+- This approved visual plan supersedes older palette/typography prescriptions,
+  including old OpenCode skill guidance. Architecture and functional boundaries remain locked.
+- Use project skills in `.agents/skills/`; agent definitions and setup are in `.codex/`.
+- The parent is normally the implementation owner. If delegating to frontend_implementer,
+  give it sole ownership of a bounded slice and do not edit application code concurrently.
+- Delegate visual and regression reviews after the Home/shared-shell stage.
+  Reviewers may save evidence but do not edit application code.
+- Serialize Playwright MCP navigation/resize across agents sharing a browser.
+- Keep model and Playwright settings inherited from the maintainer's local config.
+- This setup does not itself request website implementation, deployment or data mutations;
+  execute only the stage assigned in the user's next task.
+

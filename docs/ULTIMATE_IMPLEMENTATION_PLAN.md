@@ -98,6 +98,15 @@ Sign in
 
 ---
 
+## Approved visual update — 2026-09-30
+
+The owner approved the **Papier i goban** desktop/mobile direction, retaining flags
+beside visible language codes initially. For redesign tasks,
+`docs/design/LKG-plan-wizualny-v1.md` supersedes the original M1-T3 palette and
+typography guidance. Existing functionality and the architecture below remain
+unchanged. The generated concept illustrates composition, not authoritative
+content or a production asset.
+
 ## 2. Locked architecture decisions
 
 These decisions are intentionally locked so the LLM does not make a different architectural choice halfway through the project.
@@ -721,3 +730,4 @@ M7 Governance, deployment and launch acceptance
 A useful early checkpoint is after M3: the project should already be a valuable static website with accurate meeting information, rules, contact details and a populated historical feed even if the admin system is not finished.
 
 The final implementation must be judged not by how many features exist, but by whether the club can keep the site accurate and alive with approximately 15 minutes of volunteer work per week.
+

@@ -1,0 +1,6 @@
+# Project agents inherit the model, permissions and MCP servers from the parent.
+# Playwright MCP is already configured in the maintainer's user config.
+[agents]
+enabled = true
+max_concurrent_threads_per_session = 2
+
