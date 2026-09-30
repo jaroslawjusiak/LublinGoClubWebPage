@@ -13,6 +13,12 @@ The target is a welcoming front door: a newcomer on a phone can discover that th
 
 ## Part 1 — Repair the work already started
 
+The approved **Papier i goban visual redesign** is tracked separately in
+[LKG-plan-wizualny-v1.md](design/LKG-plan-wizualny-v1.md).
+V3.1 is complete; V3.2 and later visual stages remain. For the 2026-09-30
+session handoff and pending hero correction, start with
+[WZNOWIENIE.md](design/WZNOWIENIE.md).
+
 The existing React/TypeScript/Vite/Tailwind foundation is usable. `npm run check` passed on the baseline (14 tests, lint, typecheck, build), but it does not exercise the essential visitor flows. Four temporary review checks for meeting time on Home, a mounted mobile menu, an actionable news link, and a deliberate unknown-route page all failed. The review checks were removed after the audit; they are not committed tests. Passing the existing check command therefore does **not** mean a page is complete.
 
 Work in the order below. Complete and review each visitor-facing slice before beginning another. Do not mark a task done because its component exists; verify that it is mounted, has real content, and works in a browser at phone and desktop widths.
