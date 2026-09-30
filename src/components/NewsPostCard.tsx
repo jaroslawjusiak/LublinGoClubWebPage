@@ -45,9 +45,16 @@ const NewsPostCard: React.FC<{ post: NewsPost }> = ({ post }) => {
       {post.images.length > 0 ? (
         <div className={`grid gap-2 mb-4 ${post.images.length > 1 ? 'grid-cols-2' : ''}`}>
           {post.images.map((image) => (
-            <div key={image.url} className="aspect-video rounded overflow-hidden bg-gray-200">
+            <a
+              key={image.url}
+              href={image.url}
+              target="_blank"
+              rel="noreferrer noopener"
+              aria-label={image.alt || t('aktualnosci:open_image')}
+              className="block aspect-video rounded overflow-hidden bg-gray-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-kaya/70"
+            >
               <SmartImage src={image.url} alt={image.alt} width={640} height={360} />
-            </div>
+            </a>
           ))}
         </div>
       ) : null}

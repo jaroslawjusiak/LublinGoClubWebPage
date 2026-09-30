@@ -121,6 +121,7 @@
     "edit_post": "Edytuj wpis",
     "list_empty": "Brak wpisów. Kliknij „Nowy wpis”, aby dodać pierwszy.",
     "list_error": "Nie udało się wczytać wpisów.",
+    "retry": "Spróbuj ponownie",
     "edit": "Edytuj",
     "delete": "Usuń",
     "delete_confirm": "Na pewno usunąć ten wpis? Tej operacji nie można cofnąć.",
@@ -150,7 +151,9 @@
     "error_image_type": "Dozwolone są tylko obrazy (JPG, PNG, WebP, GIF).",
     "error_image_size": "Zdjęcie jest za duże (maks. 5 MB).",
     "error_upload": "Nie udało się przesłać zdjęcia.",
-    "error_too_many_images": "Można dodać maksymalnie 4 zdjęcia."
+    "error_too_many_images": "Można dodać maksymalnie 4 zdjęcia.",
+    "error_url_invalid": "Podaj poprawny adres (http:// lub https://).",
+    "cleanup_failed": "Nie udało się usunąć wszystkich zdjęć z magazynu."
   },
   "privacy": {
     "title": "Polityka prywatności",
@@ -193,7 +196,8 @@
     "tag_spotkanie": "Spotkanie",
     "tag_turniej": "Turniej",
     "tag_wydarzenie": "Wydarzenie",
-    "external_link": "Zobacz więcej"
+    "external_link": "Zobacz więcej",
+    "open_image": "Otwórz zdjęcie"
   },
   "notFound": {
     "title": "Nie znaleziono strony",

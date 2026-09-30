@@ -121,6 +121,7 @@
     "edit_post": "Edit post",
     "list_empty": "No posts yet. Click \"New post\" to add the first one.",
     "list_error": "Couldn't load the posts.",
+    "retry": "Retry",
     "edit": "Edit",
     "delete": "Delete",
     "delete_confirm": "Delete this post? This cannot be undone.",
@@ -150,7 +151,9 @@
     "error_image_type": "Only images are allowed (JPG, PNG, WebP, GIF).",
     "error_image_size": "The photo is too large (max 5 MB).",
     "error_upload": "Couldn't upload the photo.",
-    "error_too_many_images": "You can add at most 4 photos."
+    "error_too_many_images": "You can add at most 4 photos.",
+    "error_url_invalid": "Enter a valid http:// or https:// URL.",
+    "cleanup_failed": "Some photos couldn't be removed from storage."
   },
   "privacy": {
     "title": "Privacy policy",
@@ -193,7 +196,8 @@
     "tag_spotkanie": "Meeting",
     "tag_turniej": "Tournament",
     "tag_wydarzenie": "Event",
-    "external_link": "Read more"
+    "external_link": "Read more",
+    "open_image": "Open photo"
   },
   "notFound": {
     "title": "Page not found",

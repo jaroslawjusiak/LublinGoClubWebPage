@@ -1,9 +1,10 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { I18nextProvider } from 'react-i18next';
 import i18n from '../../i18n/config';
 import PostForm from './PostForm';
 import { newsRepository } from '../../lib/news/repository';
+import { removeNewsImages } from '../../lib/supabase/storage';
 import type { NewsPost } from '../../types/data_models';
 
 vi.mock('../../lib/news/repository', () => ({
@@ -52,6 +53,10 @@ const renderForm = (initial?: NewsPost) => {
 
 beforeEach(() => {
   vi.clearAllMocks();
+});
+
+afterEach(() => {
+  vi.restoreAllMocks();
 });
 
 describe('PostForm', () => {
@@ -129,5 +134,56 @@ describe('PostForm', () => {
 
     expect(screen.getByRole('button', { name: 'Zapisz szkic' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Opublikuj' })).toBeInTheDocument();
+  });
+
+  it('rejects an invalid optional link and does not save', async () => {
+    renderForm();
+
+    fireEvent.change(screen.getByLabelText('Tytuł'), { target: { value: 'Tytuł' } });
+    fireEvent.change(screen.getByLabelText('Treść'), { target: { value: 'Treść' } });
+    fireEvent.change(screen.getByLabelText('Link (opcjonalnie)'), {
+      target: { value: 'nie-jest-adresem' },
+    });
+    fireEvent.click(screen.getByRole('button', { name: 'Opublikuj' }));
+
+    await waitFor(() => expect(screen.getByText(/poprawny adres/)).toBeInTheDocument());
+    expect(newsRepository.create).not.toHaveBeenCalled();
+  });
+
+  it('removes discarded original photos only after a successful save', async () => {
+    vi.mocked(newsRepository.update).mockResolvedValue(publishedPost);
+    const withImages = {
+      ...publishedPost,
+      images: [
+        { url: 'https://example.com/1.jpg', alt: '' },
+        { url: 'https://example.com/2.jpg', alt: '' },
+      ],
+    };
+    const { form } = renderForm(withImages);
+
+    fireEvent.click(screen.getByRole('button', { name: 'Usuń zdjęcie 1' }));
+    fireEvent.submit(form);
+
+    await waitFor(() => expect(newsRepository.update).toHaveBeenCalled());
+    await waitFor(() =>
+      expect(removeNewsImages).toHaveBeenCalledWith(['https://example.com/1.jpg']),
+    );
+  });
+
+  it('delete removes the post and every stored image', async () => {
+    vi.mocked(newsRepository.remove).mockResolvedValue(undefined);
+    vi.spyOn(window, 'confirm').mockReturnValue(true);
+    const withImages = {
+      ...draftPost,
+      images: [{ url: 'https://example.com/1.jpg', alt: '' }],
+    };
+    renderForm(withImages);
+
+    fireEvent.click(screen.getByRole('button', { name: 'Usuń' }));
+
+    await waitFor(() => expect(newsRepository.remove).toHaveBeenCalledWith('draft-1'));
+    await waitFor(() =>
+      expect(removeNewsImages).toHaveBeenCalledWith(['https://example.com/1.jpg']),
+    );
   });
 });

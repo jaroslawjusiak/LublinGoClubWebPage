@@ -67,28 +67,55 @@ public registration flow is needed; only the allowlisted accounts may publish.
 
 ## 7. Verify the security boundary
 
-Run these against the database (SQL editor or `supabase db`), or via the API with
-the anon key. They must behave exactly as described.
+RLS is the boundary, so verify it with the roles the app actually uses — **not** as the
+SQL-editor `postgres` user, which bypasses row-level security and would make every check
+look open. Two equivalent, reproducible approaches:
+
+### A. Role impersonation in the SQL editor
+
+Use `set local role` + `set local request.jwt.claims` so each statement runs as the real
+role. `auth.uid()` (used by `is_admin()`) reads the `sub` claim you set. Replace the
+placeholder uids with real ones: a normal user, and a user whose `id` is in `public.admins`.
 
 ```sql
--- Anonymous read of published posts succeeds:
-select * from posts where published = true;   -- returns rows
-
--- Anonymous read of unpublished posts must be empty:
-select * from posts where published = false;  -- 0 rows
-
--- Anonymous write must fail (RLS blocks insert):
+-- 1) ANONYMOUS — what the public feed uses
+set local role anon;
+set local request.jwt.claims = '{}';
+select count(*) from posts where published = true;   -- > 0 (published visible)
+select count(*) from posts where published = false;  -- 0 (drafts hidden)
 insert into posts (title, published_at, published) values ('x', now(), true);
--- → error: new row violates row-level security policy
+-- → ERROR: new row violates row-level security policy
+reset role;
+
+-- 2) AUTHENTICATED, but NOT allowlisted
+set local role authenticated;
+set local request.jwt.claims = '{"sub":"<non-admin-auth-uid>"}';
+insert into posts (title, published_at, published) values ('x', now(), true);
+-- → ERROR (not an admin)
+reset role;
+
+-- 3) AUTHENTICATED, allowlisted admin
+set local role authenticated;
+set local request.jwt.claims = '{"sub":"<admin-auth-uid>"}';
+insert into posts (title, published_at, published) values ('x', now(), true); -- succeeds
+update posts set title = 'y' where id = '<inserted-id>';                       -- succeeds
+delete from posts where id = '<inserted-id>';                                   -- succeeds
+reset role;
 ```
 
-For an authenticated non-admin and an allowlisted admin, use two test sessions
-(one signed in as a normal user, one whose `auth.uid()` is in `admins`):
+Storage policies are checked the same way: as `anon`, an `insert`/`delete` on
+`storage.objects` for `bucket_id = 'news-images'` is rejected; as an admin
+`authenticated` role it succeeds.
 
-- Non-admin `insert/update/delete` on `posts` → fails.
-- Admin `insert/update/delete` → succeeds.
-- Non-admin upload to `news-images` bucket → rejected.
-- Admin upload → succeeds and the object is publicly readable by URL.
+### B. Real API sessions (most representative)
 
-These checks exercise the RLS/storage policies directly — the UI hiding buttons is
+Use the anon key for anonymous reads and real JWTs for authenticated users:
+
+- **Anonymous** — query published posts through the PostgREST endpoint with the anon key.
+- **Non-admin** — sign in as a normal user, use their access token to `insert` on `posts`
+  → `42501` (row-level security) is returned.
+- **Admin** — sign in as an allowlisted user; `insert`/`update`/`delete` on `posts` and
+  uploads to `news-images` succeed, and the uploaded object is publicly readable by URL.
+
+These checks exercise the RLS/storage policies directly — hiding buttons in the UI is
 not the security boundary.

@@ -8,19 +8,34 @@ import type { NewsImage } from '../../types/data_models';
 interface ImagePickerProps {
   images: NewsImage[];
   onChange: (images: NewsImage[]) => void;
+  /** Called once per newly persisted upload so the form can track session files. */
+  onUpload: (url: string) => void;
+  /** Called when an upload starts/ends so the form can disable conflicting actions. */
+  onUploadingChange: (uploading: boolean) => void;
 }
 
 /**
  * Mobile-friendly photo picker: select up to four photos, validate/compress
- * each, upload immediately, and preview with remove controls. Each photo also
- * has an alternative-text field for screen readers. Removed photos are deleted
- * from storage to avoid orphans.
+ * each and upload immediately, then preview with a remove control and an
+ * alternative-text field. The picker never deletes from Storage on its own —
+ * the owning form decides when persisted photos are discarded, so cancelling
+ * or a failed save never leaves the database pointing at a deleted file.
  */
-const ImagePicker: React.FC<ImagePickerProps> = ({ images, onChange }) => {
+const ImagePicker: React.FC<ImagePickerProps> = ({
+  images,
+  onChange,
+  onUpload,
+  onUploadingChange,
+}) => {
   const { t } = useTranslation();
   const inputRef = useRef<HTMLInputElement>(null);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const setUploadingState = (value: boolean) => {
+    setUploading(value);
+    onUploadingChange(value);
+  };
 
   const handleFiles = async (fileList: FileList) => {
     const selected = Array.from(fileList);
@@ -32,7 +47,7 @@ const ImagePicker: React.FC<ImagePickerProps> = ({ images, onChange }) => {
     }
 
     const uploaded: NewsImage[] = [];
-    setUploading(true);
+    setUploadingState(true);
     try {
       for (const file of selected) {
         const validation = validateImage(file);
@@ -42,20 +57,23 @@ const ImagePicker: React.FC<ImagePickerProps> = ({ images, onChange }) => {
         const url = await uploadNewsImage(compressed);
         uploaded.push({ url, alt: '' });
       }
+      for (const image of uploaded) onUpload(image.url);
+      // `images` is stable during the upload: every mutating control (add/remove/
+      // alt) is disabled while `uploading` is true, so this appends safely.
       onChange([...images, ...uploaded]);
     } catch (err) {
-      await Promise.all(uploaded.map((image) => removeNewsImage(image.url)));
+      // Roll back the partial uploads from this attempt (best-effort).
+      await Promise.allSettled(uploaded.map((image) => removeNewsImage(image.url)));
       setError(err instanceof Error ? err.message : t('admin:error_upload'));
     } finally {
-      setUploading(false);
+      setUploadingState(false);
       if (inputRef.current) inputRef.current.value = '';
     }
   };
 
-  const handleRemove = async (index: number) => {
-    const image = images[index];
+  const handleRemove = (index: number) => {
+    // Deletion is deferred to the form's save/delete/cancel flow.
     onChange(images.filter((_, i) => i !== index));
-    await removeNewsImage(image.url);
   };
 
   const handleAltChange = (index: number, alt: string) => {
@@ -84,9 +102,10 @@ const ImagePicker: React.FC<ImagePickerProps> = ({ images, onChange }) => {
                 <img src={image.url} alt={image.alt} className="w-full h-full object-cover" />
                 <button
                   type="button"
-                  onClick={() => void handleRemove(index)}
+                  onClick={() => handleRemove(index)}
+                  disabled={uploading}
                   aria-label={`${t('admin:remove_photo')} ${index + 1}`}
-                  className="absolute top-1 right-1 w-7 h-7 rounded-full bg-ink/70 text-white text-sm leading-none flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-kaya"
+                  className="absolute top-1 right-1 w-7 h-7 rounded-full bg-ink/70 text-white text-sm leading-none flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-kaya disabled:opacity-50"
                 >
                   ×
                 </button>
@@ -100,8 +119,9 @@ const ImagePicker: React.FC<ImagePickerProps> = ({ images, onChange }) => {
                   type="text"
                   value={image.alt}
                   onChange={(e) => handleAltChange(index, e.target.value)}
+                  disabled={uploading}
                   placeholder={t('admin:alt_placeholder')}
-                  className="w-full rounded border border-border px-2 py-1 text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-kaya/70"
+                  className="w-full rounded border border-border px-2 py-1 text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-kaya/70 disabled:opacity-50"
                 />
               </div>
             </li>

@@ -53,6 +53,12 @@ const AdminPage: React.FC = () => {
     setReloadKey((key) => key + 1);
   };
 
+  const retryList = () => {
+    setPosts(null);
+    setPostsError(null);
+    setReloadKey((key) => key + 1);
+  };
+
   return (
     <Section id="admin">
       <Container className="max-w-3xl">
@@ -86,12 +92,15 @@ const AdminPage: React.FC = () => {
               </Button>
             </div>
 
-            {posts === null ? (
+            {postsError ? (
+              <div role="alert" className="text-red-700">
+                <p>{postsError}</p>
+                <Button onClick={retryList} variant="secondary" className="mt-3 py-2 px-4">
+                  {t('admin:retry')}
+                </Button>
+              </div>
+            ) : posts === null ? (
               <p className="text-muted-text">{t('admin:loading')}</p>
-            ) : postsError ? (
-              <p role="alert" className="text-red-700">
-                {postsError}
-              </p>
             ) : (
               <PostList
                 posts={posts}

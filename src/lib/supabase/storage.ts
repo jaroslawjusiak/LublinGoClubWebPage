@@ -4,6 +4,10 @@ import { getSupabaseClient } from './client';
 
 export const NEWS_IMAGES_BUCKET = 'news-images';
 
+// Supabase reports a missing object as an error; treat it as a successful no-op
+// so idempotent cleanup (e.g. a retried delete) does not fail spuriously.
+const NOT_FOUND_PATTERN = /not found|does not exist|no such (object|key)|404/i;
+
 /**
  * Extracts the object path from a Supabase public URL, or `null` for URLs not
  * from this bucket. Pure, so it is unit-testable.
@@ -39,16 +43,31 @@ export async function uploadNewsImage(file: Blob): Promise<string> {
   return data.publicUrl;
 }
 
-/** Removes a single stored image by its public URL (best-effort, no throw). */
+/**
+ * Removes a single stored image by its public URL. Throws on a real removal
+ * failure, but treats a missing object as a no-op so cleanup can be retried.
+ * URLs that are not from this bucket (or an unconfigured client) are skipped.
+ */
 export async function removeNewsImage(url: string): Promise<void> {
   const client = getSupabaseClient();
   if (!client) return;
   const path = objectPathFromUrl(url);
   if (!path) return;
-  await client.storage.from(NEWS_IMAGES_BUCKET).remove([path]);
+  const { error } = await client.storage.from(NEWS_IMAGES_BUCKET).remove([path]);
+  if (error && !NOT_FOUND_PATTERN.test(error.message)) {
+    throw new Error(`Failed to remove image: ${error.message}`);
+  }
 }
 
-/** Removes several stored images (used on post delete / failed edits). */
+/**
+ * Removes several stored images. Attempts every URL and throws an aggregated
+ * error if any removal genuinely failed (so callers can report it instead of
+ * silently losing the failure).
+ */
 export async function removeNewsImages(urls: string[]): Promise<void> {
-  await Promise.all(urls.map((url) => removeNewsImage(url)));
+  const results = await Promise.allSettled(urls.map((url) => removeNewsImage(url)));
+  const failures = results.filter((r): r is PromiseRejectedResult => r.status === 'rejected');
+  if (failures.length > 0) {
+    throw new Error(`Failed to remove ${failures.length} image(s) from storage.`);
+  }
 }

@@ -49,6 +49,29 @@ describe('NewsPostCard', () => {
     expect(img).toHaveAttribute('src', 'https://example.com/board.jpg');
   });
 
+  it('links each image to open the full version', () => {
+    renderCard({
+      ...base,
+      images: [{ url: 'https://example.com/board.jpg', alt: 'Dwóch graczy przy planszy' }],
+    });
+
+    const link = screen.getByRole('link', { name: 'Dwóch graczy przy planszy' });
+    expect(link).toHaveAttribute('href', 'https://example.com/board.jpg');
+    expect(link).toHaveAttribute('target', '_blank');
+  });
+
+  it('gives a decorative image an accessible "open photo" link', () => {
+    renderCard({
+      ...base,
+      images: [{ url: 'https://example.com/board.jpg', alt: '' }],
+    });
+
+    expect(screen.getByRole('link', { name: 'Otwórz zdjęcie' })).toHaveAttribute(
+      'href',
+      'https://example.com/board.jpg',
+    );
+  });
+
   it('renders an external link only when present', () => {
     renderCard({ ...base, externalUrl: 'https://board.example.com/t' });
     expect(screen.getByRole('link', { name: 'Zobacz więcej' })).toHaveAttribute(

@@ -1,6 +1,6 @@
 # Lubelski Klub Go - Implementation Status Checklist
 
-**Created:** 2026-09-20 · **Last updated:** 2026-09-30 (per-image alt persistence, typography scale, QA checklists, weekday i18n)
+**Created:** 2026-09-20 · **Last updated:** 2026-09-30 (code-review fixes: image lifecycle, admin retry, URL validation, photo viewing, RLS guide)
 **Purpose:** Single, honest snapshot of what is done vs. missing, measured against
 `docs/ULTIMATE_IMPLEMENTATION_PLAN.md` and the actual code in this repository.
 
@@ -18,7 +18,7 @@
 
 ## Repository snapshot (verified 2026-09-30)
 
-- Build gate: **green** - lint clean, `tsc --noEmit` clean, **86/86 tests pass**, `vite build` succeeds.
+- Build gate: **green** - lint clean, `tsc --noEmit` clean, **101/101 tests pass**, `vite build` succeeds.
 - Application location: **repository root** (`src/`, `public/`), not `web/`.
 - Package manager: npm. Stack: React 18 + TypeScript 5.9 + Vite 8, Tailwind 3, react-router-dom 7, i18next.
 - `public/assets/` (hero board image) and `reference/legacy-site/` (old site) now exist.
@@ -34,6 +34,11 @@
 - A semantic typography scale (`display`/`h1`/`h2`/`h3`/`body`/`caption`) is defined in
   `tailwind.config.js` and applied as `@layer base` defaults.
 - QA gate checklists written: `docs/qa-public-pages.md`, `docs/qa-news.md`, `docs/qa-admin.md`.
+- Code-review defects fixed (with regression tests): deferred photo deletion (save/delete/cancel
+  coordinated via session uploads), upload state shared with the form, storage deletion errors
+  surfaced with distinct cleanup-failure messaging, admin list error + retry, optional-link URL
+  validation, full-image links on news cards, and a corrected RLS verification guide in
+  `docs/ADMIN_SETUP.md` §7.
 
 ---
 
@@ -43,7 +48,7 @@
       root-level app (no more `web/` / non-existent `reference/` claims).
 - [x] **M0-T2 Scaffold/normalize the React app** - dev server and production build work.
 - [x] **M0-T3 Quality tooling** - `check`/`lint`/`format:check`/`typecheck`/`test`/`build` all work
-      (86 tests); Prettier added (`.prettierrc.json`, `format`/`format:check`).
+      (101 tests); Prettier added (`.prettierrc.json`, `format`/`format:check`).
 - [x] **M0-T4 Project instructions for LLM sessions** - root `AGENTS.md` + setup `README.md`.
 - [x] **M0-T5 Vendor the legacy site** - `reference/legacy-site/` holds the old HTML, CSS, logo,
       poster, rules diagrams and event photos, plus a provenance/consent note.
@@ -179,7 +184,7 @@ post's status; the public feed still shows only published posts (RLS + `listPubl
 - [x] **Admin list** - shows "Szkic" / "Opublikowany" per post.
 - [x] **i18n** - PL/EN keys (`save_draft`, `publish`, `status_draft`, `status_published`).
 - [x] **Tests** - repository + `PostForm`/`PostList` component tests for save-draft, publish and
-      status preservation on edit (86 tests total).
+      status preservation on edit (101 tests total).
 - [x] **Docs** - `docs/RUNBOOK.md` updated with the draft-vs-publish flow.
 
 ---
