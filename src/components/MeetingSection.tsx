@@ -20,7 +20,7 @@ const MeetingSection: React.FC = () => {
   return (
     <Section id="spotkania" className="bg-gray-50">
       <Container>
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 text-ink">
+        <h2 className="text-3xl md:text-4xl font-medium text-center mb-8 text-ink">
           {t('meeting:heading')}
         </h2>
 
@@ -37,17 +37,17 @@ const MeetingSection: React.FC = () => {
             {meetingInfo.roomNumber} — {meetingInfo.entranceHint}
           </p>
           {clubConfig.isFreeEntry ? (
-            <p className="inline-block mt-2 px-3 py-1 bg-kaya/10 text-kaya font-semibold rounded-full">
+            <p className="inline-block mt-2 px-3 py-1 bg-sand text-brand font-semibold rounded-full">
               {t('meeting:free_entry')}
             </p>
           ) : null}
         </div>
 
         <div className="flex flex-col sm:flex-row justify-center gap-4">
-          <Button href={mapUrl} external variant="secondary" className="py-3 px-6">
+          <Button href={mapUrl} external variant="secondary">
             {t('meeting:map_link')}
           </Button>
-          <Button href={directionsUrl} external variant="primary" className="py-3 px-6">
+          <Button href={directionsUrl} external variant="primary">
             {t('meeting:directions_link')}
           </Button>
         </div>

@@ -82,14 +82,14 @@ const RulesSection: React.FC = () => {
 
   return (
     <div id="zasady" className="max-w-3xl mx-auto mb-16">
-      <h2 className="text-2xl md:text-3xl font-bold mb-4 text-ink">{t('rules:title')}</h2>
+      <h2 className="text-2xl md:text-3xl font-medium mb-4 text-ink">{t('rules:title')}</h2>
       <p className="text-lg text-muted-text mb-8">{t('rules:intro')}</p>
 
       <ol className="space-y-10">
         {ruleSteps.map((step, index) => (
           <li key={step.titleKey}>
             <h3 className="text-xl font-semibold mb-2 text-ink">
-              <span className="text-kaya">{index + 1}.</span> {t(step.titleKey)}
+              <span className="text-accent">{index + 1}.</span> {t(step.titleKey)}
             </h3>
             <p className="text-ink">{t(step.bodyKey)}</p>
             {step.diagram ? (

@@ -26,11 +26,11 @@ const MobileMenu: React.FC = () => {
   }, [isOpen]);
 
   return (
-    <div className="relative md:hidden">
+    <div className="relative min-[1100px]:hidden">
       <button
         type="button"
         onClick={() => setIsOpen((open) => !open)}
-        className="p-2 text-ink hover:bg-gray-100 rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-kaya/70"
+        className="p-2 text-ink hover:bg-gray-100 rounded "
         aria-expanded={isOpen}
         aria-controls="mobile-menu-list"
         aria-label={t('common:menu.toggle')}
@@ -64,7 +64,7 @@ const MobileMenu: React.FC = () => {
                 <Link
                   to={localizePath(item.path, locale)}
                   onClick={close}
-                  className="block py-3 px-2 text-lg font-medium hover:text-kaya rounded transition duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-kaya/70"
+                  className="block py-3 px-2 text-lg font-medium hover:text-brand rounded transition duration-150 "
                 >
                   {t(item.labelKey)}
                 </Link>
@@ -76,7 +76,7 @@ const MobileMenu: React.FC = () => {
               to={localizePath(startCta.path, locale)}
               onClick={close}
               variant="primary"
-              className="w-full py-3"
+              className="w-full"
             >
               {t(startCta.labelKey)}
             </Button>

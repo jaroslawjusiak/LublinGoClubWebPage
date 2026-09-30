@@ -15,7 +15,7 @@ const AktualnosciPage: React.FC = () => {
     <Section id="aktualnosci">
       <Container>
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-extrabold tracking-tight text-ink mb-3">
+          <h1 className="text-4xl font-medium tracking-tight text-ink mb-3">
             {t('aktualnosci:news_heading')}
           </h1>
           <p className="text-xl max-w-3xl mx-auto text-muted-text">

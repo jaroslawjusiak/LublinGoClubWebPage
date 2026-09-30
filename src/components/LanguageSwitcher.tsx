@@ -41,8 +41,8 @@ const LanguageSwitcher: React.FC<{ className?: string }> = ({ className = '' }) 
             to={localizePath(basePath, lang.code)}
             aria-current={active ? 'page' : undefined}
             aria-label={lang.name}
-            className={`inline-flex items-center gap-1.5 text-sm font-medium rounded px-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-kaya/70 ${
-              active ? 'text-kaya font-bold' : 'text-ink hover:text-kaya'
+            className={`inline-flex items-center gap-1.5 text-sm font-medium rounded px-1  ${
+              active ? 'text-brand font-bold' : 'text-ink hover:text-brand'
             }`}
           >
             <span className="inline-block h-3.5 w-5 shrink-0 overflow-hidden rounded-sm border border-border">

@@ -2,14 +2,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Button } from './primitives';
+import { Button, Container } from './primitives';
 import MobileMenu from './MobileMenu';
 import LanguageSwitcher from './LanguageSwitcher';
 import { navItems, startCta } from '../data/site';
 import { useLocale, localizePath } from '../i18n/locale';
 
-const linkClasses =
-  'text-sm hover:text-kaya transition focus:outline-none focus-visible:ring-2 focus-visible:ring-kaya/50 rounded';
+const linkClasses = 'text-sm hover:text-brand transition  rounded';
 
 const Header: React.FC = () => {
   const { t } = useTranslation();
@@ -17,7 +16,7 @@ const Header: React.FC = () => {
 
   return (
     <header className="sticky top-0 z-50 bg-paper shadow-sm border-b">
-      <div className="container mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
+      <Container>
         <div className="flex items-center justify-between py-3">
           <Link
             to={localizePath('/', locale)}
@@ -27,7 +26,7 @@ const Header: React.FC = () => {
           </Link>
 
           <nav
-            className="hidden md:flex space-x-8 items-center"
+            className="hidden min-[1100px]:flex space-x-8 items-center"
             aria-label={t('common:nav_primary')}
           >
             {navItems.map((item) => (
@@ -38,13 +37,13 @@ const Header: React.FC = () => {
           </nav>
 
           <div className="flex items-center gap-2 md:gap-4">
-            <div className="hidden md:block">
+            <div className="hidden min-[1100px]:block">
               <LanguageSwitcher />
             </div>
             <Button
               to={localizePath(startCta.path, locale)}
               variant="primary"
-              className="hidden md:inline-flex py-2 px-4"
+              className="hidden min-[1100px]:inline-flex"
             >
               {t(startCta.labelKey)}
             </Button>
@@ -53,10 +52,10 @@ const Header: React.FC = () => {
         </div>
 
         {/* Mobile: language switcher on its own row so codes always stay visible. */}
-        <div className="md:hidden pb-3">
+        <div className="min-[1100px]:hidden pb-3">
           <LanguageSwitcher />
         </div>
-      </div>
+      </Container>
     </header>
   );
 };

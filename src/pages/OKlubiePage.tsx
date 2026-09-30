@@ -16,22 +16,16 @@ const OKlubiePage: React.FC = () => {
 
   return (
     <Section id="o-klubie">
-      <Container className="max-w-3xl">
-        <h1 className="text-4xl font-extrabold tracking-tight text-ink mb-6">
-          {t('oklubie:title')}
-        </h1>
+      <Container width="reading">
+        <h1 className="text-4xl font-medium tracking-tight text-ink mb-6">{t('oklubie:title')}</h1>
         <p className="text-xl text-muted-text mb-10">{t('oklubie:intro')}</p>
 
-        <h2 className="text-2xl md:text-3xl font-bold mb-4 text-ink">
+        <h2 className="text-2xl md:text-3xl font-medium mb-4 text-ink">
           {t('oklubie:typical_title')}
         </h2>
         <p className="text-lg text-ink mb-10">{t('oklubie:typical_text')}</p>
 
-        <Button
-          to={localizePath('/zacznij', locale)}
-          variant="primary"
-          className="px-6 py-3 text-lg"
-        >
+        <Button to={localizePath('/zacznij', locale)} variant="primary" className="text-lg">
           {t('common:cta_start_button')}
         </Button>
       </Container>

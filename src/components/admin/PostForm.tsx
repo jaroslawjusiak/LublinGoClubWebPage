@@ -180,7 +180,7 @@ const PostForm: React.FC<PostFormProps> = ({ initial, onDone }) => {
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="w-full rounded-md border border-border px-3 py-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-kaya/70"
+              className="w-full rounded-md border border-border-control bg-surface px-3 py-2 "
             />
             {errors.title ? (
               <p role="alert" className="mt-1 text-sm text-red-700">
@@ -198,7 +198,7 @@ const PostForm: React.FC<PostFormProps> = ({ initial, onDone }) => {
               value={body}
               onChange={(e) => setBody(e.target.value)}
               rows={5}
-              className="w-full rounded-md border border-border px-3 py-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-kaya/70"
+              className="w-full rounded-md border border-border-control bg-surface px-3 py-2 "
             />
             {errors.body ? (
               <p role="alert" className="mt-1 text-sm text-red-700">
@@ -217,7 +217,7 @@ const PostForm: React.FC<PostFormProps> = ({ initial, onDone }) => {
                 type="date"
                 value={publishedAt}
                 onChange={(e) => setPublishedAt(e.target.value)}
-                className="w-full rounded-md border border-border px-3 py-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-kaya/70"
+                className="w-full rounded-md border border-border-control bg-surface px-3 py-2 "
               />
               {errors.publishedAt ? (
                 <p role="alert" className="mt-1 text-sm text-red-700">
@@ -234,7 +234,7 @@ const PostForm: React.FC<PostFormProps> = ({ initial, onDone }) => {
                 id="post-tag"
                 value={tag}
                 onChange={(e) => setTag(e.target.value as PostTag | '')}
-                className="w-full rounded-md border border-border px-3 py-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-kaya/70"
+                className="w-full rounded-md border border-border-control bg-surface px-3 py-2 "
               >
                 <option value="">{t('admin:tag_none')}</option>
                 <option value="spotkanie">{t('aktualnosci:tag_spotkanie')}</option>
@@ -254,7 +254,7 @@ const PostForm: React.FC<PostFormProps> = ({ initial, onDone }) => {
               value={externalUrl}
               onChange={(e) => setExternalUrl(e.target.value)}
               placeholder="https://…"
-              className="w-full rounded-md border border-border px-3 py-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-kaya/70"
+              className="w-full rounded-md border border-border-control bg-surface px-3 py-2 "
             />
             {errors.externalUrl ? (
               <p role="alert" className="mt-1 text-sm text-red-700">
@@ -282,17 +282,12 @@ const PostForm: React.FC<PostFormProps> = ({ initial, onDone }) => {
 
         <div className="flex flex-wrap gap-3 mt-8">
           {initial?.published ? (
-            <Button
-              type="submit"
-              variant="primary"
-              disabled={saving || uploading}
-              className="px-6 py-3"
-            >
+            <Button type="submit" variant="primary" disabled={saving || uploading}>
               {saving ? t('admin:saving') : t('admin:save')}
             </Button>
           ) : (
             <>
-              <Button type="submit" disabled={saving || uploading} className="px-6 py-3">
+              <Button type="submit" disabled={saving || uploading}>
                 {saving ? t('admin:saving') : t('admin:save_draft')}
               </Button>
               <Button
@@ -300,18 +295,12 @@ const PostForm: React.FC<PostFormProps> = ({ initial, onDone }) => {
                 onClick={() => void handleSubmit(true)}
                 variant="primary"
                 disabled={saving || uploading}
-                className="px-6 py-3"
               >
                 {t('admin:publish')}
               </Button>
             </>
           )}
-          <Button
-            type="button"
-            onClick={() => void handleCancel()}
-            disabled={saving || uploading}
-            className="px-6 py-3"
-          >
+          <Button type="button" onClick={() => void handleCancel()} disabled={saving || uploading}>
             {t('admin:cancel')}
           </Button>
           {initial ? (
@@ -319,7 +308,8 @@ const PostForm: React.FC<PostFormProps> = ({ initial, onDone }) => {
               type="button"
               onClick={() => void handleDelete()}
               disabled={saving || uploading}
-              className="px-6 py-3 ml-auto bg-red-600 border-red-600 text-white hover:opacity-90"
+              variant="destructive"
+              className="ml-auto"
             >
               {t('admin:delete')}
             </Button>

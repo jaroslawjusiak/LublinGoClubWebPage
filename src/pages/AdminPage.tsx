@@ -61,7 +61,7 @@ const AdminPage: React.FC = () => {
 
   return (
     <Section id="admin">
-      <Container className="max-w-3xl">
+      <Container width="reading">
         {!ready ? (
           <p className="text-muted-text">{t('admin:unconfigured')}</p>
         ) : loading ? (
@@ -70,7 +70,7 @@ const AdminPage: React.FC = () => {
           <div className="text-center py-10">
             <h1 className="text-2xl font-bold mb-4 text-ink">{t('admin:title')}</h1>
             <p className="text-muted-text mb-6">{t('admin:sign_in_prompt')}</p>
-            <Button onClick={() => void signInWithGoogle()} variant="primary" className="px-6 py-3">
+            <Button onClick={() => void signInWithGoogle()} variant="primary">
               {t('admin:sign_in')}
             </Button>
           </div>
@@ -78,7 +78,7 @@ const AdminPage: React.FC = () => {
           <div className="text-center py-10">
             <h1 className="text-2xl font-bold mb-4 text-ink">{t('admin:title')}</h1>
             <p className="text-muted-text mb-6">{t('admin:not_authorized')}</p>
-            <Button onClick={() => void signOut()} variant="secondary" className="px-6 py-3">
+            <Button onClick={() => void signOut()} variant="secondary">
               {t('admin:sign_out')}
             </Button>
           </div>
@@ -87,7 +87,7 @@ const AdminPage: React.FC = () => {
         ) : (
           <>
             <div className="flex justify-end mb-4">
-              <Button onClick={() => void signOut()} variant="secondary" className="py-2 px-4">
+              <Button onClick={() => void signOut()} variant="secondary">
                 {t('admin:sign_out')}
               </Button>
             </div>
@@ -95,7 +95,7 @@ const AdminPage: React.FC = () => {
             {postsError ? (
               <div role="alert" className="text-red-700">
                 <p>{postsError}</p>
-                <Button onClick={retryList} variant="secondary" className="mt-3 py-2 px-4">
+                <Button onClick={retryList} variant="secondary" className="mt-3">
                   {t('admin:retry')}
                 </Button>
               </div>

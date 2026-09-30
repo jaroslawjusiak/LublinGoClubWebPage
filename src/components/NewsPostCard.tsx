@@ -32,7 +32,7 @@ const NewsPostCard: React.FC<{ post: NewsPost }> = ({ post }) => {
           {formattedDate}
         </time>
         {post.tag ? (
-          <span className="text-xs font-semibold uppercase text-kaya">
+          <span className="text-xs font-semibold uppercase text-accent">
             {t(tagLabelKey[post.tag])}
           </span>
         ) : null}
@@ -51,7 +51,7 @@ const NewsPostCard: React.FC<{ post: NewsPost }> = ({ post }) => {
               target="_blank"
               rel="noreferrer noopener"
               aria-label={image.alt || t('aktualnosci:open_image')}
-              className="block aspect-video rounded overflow-hidden bg-gray-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-kaya/70"
+              className="block aspect-video rounded overflow-hidden bg-gray-200 "
             >
               <SmartImage src={image.url} alt={image.alt} width={640} height={360} />
             </a>
@@ -61,7 +61,7 @@ const NewsPostCard: React.FC<{ post: NewsPost }> = ({ post }) => {
 
       {post.externalUrl ? (
         <div className="mt-auto">
-          <Button href={post.externalUrl} external variant="secondary" className="w-full py-2">
+          <Button href={post.externalUrl} external variant="secondary" className="w-full">
             {t('aktualnosci:external_link')}
           </Button>
         </div>

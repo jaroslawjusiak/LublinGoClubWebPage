@@ -6,28 +6,41 @@ import { Link } from 'react-router-dom';
  * @component Container
  * @description Layout primitive: constrains content width and centers it.
  */
-export const Container: React.FC<{ className?: string; children: React.ReactNode }> = ({
-  className = '',
-  children,
-}) => (
-  <div className={`container mx-auto px-4 sm:px-6 lg:px-8 ${className}`.trim()}>{children}</div>
+export const Container: React.FC<{
+  className?: string;
+  width?: 'default' | 'reading';
+  children: React.ReactNode;
+}> = ({ className = '', width = 'default', children }) => (
+  <div
+    className={`mx-auto w-full ${width === 'reading' ? 'max-w-3xl' : 'max-w-[1200px]'} px-4 min-[360px]:px-5 lg:px-8 ${className}`.trim()}
+  >
+    {children}
+  </div>
 );
 
 /**
  * @component Section
  * @description Layout primitive: a major themed section of the page.
  */
-export const Section: React.FC<{ id?: string; className?: string; children: React.ReactNode }> = ({
-  id,
-  className = '',
-  children,
-}) => (
-  <section id={id} className={`py-16 ${className}`.trim()}>
+const sectionSpacing = {
+  default: 'py-10 md:py-16',
+  compact: 'py-8 md:py-12',
+  hero: 'py-12 md:py-16',
+  none: '',
+};
+
+export const Section: React.FC<{
+  id?: string;
+  className?: string;
+  spacing?: keyof typeof sectionSpacing;
+  children: React.ReactNode;
+}> = ({ id, className = '', spacing = 'default', children }) => (
+  <section id={id} className={`${sectionSpacing[spacing]} ${className}`.trim()}>
     {children}
   </section>
 );
 
-type ButtonVariant = 'primary' | 'secondary';
+type ButtonVariant = 'primary' | 'secondary' | 'destructive';
 
 /**
  * UI primitive: button. Renders a react-router `Link` when `to` is provided,
@@ -55,11 +68,13 @@ export const Button: React.FC<{
   disabled = false,
 }) => {
   const baseClasses =
-    'inline-flex items-center justify-center rounded-md border font-medium transition duration-150 ease-in-out shadow-sm focus:outline-none focus-visible:ring-2';
-  const styleClasses =
-    variant === 'primary'
-      ? 'bg-kaya hover:opacity-90 border-kaya text-white focus-visible:ring-kaya/70'
-      : 'bg-paper hover:bg-gray-100 border-border text-ink focus-visible:ring-slate-400/50';
+    'inline-flex min-h-11 items-center justify-center rounded-lg border px-5 py-2.5 font-semibold text-center transition-colors duration-150 ease-in-out disabled:cursor-not-allowed disabled:opacity-50';
+  const variants: Record<ButtonVariant, string> = {
+    primary: 'bg-brand [&:not(:disabled)]:hover:bg-brand-hover border-brand text-on-brand',
+    secondary: 'bg-transparent [&:not(:disabled)]:hover:bg-sand border-brand text-brand',
+    destructive: 'bg-red-700 [&:not(:disabled)]:hover:bg-red-800 border-red-700 text-white',
+  };
+  const styleClasses = variants[variant];
   const classes = `${baseClasses} ${styleClasses} ${className}`.trim();
 
   if (to) {
@@ -95,7 +110,7 @@ export const Button: React.FC<{
  */
 export const Chip: React.FC<{ text: string; className?: string }> = ({ text, className = '' }) => (
   <span
-    className={`inline-flex items-center rounded-full bg-slate-100 px-3 py-0.5 text-xs font-medium text-muted-text ${className}`.trim()}
+    className={`inline-flex items-center rounded-md bg-sand px-3 py-1 text-caption font-medium text-muted-text ${className}`.trim()}
   >
     {text}
   </span>
@@ -108,7 +123,7 @@ export const Card: React.FC<{ className?: string; children: React.ReactNode }> =
   className = '',
   children,
 }) => (
-  <div className={`bg-paper border border-border rounded-lg shadow-sm p-6 ${className}`.trim()}>
+  <div className={`bg-surface border border-border rounded-xl p-6 ${className}`.trim()}>
     {children}
   </div>
 );
@@ -122,13 +137,17 @@ export const SmartImage: React.FC<{
   width?: number;
   height?: number;
   className?: string;
+  srcSet?: string;
+  sizes?: string;
   loadingStrategy?: 'lazy' | 'eager';
-}> = ({ src, alt, width, height, className = '', loadingStrategy = 'lazy' }) => (
+}> = ({ src, alt, width, height, srcSet, sizes, className = '', loadingStrategy = 'lazy' }) => (
   <img
     src={src}
     alt={alt}
     width={width}
     height={height}
+    srcSet={srcSet}
+    sizes={sizes}
     loading={loadingStrategy}
     className={`w-full h-full object-cover ${className}`.trim()}
   />

@@ -2,6 +2,8 @@ import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { Container, Section, Card, Chip, Button } from './primitives';
+import { fireEvent } from '@testing-library/react';
+import { vi } from 'vitest';
 
 describe('primitives', () => {
   it('renders Container children', () => {
@@ -33,6 +35,19 @@ describe('primitives', () => {
   it('renders a native button when `to` is not provided', () => {
     render(<Button>Click</Button>);
     expect(screen.getByRole('button', { name: 'Click' })).toBeInTheDocument();
+  });
+
+  it('prevents clicks while a native button is disabled', () => {
+    const onClick = vi.fn();
+    render(
+      <Button disabled onClick={onClick}>
+        Save
+      </Button>,
+    );
+    const button = screen.getByRole('button', { name: 'Save' });
+    expect(button).toBeDisabled();
+    fireEvent.click(button);
+    expect(onClick).not.toHaveBeenCalled();
   });
 
   it('renders an external link when `href` is provided', () => {

@@ -1,4 +1,4 @@
-/* src/styles/global.css */
+@import '/fonts/fonts.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -7,8 +7,16 @@
 
 :root {
   --color-paper: theme('colors.paper');
-  --color-primary: theme('colors.kaya');
+  --color-surface: theme('colors.surface');
+  --color-sand: theme('colors.sand');
+  --color-primary: theme('colors.brand');
+  --color-brand: theme('colors.brand');
+  --color-brand-hover: theme('colors.brand-hover');
+  --color-accent: theme('colors.accent');
+  --color-on-brand: theme('colors.on-brand');
   --color-ink: theme('colors.ink');
+  --color-muted-text: theme('colors.muted-text');
+  --color-border: theme('colors.border');
 }
 
 body {
@@ -20,16 +28,27 @@ body {
    an explicit `text-*` utility still override these, so nothing regresses. */
 @layer base {
   body {
-    @apply text-body text-ink;
+    @apply font-sans text-body text-ink;
   }
   h1 {
-    @apply text-h1;
+    @apply font-serif font-medium text-h1;
+    text-wrap: balance;
   }
   h2 {
-    @apply text-h2;
+    @apply font-serif font-medium text-h2;
+    text-wrap: balance;
   }
   h3 {
-    @apply text-h3;
+    @apply font-sans font-semibold text-h3;
+  }
+  #admin h1,
+  #admin h2 {
+    @apply font-sans font-semibold;
+  }
+  :focus-visible {
+    outline: 2px solid theme('colors.brand');
+    outline-offset: 3px;
+    box-shadow: 0 0 0 3px theme('colors.paper');
   }
 }
 

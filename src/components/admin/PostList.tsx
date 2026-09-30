@@ -25,7 +25,7 @@ const PostList: React.FC<PostListProps> = ({ posts, onNew, onEdit }) => {
     <div>
       <div className="flex justify-between items-center gap-3 mb-6">
         <h2 className="text-2xl font-bold text-ink">{t('admin:title')}</h2>
-        <Button onClick={onNew} variant="primary" className="py-2 px-4">
+        <Button onClick={onNew} variant="primary">
           {t('admin:new_post')}
         </Button>
       </div>
@@ -55,12 +55,12 @@ const PostList: React.FC<PostListProps> = ({ posts, onNew, onEdit }) => {
                 </div>
                 <h3 className="font-semibold text-ink truncate">{post.title}</h3>
                 {post.tag ? (
-                  <span className="text-xs font-semibold uppercase text-kaya">
+                  <span className="text-xs font-semibold uppercase text-accent">
                     {t(tagLabelKey[post.tag])}
                   </span>
                 ) : null}
               </div>
-              <Button onClick={() => onEdit(post)} variant="secondary" className="py-2 px-4">
+              <Button onClick={() => onEdit(post)} variant="secondary">
                 {t('admin:edit')}
               </Button>
             </li>

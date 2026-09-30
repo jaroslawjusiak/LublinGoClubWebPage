@@ -4,15 +4,21 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Locked tokens for the Lubelski Klub Go brand aesthetic
-        paper: '#fcfaf7', // Very light background (off-white)
-        ink: '#1e293b', // Deep dark text colour
-        'muted-text': '#64748b', // Secondary details and hints
-        border: '#e2e8f0', // Light separator border
-        kaya: '#a52a2a', // Warm accent (deep red/brown, the goban tone)
+        paper: '#F6F1E7',
+        surface: '#FFFCF7',
+        sand: '#E9DDC9',
+        ink: '#252824',
+        'muted-text': '#596158',
+        border: '#CFC7B8',
+        'border-control': '#596158',
+        brand: '#29483F',
+        'brand-hover': '#203A32',
+        accent: '#B34C38',
+        'on-brand': '#FFF9EF',
       },
       fontFamily: {
-        sans: ['system-ui', 'Avenir', 'Helvetica', 'Arial', 'sans-serif'],
+        sans: ['Noto Sans', 'system-ui', 'Arial', 'sans-serif'],
+        serif: ['Noto Serif', 'Georgia', 'serif'],
       },
       // Deliberate typography scale. Prefer these semantic steps over one-off
       // font sizes (`text-display`, `text-h1`, `text-h2`, `text-h3`, `text-body`,
@@ -20,12 +26,13 @@ export default {
       // fixed mobile-first steps — pair them with `md:` prefixes to step up at
       // larger widths rather than inventing arbitrary values.
       fontSize: {
-        display: ['clamp(2.25rem, 1.5rem + 4vw, 3.75rem)', { lineHeight: '1.05' }],
-        h1: ['2.25rem', { lineHeight: '1.1' }],
-        h2: ['1.875rem', { lineHeight: '1.2' }],
-        h3: ['1.25rem', { lineHeight: '1.35' }],
-        body: ['1rem', { lineHeight: '1.625' }],
-        caption: ['0.875rem', { lineHeight: '1.4' }],
+        display: ['clamp(2.25rem, 1.5rem + 3vw, 4rem)', { lineHeight: '1.1' }],
+        h1: ['clamp(2rem, 1.5rem + 2vw, 3rem)', { lineHeight: '1.15' }],
+        h2: ['clamp(1.625rem, 1.375rem + 1vw, 2.25rem)', { lineHeight: '1.2' }],
+        h3: ['1.25rem', { lineHeight: '1.3' }],
+        lead: ['clamp(1.125rem, 1rem + 0.5vw, 1.25rem)', { lineHeight: '1.55' }],
+        body: ['1rem', { lineHeight: '1.65' }],
+        caption: ['0.875rem', { lineHeight: '1.45' }],
       },
     },
   },

@@ -18,29 +18,24 @@ const KontaktPage: React.FC = () => {
   return (
     <>
       <Section id="kontakt">
-        <Container className="max-w-3xl">
-          <h1 className="text-4xl font-extrabold tracking-tight text-ink mb-6">
+        <Container width="reading">
+          <h1 className="text-4xl font-medium tracking-tight text-ink mb-6">
             {t('contact:title')}
           </h1>
           <p className="text-xl text-muted-text mb-10">{t('contact:intro')}</p>
 
-          <h2 className="text-2xl md:text-3xl font-bold mb-4 text-ink">
+          <h2 className="text-2xl md:text-3xl font-medium mb-4 text-ink">
             {t('contact:social_title')}
           </h2>
           <div className="flex flex-col sm:flex-row gap-4 mb-12">
             {socialLinks.facebook ? (
-              <Button
-                href={socialLinks.facebook}
-                external
-                variant="secondary"
-                className="py-3 px-6"
-              >
+              <Button href={socialLinks.facebook} external variant="secondary">
                 <FaFacebookF className="mr-2" aria-hidden="true" />
                 Facebook
               </Button>
             ) : null}
             {socialLinks.discord ? (
-              <Button href={socialLinks.discord} external variant="secondary" className="py-3 px-6">
+              <Button href={socialLinks.discord} external variant="secondary">
                 <FaDiscord className="mr-2" aria-hidden="true" />
                 Discord
               </Button>
@@ -49,7 +44,7 @@ const KontaktPage: React.FC = () => {
 
           {people.length > 0 ? (
             <>
-              <h2 className="text-2xl md:text-3xl font-bold mb-4 text-ink">
+              <h2 className="text-2xl md:text-3xl font-medium mb-4 text-ink">
                 {t('contact:people_title')}
               </h2>
               <ul className="space-y-4">

@@ -105,7 +105,7 @@ const ImagePicker: React.FC<ImagePickerProps> = ({
                   onClick={() => handleRemove(index)}
                   disabled={uploading}
                   aria-label={`${t('admin:remove_photo')} ${index + 1}`}
-                  className="absolute top-1 right-1 w-7 h-7 rounded-full bg-ink/70 text-white text-sm leading-none flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-kaya disabled:opacity-50"
+                  className="absolute top-1 right-1 w-7 h-7 rounded-full bg-ink/70 text-white text-sm leading-none flex items-center justify-center  disabled:opacity-50"
                 >
                   ×
                 </button>
@@ -121,7 +121,7 @@ const ImagePicker: React.FC<ImagePickerProps> = ({
                   onChange={(e) => handleAltChange(index, e.target.value)}
                   disabled={uploading}
                   placeholder={t('admin:alt_placeholder')}
-                  className="w-full rounded border border-border px-2 py-1 text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-kaya/70 disabled:opacity-50"
+                  className="w-full rounded border border-border-control bg-surface px-2 py-1 text-sm  disabled:opacity-50"
                 />
               </div>
             </li>
@@ -133,7 +133,7 @@ const ImagePicker: React.FC<ImagePickerProps> = ({
         type="button"
         onClick={() => inputRef.current?.click()}
         disabled={uploading || images.length >= MAX_IMAGES}
-        className="inline-flex items-center justify-center rounded-md border border-border px-4 py-2 text-sm font-medium text-ink hover:bg-gray-100 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-400/50 disabled:opacity-50"
+        className="inline-flex items-center justify-center rounded-md border border-border px-4 py-2 text-sm font-medium text-ink hover:bg-gray-100 transition  disabled:opacity-50"
       >
         {uploading ? t('admin:uploading') : t('admin:add_photos')}
       </button>

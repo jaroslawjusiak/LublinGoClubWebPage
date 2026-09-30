@@ -1,5 +1,6 @@
 // src/components/Footer.tsx
 import React from 'react';
+import { Container } from './primitives';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { FaFacebookF, FaDiscord } from 'react-icons/fa';
@@ -7,11 +8,9 @@ import { clubConfig, meetingInfo, socialLinks } from '../data/club';
 import { navItems, startCta } from '../data/site';
 import { useLocale, localizePath } from '../i18n/locale';
 
-const footerLinkClasses =
-  'block hover:text-kaya transition rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-kaya/50';
+const footerLinkClasses = 'block hover:text-brand transition rounded ';
 
-const socialLinkClasses =
-  'text-2xl text-ink hover:text-kaya transition rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-kaya/50';
+const socialLinkClasses = 'text-2xl text-ink hover:text-brand transition rounded ';
 
 const footerLinks = [...navItems.slice(0, 2), startCta, ...navItems.slice(2)];
 
@@ -24,13 +23,13 @@ const Footer: React.FC = () => {
 
   return (
     <footer className="bg-gray-50 border-t mt-24 pt-16 pb-8" aria-labelledby="site-footer-heading">
-      <div className="container mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
+      <Container>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 border-b pb-12 mb-8">
           {/* Column 1: Club info and social links */}
           <div className="text-center md:text-left">
             <h2
               id="site-footer-heading"
-              className="text-3xl font-extrabold text-ink tracking-wide mb-4"
+              className="text-3xl font-medium text-ink tracking-wide mb-4"
             >
               {clubConfig.name}
             </h2>
@@ -70,7 +69,7 @@ const Footer: React.FC = () => {
 
           {/* Column 2: Quick navigation */}
           <div className="text-center md:text-left">
-            <h3 className="text-2xl font-bold text-kaya mb-6">{t('footer:nav_heading')}</h3>
+            <h3 className="text-2xl font-bold text-brand mb-6">{t('footer:nav_heading')}</h3>
             <nav aria-label={t('footer:nav_aria')}>
               <ul className="space-y-4 text-lg">
                 {footerLinks.map((item) => (
@@ -86,10 +85,10 @@ const Footer: React.FC = () => {
 
           {/* Column 3: Contact details */}
           <div className="text-center md:text-left">
-            <h3 className="text-2xl font-bold text-kaya mb-6">{t('footer:contact_heading')}</h3>
+            <h3 className="text-2xl font-bold text-brand mb-6">{t('footer:contact_heading')}</h3>
             <p className="mb-2">
               {clubConfig.email ? (
-                <a href={`mailto:${clubConfig.email}`} className="hover:text-kaya transition">
+                <a href={`mailto:${clubConfig.email}`} className="hover:text-brand transition">
                   {clubConfig.email}
                 </a>
               ) : (
@@ -116,12 +115,12 @@ const Footer: React.FC = () => {
           </p>
           <Link
             to={localizePath('/prywatnosc', locale)}
-            className="hover:text-kaya transition rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-kaya/50"
+            className="hover:text-brand transition rounded "
           >
             {t('footer:privacy_link')}
           </Link>
         </div>
-      </div>
+      </Container>
     </footer>
   );
 };

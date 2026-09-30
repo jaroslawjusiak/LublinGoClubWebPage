@@ -75,10 +75,10 @@ const FaqAccordion: React.FC = () => {
                 aria-expanded={isOpen}
                 aria-controls={panelId}
                 onClick={() => setOpenIndex(isOpen ? null : index)}
-                className="flex w-full items-center justify-between px-5 py-4 text-left text-lg font-semibold text-ink hover:text-kaya transition focus:outline-none focus-visible:ring-2 focus-visible:ring-kaya/70"
+                className="flex w-full items-center justify-between px-5 py-4 text-left text-lg font-semibold text-ink hover:text-brand transition "
               >
                 <span>{t(item.q, item.qVars)}</span>
-                <span aria-hidden="true" className="ml-4 text-kaya">
+                <span aria-hidden="true" className="ml-4 text-brand">
                   {isOpen ? '−' : '+'}
                 </span>
               </button>
@@ -111,7 +111,7 @@ const ZacznijPage: React.FC = () => {
       <Section id="zacznij">
         <Container>
           <div className="text-center mb-12">
-            <h1 className="text-4xl font-extrabold tracking-tight text-ink mb-3">
+            <h1 className="text-4xl font-medium tracking-tight text-ink mb-3">
               {t('start:title')}
             </h1>
             <p className="text-xl max-w-3xl mx-auto text-muted-text">{t('start:intro')}</p>
@@ -120,7 +120,7 @@ const ZacznijPage: React.FC = () => {
           <RulesSection />
 
           <div className="max-w-3xl mx-auto mb-16">
-            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-ink">
+            <h2 className="text-2xl md:text-3xl font-medium mb-6 text-ink">
               {t('start:story_title')}
             </h2>
             <ol className="space-y-4">
@@ -128,7 +128,7 @@ const ZacznijPage: React.FC = () => {
                 <li key={step.key} className="flex gap-4">
                   <span
                     aria-hidden="true"
-                    className="flex-shrink-0 w-8 h-8 rounded-full bg-kaya text-white font-bold flex items-center justify-center"
+                    className="flex-shrink-0 w-8 h-8 rounded-full bg-brand text-white font-bold flex items-center justify-center"
                   >
                     {index + 1}
                   </span>
@@ -139,7 +139,9 @@ const ZacznijPage: React.FC = () => {
           </div>
 
           <div className="max-w-3xl mx-auto">
-            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-ink">{t('start:faq_title')}</h2>
+            <h2 className="text-2xl md:text-3xl font-medium mb-6 text-ink">
+              {t('start:faq_title')}
+            </h2>
             <FaqAccordion />
           </div>
         </Container>

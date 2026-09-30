@@ -47,7 +47,7 @@ const MobileCta: React.FC = () => {
 
   return (
     <div className="fixed inset-x-0 bottom-0 z-40 md:hidden border-t border-border bg-paper p-3">
-      <Button onClick={handleClick} variant="primary" className="w-full py-3">
+      <Button onClick={handleClick} variant="primary" className="w-full">
         {t('meeting:mobile_cta')}
       </Button>
     </div>

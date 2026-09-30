@@ -20,16 +20,14 @@ const PrivacyPage: React.FC = () => {
 
   return (
     <Section id="prywatnosc">
-      <Container className="max-w-3xl">
-        <h1 className="text-4xl font-extrabold tracking-tight text-ink mb-6">
-          {t('privacy:title')}
-        </h1>
+      <Container width="reading">
+        <h1 className="text-4xl font-medium tracking-tight text-ink mb-6">{t('privacy:title')}</h1>
         <p className="text-xl text-muted-text mb-10">{t('privacy:intro')}</p>
 
         <div className="space-y-8">
           {sections.map((section) => (
             <div key={section.title}>
-              <h2 className="text-2xl font-bold mb-2 text-ink">{t(section.title)}</h2>
+              <h2 className="text-2xl font-medium mb-2 text-ink">{t(section.title)}</h2>
               <p className="text-ink">{t(section.body)}</p>
             </div>
           ))}
