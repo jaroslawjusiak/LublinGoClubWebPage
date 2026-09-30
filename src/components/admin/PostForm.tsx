@@ -5,7 +5,7 @@ import { Card, Button } from '../primitives';
 import ImagePicker from './ImagePicker';
 import { newsRepository, type NewsPostInput } from '../../lib/news/repository';
 import { removeNewsImages } from '../../lib/supabase/storage';
-import type { NewsPost, PostTag } from '../../types/data_models';
+import type { NewsImage, NewsPost, PostTag } from '../../types/data_models';
 
 interface PostFormProps {
   /** When present, the form edits this post; otherwise it creates a new one. */
@@ -23,7 +23,7 @@ const PostForm: React.FC<PostFormProps> = ({ initial, onDone }) => {
   const [publishedAt, setPublishedAt] = useState(initial?.publishedAt.slice(0, 10) ?? today());
   const [tag, setTag] = useState<PostTag | ''>(initial?.tag ?? '');
   const [externalUrl, setExternalUrl] = useState(initial?.externalUrl ?? '');
-  const [images, setImages] = useState<string[]>(initial?.images ?? []);
+  const [images, setImages] = useState<NewsImage[]>(initial?.images ?? []);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [saving, setSaving] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
@@ -75,7 +75,7 @@ const PostForm: React.FC<PostFormProps> = ({ initial, onDone }) => {
     setSaveError(null);
     try {
       await newsRepository.remove(initial.id);
-      await removeNewsImages(initial.images);
+      await removeNewsImages(initial.images.map((image) => image.url));
       onDone();
     } catch (err) {
       setSaveError(err instanceof Error ? err.message : t('admin:error_save'));
@@ -85,8 +85,10 @@ const PostForm: React.FC<PostFormProps> = ({ initial, onDone }) => {
 
   const handleCancel = async () => {
     // Remove any images uploaded in this session that are not part of the post.
-    const original = new Set(initial?.images ?? []);
-    const sessionImages = images.filter((url) => !original.has(url));
+    const original = new Set((initial?.images ?? []).map((image) => image.url));
+    const sessionImages = images
+      .filter((image) => !original.has(image.url))
+      .map((image) => image.url);
     if (sessionImages.length) await removeNewsImages(sessionImages);
     onDone();
   };

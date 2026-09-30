@@ -36,6 +36,7 @@
   },
   "meeting": {
     "heading": "When and where?",
+    "day_of_week": "Wednesday",
     "free_entry": "Free entry",
     "map_link": "View on map",
     "directions_link": "Get directions",
@@ -140,6 +141,8 @@
     "add_photos": "Add photos",
     "uploading": "Uploading…",
     "remove_photo": "Remove photo",
+    "alt_label": "Photo description",
+    "alt_placeholder": "Describe the photo (optional)",
     "error_title_required": "Enter a title.",
     "error_body_required": "Enter the body.",
     "error_date_required": "Enter a date.",

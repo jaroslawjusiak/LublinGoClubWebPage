@@ -26,7 +26,10 @@ describe('NewsPostCard', () => {
     const { container } = renderCard({
       ...base,
       tag: 'turniej',
-      images: ['https://example.com/1.jpg', 'https://example.com/2.jpg'],
+      images: [
+        { url: 'https://example.com/1.jpg', alt: '' },
+        { url: 'https://example.com/2.jpg', alt: '' },
+      ],
     });
 
     expect(screen.getByRole('heading', { name: 'Turniej w Lublinie' })).toBeInTheDocument();
@@ -34,6 +37,16 @@ describe('NewsPostCard', () => {
     expect(screen.getByText('Turniej')).toBeInTheDocument();
     // News photos are decorative (alt=""), so assert them via the DOM.
     expect(container.querySelectorAll('img')).toHaveLength(2);
+  });
+
+  it('uses each image’s alternative text', () => {
+    renderCard({
+      ...base,
+      images: [{ url: 'https://example.com/board.jpg', alt: 'Dwóch graczy przy planszy' }],
+    });
+
+    const img = screen.getByAltText('Dwóch graczy przy planszy');
+    expect(img).toHaveAttribute('src', 'https://example.com/board.jpg');
   });
 
   it('renders an external link only when present', () => {

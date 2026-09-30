@@ -44,9 +44,9 @@ const NewsPostCard: React.FC<{ post: NewsPost }> = ({ post }) => {
 
       {post.images.length > 0 ? (
         <div className={`grid gap-2 mb-4 ${post.images.length > 1 ? 'grid-cols-2' : ''}`}>
-          {post.images.map((url) => (
-            <div key={url} className="aspect-video rounded overflow-hidden bg-gray-200">
-              <SmartImage src={url} alt="" width={640} height={360} />
+          {post.images.map((image) => (
+            <div key={image.url} className="aspect-video rounded overflow-hidden bg-gray-200">
+              <SmartImage src={image.url} alt={image.alt} width={640} height={360} />
             </div>
           ))}
         </div>

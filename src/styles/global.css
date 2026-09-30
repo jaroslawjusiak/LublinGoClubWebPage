@@ -15,6 +15,24 @@ body {
   background-color: var(--color-paper);
 }
 
+/* Typography scale defaults. Semantic headings/body inherit the deliberate
+   scale (see tailwind.config.js → theme.extend.fontSize); components that add
+   an explicit `text-*` utility still override these, so nothing regresses. */
+@layer base {
+  body {
+    @apply text-body text-ink;
+  }
+  h1 {
+    @apply text-h1;
+  }
+  h2 {
+    @apply text-h2;
+  }
+  h3 {
+    @apply text-h3;
+  }
+}
+
 /* Respect users who prefer reduced motion: disable non-essential transitions
    and animations globally (hover/focus colour shifts are instant instead).
    This also neutralises any CSS `scroll-behavior: smooth` for those users. */

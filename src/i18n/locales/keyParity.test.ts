@@ -42,3 +42,15 @@ describe('translation key parity (pl ↔ en ↔ uk)', () => {
     });
   }
 });
+
+describe('localized weekday (meeting:day_of_week)', () => {
+  it('uses the correct weekday per language', () => {
+    expect(pl.meeting.day_of_week).toBe('środa');
+    expect(en.meeting.day_of_week).toBe('Wednesday');
+    expect(uk.meeting.day_of_week).toBe('середа');
+  });
+
+  it('never stores the English weekday inside Polish content', () => {
+    expect(pl.meeting.day_of_week.toLowerCase()).not.toBe('wednesday');
+  });
+});

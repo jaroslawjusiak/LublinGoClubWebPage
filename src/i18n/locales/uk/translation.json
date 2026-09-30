@@ -36,6 +36,7 @@
   },
   "meeting": {
     "heading": "Коли і де?",
+    "day_of_week": "середа",
     "free_entry": "Вхід вільний",
     "map_link": "Показати на карті",
     "directions_link": "Прокласти маршрут",
@@ -140,6 +141,8 @@
     "add_photos": "Додати фото",
     "uploading": "Завантаження…",
     "remove_photo": "Видалити фото",
+    "alt_label": "Опис фото",
+    "alt_placeholder": "Опишіть фото (необов'язково)",
     "error_title_required": "Введіть заголовок.",
     "error_body_required": "Введіть текст.",
     "error_date_required": "Введіть дату.",

@@ -13,11 +13,12 @@ security and image storage, and how to verify the security boundary.
 
 Migrations live in `supabase/migrations/` and run in order:
 
-| File                      | What it creates                                    |
-| ------------------------- | -------------------------------------------------- |
-| `0001_posts.sql`          | `posts` table + indexes                            |
-| `0002_admins_and_rls.sql` | `admins` allowlist + `is_admin()` + RLS on `posts` |
-| `0003_storage.sql`        | `news-images` bucket + storage policies            |
+| File                         | What it creates                                                       |
+| ---------------------------- | --------------------------------------------------------------------- |
+| `0001_posts.sql`             | `posts` table + indexes                                               |
+| `0002_admins_and_rls.sql`    | `admins` allowlist + `is_admin()` + RLS on `posts`                    |
+| `0003_storage.sql`           | `news-images` bucket + storage policies                               |
+| `0004_news_images_jsonb.sql` | `posts.images` jsonb — per-image `{url, alt}` (replaces `image_urls`) |
 
 Run them with the Supabase CLI, or paste each file into the SQL editor in order:
 

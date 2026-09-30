@@ -3,16 +3,18 @@ import React, { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { validateImage, compressImage, MAX_IMAGES } from '../../lib/news/image';
 import { uploadNewsImage, removeNewsImage } from '../../lib/supabase/storage';
+import type { NewsImage } from '../../types/data_models';
 
 interface ImagePickerProps {
-  images: string[];
-  onChange: (images: string[]) => void;
+  images: NewsImage[];
+  onChange: (images: NewsImage[]) => void;
 }
 
 /**
  * Mobile-friendly photo picker: select up to four photos, validate/compress
- * each, upload immediately, and preview with remove controls. Removed photos
- * are also deleted from storage to avoid orphans.
+ * each, upload immediately, and preview with remove controls. Each photo also
+ * has an alternative-text field for screen readers. Removed photos are deleted
+ * from storage to avoid orphans.
  */
 const ImagePicker: React.FC<ImagePickerProps> = ({ images, onChange }) => {
   const { t } = useTranslation();
@@ -29,7 +31,7 @@ const ImagePicker: React.FC<ImagePickerProps> = ({ images, onChange }) => {
       return;
     }
 
-    const uploaded: string[] = [];
+    const uploaded: NewsImage[] = [];
     setUploading(true);
     try {
       for (const file of selected) {
@@ -38,11 +40,11 @@ const ImagePicker: React.FC<ImagePickerProps> = ({ images, onChange }) => {
         if (validation === 'too-large') throw new Error(t('admin:error_image_size'));
         const compressed = await compressImage(file);
         const url = await uploadNewsImage(compressed);
-        uploaded.push(url);
+        uploaded.push({ url, alt: '' });
       }
       onChange([...images, ...uploaded]);
     } catch (err) {
-      await Promise.all(uploaded.map((url) => removeNewsImage(url)));
+      await Promise.all(uploaded.map((image) => removeNewsImage(image.url)));
       setError(err instanceof Error ? err.message : t('admin:error_upload'));
     } finally {
       setUploading(false);
@@ -51,9 +53,13 @@ const ImagePicker: React.FC<ImagePickerProps> = ({ images, onChange }) => {
   };
 
   const handleRemove = async (index: number) => {
-    const url = images[index];
+    const image = images[index];
     onChange(images.filter((_, i) => i !== index));
-    await removeNewsImage(url);
+    await removeNewsImage(image.url);
+  };
+
+  const handleAltChange = (index: number, alt: string) => {
+    onChange(images.map((img, i) => (i === index ? { ...img, alt } : img)));
   };
 
   return (
@@ -72,20 +78,32 @@ const ImagePicker: React.FC<ImagePickerProps> = ({ images, onChange }) => {
 
       {images.length > 0 ? (
         <ul className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-3">
-          {images.map((url, index) => (
-            <li
-              key={url}
-              className="relative aspect-square rounded overflow-hidden border border-border"
-            >
-              <img src={url} alt="" className="w-full h-full object-cover" />
-              <button
-                type="button"
-                onClick={() => void handleRemove(index)}
-                aria-label={`${t('admin:remove_photo')} ${index + 1}`}
-                className="absolute top-1 right-1 w-7 h-7 rounded-full bg-ink/70 text-white text-sm leading-none flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-kaya"
-              >
-                ×
-              </button>
+          {images.map((image, index) => (
+            <li key={image.url} className="rounded overflow-hidden border border-border">
+              <div className="relative aspect-square bg-gray-200">
+                <img src={image.url} alt={image.alt} className="w-full h-full object-cover" />
+                <button
+                  type="button"
+                  onClick={() => void handleRemove(index)}
+                  aria-label={`${t('admin:remove_photo')} ${index + 1}`}
+                  className="absolute top-1 right-1 w-7 h-7 rounded-full bg-ink/70 text-white text-sm leading-none flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-kaya"
+                >
+                  ×
+                </button>
+              </div>
+              <div className="p-2">
+                <label htmlFor={`photo-alt-${index}`} className="sr-only">
+                  {t('admin:alt_label')} {index + 1}
+                </label>
+                <input
+                  id={`photo-alt-${index}`}
+                  type="text"
+                  value={image.alt}
+                  onChange={(e) => handleAltChange(index, e.target.value)}
+                  placeholder={t('admin:alt_placeholder')}
+                  className="w-full rounded border border-border px-2 py-1 text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-kaya/70"
+                />
+              </div>
             </li>
           ))}
         </ul>

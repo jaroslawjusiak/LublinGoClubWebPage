@@ -15,8 +15,8 @@ describe('club data — single source of truth', () => {
     expect(clubConfig.isFreeEntry).toBe(true);
   });
 
-  it('does not store the English weekday inside Polish prose', () => {
-    expect(meetingInfo.dayOfWeek.toLowerCase()).not.toBe('wednesday');
+  it('does not hardcode a weekday in club data (it is localized via i18n)', () => {
+    expect('dayOfWeek' in meetingInfo).toBe(false);
   });
 
   it('does not expose a personal phone or Gmail as the primary contact channel', () => {

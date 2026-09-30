@@ -1,6 +1,6 @@
 // src/lib/news/repository.ts
 import type { SupabaseClient } from '@supabase/supabase-js';
-import type { NewsPost, PostTag } from '../../types/data_models';
+import type { NewsImage, NewsPost, PostTag } from '../../types/data_models';
 import { getSupabaseClient } from '../supabase/client';
 
 /**
@@ -27,7 +27,8 @@ export interface NewsPostInput {
   /** Whether the post should be visible publicly (false = draft). */
   published: boolean;
   tag?: PostTag;
-  images: string[];
+  /** 0-4 photos, each with its own alternative text ('' = decorative). */
+  images: NewsImage[];
   externalUrl?: string;
 }
 
@@ -54,7 +55,8 @@ export interface PostRow {
   title: string;
   body: string | null;
   tag: string | null;
-  image_urls: string[] | null;
+  /** Raw `images` jsonb column: an array of `{url, alt}` objects. */
+  images: { url: string; alt?: string }[] | null;
   external_url: string | null;
   published_at: string;
   published: boolean;
@@ -92,7 +94,9 @@ export function mapRowToNewsPost(row: PostRow): NewsPost {
     publishedAt: row.published_at,
     published: row.published,
     tag,
-    images: row.image_urls ?? [],
+    // Normalise each stored `{url, alt}` object into a NewsImage. A missing alt
+    // falls back to '' (decorative) rather than crashing the feed.
+    images: (row.images ?? []).map((image) => ({ url: image.url, alt: image.alt ?? '' })),
     externalUrl: row.external_url ?? undefined,
   };
 }
@@ -103,7 +107,7 @@ function toRow(input: NewsPostInput): Omit<PostRow, 'id'> {
     title: input.title,
     body: input.body || null,
     tag: input.tag ?? null,
-    image_urls: input.images,
+    images: input.images,
     external_url: input.externalUrl ?? null,
     published_at: input.publishedAt,
     published: input.published,

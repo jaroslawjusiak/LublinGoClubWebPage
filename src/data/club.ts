@@ -28,7 +28,6 @@ export const clubConfig: ClubConfig = {
 
 // --- MEETING INFORMATION ---
 export const meetingInfo: MeetingInfo = {
-  dayOfWeek: 'środa', // PENDING i18n: becomes a translation key in R2.
   startTime: '17:00',
   endTime: '20:00',
   venueName: 'Młodzieżowy Dom Kultury nr 2',

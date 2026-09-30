@@ -3,7 +3,6 @@
  * @description Represents fixed, canonical meeting information for the club.
  */
 export interface MeetingInfo {
-  dayOfWeek: string; // Display label for the default language, e.g. "środa" (see note below)
   startTime: string; // HH:MM - e.g., "17:00"
   endTime: string; // HH:MM - e.g., "20:00"
   venueName: string; // Full official name of the location
@@ -16,10 +15,9 @@ export interface MeetingInfo {
   directionsUrl: string; // External link that opens turn-by-turn directions
 }
 
-// NOTE on `dayOfWeek`: Polish is the default language and launches first, so the
-// label is stored in Polish here. Rendering must use the correct Polish inflection
-// (e.g. "w każdą środę"), and this value should become an i18n key once EN/UK
-// translations are reviewed (see R2/M2-T2). Never store the English weekday.
+// NOTE on the weekday: the meeting day is rendered from the `meeting:day_of_week`
+// i18n key (Polish "środa", English "Wednesday", Ukrainian "середа") rather than
+// stored as a literal in `MeetingInfo`, so it localizes with the rest of the page.
 
 // src/types/club_config.ts
 /**
@@ -72,9 +70,19 @@ export interface Person {
 export type PostTag = 'spotkanie' | 'turniej' | 'wydarzenie';
 
 /**
- * @description Defines a single, published news post.
- * The shape mirrors the `posts` table (see supabase migration) exactly, so the
- * repository mapping never needs to guess column names or fill in empty values.
+ * A single photo attached to a news post. Every image carries an alternative
+ * text; an empty `alt` marks the image as decorative (e.g. a board/hands shot)
+ * so screen readers skip it, exactly like `<img alt="">`.
+ */
+export interface NewsImage {
+  url: string; // Public URL (Supabase Storage reference), never binary data.
+  alt: string; // Meaningful alternative text; '' when the photo is decorative.
+}
+
+/**
+ * @description A single news post as consumed by the UI. The news repository is
+ * the only place that knows the raw `posts` row shape; components get this
+ * display model instead.
  */
 export interface NewsPost {
   id: string; // UUID primary key
@@ -83,7 +91,7 @@ export interface NewsPost {
   publishedAt: string; // ISO 8601 date, e.g. "2023-11-18"
   published: boolean; // True when visible publicly; false means it is a draft
   tag?: PostTag; // Optional single tag
-  images: string[]; // 0-4 image URLs (Supabase Storage references)
+  images: NewsImage[]; // 0-4 photos, each with its own alternative text
   externalUrl?: string; // Optional external link (e.g. tournament page)
 }
 

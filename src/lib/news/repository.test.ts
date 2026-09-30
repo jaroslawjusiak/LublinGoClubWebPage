@@ -7,7 +7,10 @@ const validRow: PostRow = {
   title: 'Turniej',
   body: 'Krótki opis turnieju.',
   tag: 'turniej',
-  image_urls: ['https://example.com/1.jpg', 'https://example.com/2.jpg'],
+  images: [
+    { url: 'https://example.com/1.jpg', alt: '' },
+    { url: 'https://example.com/2.jpg', alt: '' },
+  ],
   external_url: 'https://board.example.com/tournament',
   published_at: '2023-10-14',
   published: true,
@@ -32,7 +35,10 @@ describe('mapRowToNewsPost', () => {
       publishedAt: '2023-10-14',
       published: true,
       tag: 'turniej',
-      images: ['https://example.com/1.jpg', 'https://example.com/2.jpg'],
+      images: [
+        { url: 'https://example.com/1.jpg', alt: '' },
+        { url: 'https://example.com/2.jpg', alt: '' },
+      ],
       externalUrl: 'https://board.example.com/tournament',
     });
   });
@@ -42,7 +48,7 @@ describe('mapRowToNewsPost', () => {
       ...validRow,
       body: null,
       tag: null,
-      image_urls: null,
+      images: null,
       external_url: null,
     });
 
@@ -50,6 +56,21 @@ describe('mapRowToNewsPost', () => {
     expect(post.tag).toBeUndefined();
     expect(post.images).toEqual([]);
     expect(post.externalUrl).toBeUndefined();
+  });
+
+  it('preserves per-image alternative text from the row', () => {
+    const post = mapRowToNewsPost({
+      ...validRow,
+      images: [
+        { url: 'https://example.com/1.jpg', alt: 'Dwóch graczy przy planszy' },
+        { url: 'https://example.com/2.jpg', alt: '' },
+      ],
+    });
+
+    expect(post.images).toEqual([
+      { url: 'https://example.com/1.jpg', alt: 'Dwóch graczy przy planszy' },
+      { url: 'https://example.com/2.jpg', alt: '' },
+    ]);
   });
 
   it('throws when the row is missing an id', () => {
@@ -160,7 +181,7 @@ describe('SupabaseNewsRepository', () => {
       publishedAt: '2024-01-01',
       published: true,
       tag: 'spotkanie',
-      images: ['https://example.com/a.jpg'],
+      images: [{ url: 'https://example.com/a.jpg', alt: 'Zdjęcie z turnieju' }],
       externalUrl: 'https://example.com',
     });
 
@@ -168,7 +189,7 @@ describe('SupabaseNewsRepository', () => {
       title: 'Nowy',
       body: 'Treść',
       tag: 'spotkanie',
-      image_urls: ['https://example.com/a.jpg'],
+      images: [{ url: 'https://example.com/a.jpg', alt: 'Zdjęcie z turnieju' }],
       external_url: 'https://example.com',
       published_at: '2024-01-01',
       published: true,
@@ -199,7 +220,7 @@ describe('SupabaseNewsRepository', () => {
       title: 'Szkic',
       body: 'Treść',
       tag: null,
-      image_urls: [],
+      images: [],
       external_url: null,
       published_at: '2024-01-01',
       published: false,
@@ -228,7 +249,7 @@ describe('SupabaseNewsRepository', () => {
       title: 'Turniej',
       body: 'Krótki opis turnieju.',
       tag: null,
-      image_urls: [],
+      images: [],
       external_url: null,
       published_at: '2023-10-14',
       published: true,
