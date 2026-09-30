@@ -75,8 +75,17 @@ recovery/remaining-work notes in `docs/RECOVERY_AND_REMAINING_WORK.md`.
 - This approved visual plan supersedes older palette/typography prescriptions,
   including old OpenCode skill guidance. Architecture and functional boundaries remain locked.
 - Use project skills in `.agents/skills/`; agent definitions and setup are in `.codex/`.
-- The parent is normally the implementation owner. If delegating to frontend_implementer,
-  give it sole ownership of a bounded slice and do not edit application code concurrently.
+- Podczas wdrażania planu „Papier i goban” główny Codex pełni
+rolę orkiestratora:
+  - Deleguj kolejne etapy implementacji do frontend_implementer.
+  - Każde zadanie określ przez zakres, referencje i kryteria odbioru.
+  - Zlecaj ocenę wyglądu visual_reviewer, a kontrolę regresji
+    regression_reviewer.
+  - Przekazuj wykryte problemy do frontend_implementer i sprawdzaj
+    ich rozwiązanie przed rozpoczęciem następnego etapu.
+  - Zapewnij, że tylko jeden agent zmienia kod aplikacji.
+  - Kontrole korzystające ze wspólnej przeglądarki wykonuj kolejno.
+  - Główny Codex odpowiada za spójność całości i raport dla użytkownika.
 - Delegate visual and regression reviews after the Home/shared-shell stage.
   Reviewers may save evidence but do not edit application code.
 - Serialize Playwright MCP navigation/resize across agents sharing a browser.
