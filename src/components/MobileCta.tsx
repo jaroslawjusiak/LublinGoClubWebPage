@@ -1,5 +1,5 @@
 // src/components/MobileCta.tsx
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Button } from './primitives';
@@ -19,6 +19,35 @@ const MobileCta: React.FC = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const pendingScroll = useRef(false);
+  const barRef = useRef<HTMLDivElement>(null);
+  const [floating, setFloating] = useState(true);
+
+  useLayoutEffect(() => {
+    const bar = barRef.current;
+    const root = document.documentElement;
+    if (!bar) {
+      root.style.removeProperty('--mobile-cta-height');
+      return;
+    }
+
+    const measure = () => {
+      const height = bar.getBoundingClientRect().height;
+      // Enlarged text and short viewports need the full viewport for content.
+      // Keep the same CTA in normal flow when a floating bar would dominate it.
+      const canFloat = height > 0 && height <= window.innerHeight * 0.16;
+      setFloating(canFloat);
+      root.style.setProperty('--mobile-cta-height', canFloat ? `${height}px` : '0px');
+    };
+    measure();
+    const observer = typeof ResizeObserver === 'undefined' ? null : new ResizeObserver(measure);
+    observer?.observe(bar);
+    window.addEventListener('resize', measure);
+    return () => {
+      observer?.disconnect();
+      window.removeEventListener('resize', measure);
+      root.style.removeProperty('--mobile-cta-height');
+    };
+  }, [pathname]);
 
   const scrollToMeeting = useCallback(() => {
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -46,7 +75,10 @@ const MobileCta: React.FC = () => {
   if (pathname === '/admin') return null;
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-40 md:hidden border-t border-border bg-paper p-3">
+    <div
+      ref={barRef}
+      className={`mobile-cta md:hidden border-t border-border bg-paper p-3 ${floating ? 'fixed inset-x-0 bottom-0 z-40' : ''}`}
+    >
       <Button onClick={handleClick} variant="primary" className="w-full">
         {t('meeting:mobile_cta')}
       </Button>

@@ -6,7 +6,7 @@
 
 The target is a welcoming front door: a newcomer on a phone can discover that the club is free and beginner-friendly, find the Wednesday 17:00–20:00 meeting at MDK nr 2, ul. Bernardyńska 14a, room 14, get directions, and know what happens on a first visit. Two or three approved volunteers should eventually be able to publish a short post with phone photos in under two minutes. Keep the maintenance budget near 15 minutes a week.
 
-> **Status (2026-09-30):** Part 1 (R1–R5) and the Tier A items in Part 2 are now implemented —
+> **Status (2026-10-01):** Part 1 (R1–R5) and the Tier A items in Part 2 are implemented —
 > see `docs/IMPLEMENTATION_STATUS.md` for the verified snapshot. The "Current state" notes below
 > are historical and describe the scaffold at the 2026-09-27 baseline. What remains is human/club
 > work: content approval, production Supabase/Vercel, the human QA runs and production launch.
@@ -15,8 +15,8 @@ The target is a welcoming front door: a newcomer on a phone can discover that th
 
 The approved **Papier i goban visual redesign** is tracked separately in
 [LKG-plan-wizualny-v1.md](design/LKG-plan-wizualny-v1.md).
-V3.1 is complete; V3.2 and later visual stages remain. For the 2026-09-30
-session handoff and pending hero correction, start with
+V3 and V4 are complete (reviewed 2026-10-01); V5 remains. The owner-approved
+retouched hero is integrated. For the current session handoff, start with
 [WZNOWIENIE.md](design/WZNOWIENIE.md).
 
 The existing React/TypeScript/Vite/Tailwind foundation is usable. `npm run check` passed on the baseline (14 tests, lint, typecheck, build), but it does not exercise the essential visitor flows. Four temporary review checks for meeting time on Home, a mounted mobile menu, an actionable news link, and a deliberate unknown-route page all failed. The review checks were removed after the audit; they are not committed tests. Passing the existing check command therefore does **not** mean a page is complete.

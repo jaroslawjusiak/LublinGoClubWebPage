@@ -1,10 +1,93 @@
 # Punkt wznowienia — Papier i goban
 
+## Aktualizacja 2026-10-01 — V4 zakończone
+
+Wdrożono wygląd sześciu publicznych podstron oraz kompaktowego panelu admina.
+Zachowano treści, oryginalne diagramy, routing, tłumaczenia i operacje danych.
+Poprawiono dostępność błędów formularza, przycisków zdjęć i siatkę daty/kategorii
+przy 320 px oraz tekście 200%. Przeglądy wizualny/statyczny delegowano;
+główny Codex sprawdził poprawki i wykonał mockowane próby formularza w przeglądarce.
+`npm run check` PASS: **116 testów**, lint, format, typecheck i build.
+Raport z listą plików, dowodami i granicami: [V4](V4-podstrony-admin.md).
+Kolejny zakres po poleceniu właściciela: **V5 — pełny odbiór techniczny i wizualny**.
+Nie publikowano strony ani nie mutowano produkcyjnego Supabase.
+Poniższe notatki o V3.2, oczekiwaniu na zdjęcia i dawnym stanie kodu są historią.
+
+## Następna sesja — V5
+
+Właściciel zapowiedział kontynuację wieczorem. Zacząć od **V5 — odbioru
+technicznego i wizualnego**, zgodnie z sekcją 9
+[planu wizualnego](LKG-plan-wizualny-v1.md). V2–V4 są zakończone; nie wracać
+do generowania hero ani implementacji podstron bez nowego zgłoszenia.
+
+Na początku sprawdzić `git status`, bieżący SHA/gałąź i to, czy lokalny Vite
+działa; zachować wszystkie istniejące zmiany i nie resetować roboczego drzewa.
+Przeczytać `AGENTS.md`, ten plik, plan wizualny i raporty V2–V4. Użyć istniejącej
+przeglądarki/kroku sprawdzania zgodnie z lokalną konfiguracją; kontrolować
+nawigację wspólnej przeglądarki kolejno. V4 ma dowody w ignorowanym
+`.playwright-mcp/v4/`, a zakres administracyjny można odtworzyć przez
+mockowany skrypt `.playwright-mcp/v4/admin-regression.txt`.
+
+Kolejność odbioru V5:
+
+1. Przejść Home, O klubie, Zacznij, Aktualności, Kontakt, Prywatność i 404 przy
+   390/1440 px; sprawdzić przepełnienia przy 320/768/1024/1920 px.
+2. Sprawdzić Home/header/footer w PL/EN/UK na mobile i desktop; pozostałe strony
+   we wszystkich językach pod kątem przepełnienia i brakujących znaków.
+3. Zweryfikować menu klawiaturą, Escape/focus i zmianę trasy; linki, CTA,
+   kotwicę spotkań, mapę, kontakt, prywatność, przełączanie języka i `/admin`.
+4. Sprawdzić tekst 200% przy efektywnym 320 px, FAQ, diagramy, newsy z długim
+   tytułem i bez zdjęć oraz stany loading/empty/error/unconfigured.
+5. Odebrać widoki admina i upload przez istniejące mocki. RLS lub inne mutacje
+   wolno wykonywać tylko na jawnie testowych danych/środowisku; nie na produkcji.
+6. Obejrzeć focus, kontrast, konsolę i brakujące zasoby. Zmierzyć hero, fonty,
+   przesunięcia layoutu oraz porównywalną wydajność (orientacyjnie LCP ≤2,5 s,
+   CLS ≤0,1; pomiar lokalny nie jest danymi produkcyjnymi).
+7. Uruchomić `npm run check`, zebrać komplet zrzutów i raport: zmiany, kontrole,
+   wyniki, znane odstępstwa i instrukcja wycofania. V5 nie obejmuje publikacji.
+
+Nie wszystkie punkty są jeszcze odebrane ręcznie przez klub: produkcyjne
+środowisko, potwierdzenie faktów/tłumaczeń i ludzki sign-off pozostają osobnymi
+granicami. Ostrzeżenia znane z ostatniego buildu to jsdom `scrollTo` oraz chunk
+ponad 500 kB; sprawdzić, czy nadal występują, i opisać bez nieuzasadnionego
+refaktoru. Pełna specyfikacja V5 jest w sekcjach 9–10 planu.
+
+## Historia: aktualizacja 2026-10-01 — V3.2 zakończone
+
+Właściciel zaakceptował nowy hero i zlecił V3.2. Home/wspólna otoczka V3 są
+zakończone: lekki piaskowy pas informacji, opis spotkań i panel szczegółów,
+układ aktualności z lokalizowanym błędem i mobilny CTA z mierzoną rezerwacją
+miejsca oraz przejściem do przepływu przy dużym powiększeniu tekstu.
+Poprawiono zawijanie nagłówków news/hero przy 320 px i tekście 200%.
+`npm run check` PASS: **110 testów**, lint, format, typecheck i build.
+Niezależne przeglądy `visual_reviewer` i `regression_reviewer` PASS po poprawkach.
+Raport i granice: [V3.2](V3.2-home-spotkania-aktualnosci.md).
+Kolejny zakres po poleceniu właściciela: **V4 — podstrony i admin**;
+następnie V5 — pełny odbiór. Nie publikowano strony ani nie zmieniano Supabase.
+Poniższe notatki z 30.09 i sprzed V3.2 pozostają zapisem historycznym.
+
+## Historia: aktualizacja 2026-10-01 — zaakceptowana korekta hero
+
+Właściciel dostarczył `reference/board.jpg`: oryginalną grafikę z kamieniami
+wyretuszowanymi przez Opusa 5.5 (według informacji właściciela). Zaakceptował
+ten obraz do strony głównej zamiast planowanych zdjęć fizycznej planszy.
+Aplikacja używa teraz `public/assets/hero/board-retouched-{640,960,1440}.{avif,webp,jpg}`,
+z pełnym kadrem 3:2. Źródło 1536×1024 px nie wymaga powiększenia.
+Pochodzenie i warianty opisuje `public/assets/hero/README.md`.
+Weryfikacja: `npm run check` PASS (103 testy, lint, format, typecheck, build).
+Playwright: 320, 390, 430, 768, 1024 i 1440 px przy standardowym tekście;
+nowy AVIF ładuje się, proporcje 3:2 i pełny kadr zachowane, bez poziomego
+przewijania i błędów konsoli. Obejrzano zrzuty 390×844 i 1440×1000 px:
+`.playwright-mcp/hero-retouched-{mobile,desktop}.png` (ignorowane przez Git).
+Pozostają wcześniejsze ostrzeżenia jsdom `scrollTo` i bundla ponad 500 kB.
+Poniższe oczekiwanie na zdjęcia i wcześniejsze ścieżki hero są zapisem
+historycznym sesji 30.09; w chwili samej podmiany hero V3.2 nie było rozpoczęte.
+
 Zapis sesji: **2026-09-30**. Na prośbę właściciela kończymy na dziś.
 Właściciel planuje dostarczyć zdjęcia fizycznej planszy następnego dnia.
 Nie rozpoczynać kolejnego etapu bez jego polecenia.
 
-## Stan kodu i odbioru
+## Historia: stan kodu i odbioru przed etapami V3.2–V4
 
 - Gałąź: `design/paper-goban`; ostatni commit aplikacji: **`f6b760b`**
   (`design: implement V3.1 header, footer and home hero`).
@@ -19,7 +102,7 @@ Nie rozpoczynać kolejnego etapu bez jego polecenia.
   [raport V3.1](V3.1-naglowek-stopka-hero.md).
 - Nie było publikacji, push ani zmian danych Supabase.
 
-## Hero — najpierw wrócić do tej kwestii
+## Historia: hero przed dostarczeniem zaakceptowanej grafiki
 
 Właściciel zaakceptował **kompozycję kadru**, zielone rozmyte tło, róg gobanu
 i dwa goke. Zachować te elementy. Odrzucił rozstawienie kamieni: część nie
@@ -41,7 +124,7 @@ Nie traktować go jako zaakceptowanego ani jako poprawnej geometrii Go.
   `public/assets/hero/goban-goke-{640,960,1440}.{avif,webp,jpg}`.
   Nie podmieniono zasobów ani `HomePage.tsx` na odrzucony wariant.
 
-### Zdjęcia, które właściciel przygotuje
+### Historia: zdjęcia, które właściciel planował przygotować
 
 Najbardziej użyteczne są jednoznaczne odniesienia do **tej samej rzeczywistej
 pozycji**, a nie wiele różnych układów:
@@ -58,7 +141,7 @@ tylko dlatego, że prompt ją wymagał. Jeżeli generacja ponownie zawiedzie,
 rozważyć kontrolowany montaż jako osobną uzgodnioną metodę.
 Zachować nowe warianty osobno, aż właściciel oceni wynik.
 
-## Następny zakres implementacji — V3.2
+## Historia: następny zakres implementacji — V3.2
 
 Po poleceniu właściciela kontynuować
 [plan wizualny](LKG-plan-wizualny-v1.md), sekcje C–F strony głównej:
@@ -84,7 +167,7 @@ Po ukończeniu Home/wspólnej otoczki zlecić `visual_reviewer` i
 `regression_reviewer` przeglądy, poprawić wyniki przed V4. Wspólna przeglądarka
 jest używana kolejno. Zachować odziedziczone modele i konfigurację.
 
-## Jak rozpocząć kolejną sesję
+## Historia: jak rozpoczynać poprzednią sesję
 
 Przeczytać ten plik, AGENTS.md i plan wizualny; sprawdzić `git status` oraz
 aktualny SHA, nie nadpisywać zmian właściciela. Wcześniejszy devserver działał

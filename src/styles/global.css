@@ -23,6 +23,20 @@ body {
   background-color: var(--color-paper);
 }
 
+/* The mobile bar reserves its measured height, including the device safe area.
+   At enlarged text sizes it returns to flow and clears this reservation. */
+@media (max-width: 767px) {
+  .app-shell {
+    padding-bottom: var(--mobile-cta-height, 0px);
+  }
+  html {
+    scroll-padding-bottom: calc(var(--mobile-cta-height, 0px) + 1rem);
+  }
+  .mobile-cta {
+    padding-bottom: calc(0.75rem + env(safe-area-inset-bottom, 0px));
+  }
+}
+
 /* Typography scale defaults. Semantic headings/body inherit the deliberate
    scale (see tailwind.config.js → theme.extend.fontSize); components that add
    an explicit `text-*` utility still override these, so nothing regresses. */
@@ -49,6 +63,22 @@ body {
     outline: 2px solid theme('colors.brand');
     outline-offset: 3px;
     box-shadow: 0 0 0 3px theme('colors.paper');
+  }
+}
+
+@layer components {
+  #admin input:not([type='file']),
+  #admin textarea,
+  #admin select {
+    min-width: 0;
+    max-width: 100%;
+    min-height: 44px;
+  }
+  #admin button,
+  #admin a {
+    min-width: 0;
+    max-width: 100%;
+    overflow-wrap: anywhere;
   }
 }
 

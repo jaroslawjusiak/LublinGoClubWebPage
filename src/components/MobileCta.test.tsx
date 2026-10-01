@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { act, render, screen, fireEvent } from '@testing-library/react';
 import { MemoryRouter, useLocation } from 'react-router-dom';
 import { I18nextProvider } from 'react-i18next';
 import i18n from '../i18n/config';
@@ -34,10 +34,38 @@ beforeEach(() => {
 
 afterEach(() => {
   vi.unstubAllGlobals();
+  vi.restoreAllMocks();
   document.getElementById('spotkania')?.remove();
 });
 
 describe('MobileCta', () => {
+  it('reserves its measured height and clears the reservation for enlarged content and unmount', () => {
+    let height = 80;
+    let onResize = () => {};
+    const disconnect = vi.fn();
+    vi.stubGlobal(
+      'ResizeObserver',
+      class {
+        constructor(callback: () => void) {
+          onResize = callback;
+        }
+        observe() {}
+        disconnect = disconnect;
+      },
+    );
+    vi.spyOn(HTMLElement.prototype, 'getBoundingClientRect').mockImplementation(
+      () => new DOMRect(0, 0, 390, height),
+    );
+    const view = renderCta();
+    expect(document.documentElement.style.getPropertyValue('--mobile-cta-height')).toBe('80px');
+    height = 220;
+    act(() => onResize());
+    expect(document.documentElement.style.getPropertyValue('--mobile-cta-height')).toBe('0px');
+    expect(screen.getByRole('button', { name: 'Przyjdź w środę' })).toBeInTheDocument();
+    view.unmount();
+    expect(document.documentElement.style.getPropertyValue('--mobile-cta-height')).toBe('');
+    expect(disconnect).toHaveBeenCalled();
+  });
   it('renders the mobile CTA label', () => {
     renderCta();
 

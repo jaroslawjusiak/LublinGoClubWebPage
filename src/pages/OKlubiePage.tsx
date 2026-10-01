@@ -2,6 +2,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Section, Container, Button } from '../components/primitives';
+import PageIntro from '../components/PageIntro';
 import { useLocale, localizePath } from '../i18n/locale';
 
 /**
@@ -16,18 +17,21 @@ const OKlubiePage: React.FC = () => {
 
   return (
     <Section id="o-klubie">
-      <Container width="reading">
-        <h1 className="text-4xl font-medium tracking-tight text-ink mb-6">{t('oklubie:title')}</h1>
-        <p className="text-xl text-muted-text mb-10">{t('oklubie:intro')}</p>
-
-        <h2 className="text-2xl md:text-3xl font-medium mb-4 text-ink">
-          {t('oklubie:typical_title')}
-        </h2>
-        <p className="text-lg text-ink mb-10">{t('oklubie:typical_text')}</p>
-
-        <Button to={localizePath('/zacznij', locale)} variant="primary" className="text-lg">
-          {t('common:cta_start_button')}
-        </Button>
+      <Container className="grid items-start gap-8 min-[960px]:grid-cols-2 min-[960px]:gap-12">
+        <div className="min-w-0">
+          <PageIntro title={t('oklubie:title')} intro={t('oklubie:intro')} />
+          <Button
+            to={localizePath('/zacznij', locale)}
+            variant="primary"
+            className="max-w-full [overflow-wrap:anywhere]"
+          >
+            {t('common:cta_start_button')}
+          </Button>
+        </div>
+        <div className="min-w-0 rounded-xl bg-sand p-6 md:p-8 [overflow-wrap:anywhere]">
+          <h2 className="text-h2 mb-5 text-ink">{t('oklubie:typical_title')}</h2>
+          <p className="text-ink max-w-[60ch]">{t('oklubie:typical_text')}</p>
+        </div>
       </Container>
     </Section>
   );

@@ -1,5 +1,33 @@
 # Hero — goban i goke
 
+## Aktualny obraz — retusz zaakceptowany 01.10.2026
+
+Strona główna korzysta z `board-retouched-{640,960,1440}.{avif,webp,jpg}`.
+Źródło: dostarczony przez właściciela `docs/design/reference/board.jpg`,
+1536×1024 px (RGB). Według właściciela retusz kamieni wykonał Opus 5.5;
+właściciel zaakceptował ten obraz do użycia na stronie głównej 01.10.2026.
+To ilustracja sprzętu, nie dokumentacja spotkania klubu. Pochodzenie retuszu
+jest zapisane na podstawie deklaracji właściciela; nie przypisano licencji stockowej.
+
+Zachowano pełny kadr **3:2 na desktopie i mobile** oraz
+`object-position: 50% 50%`. Rozdzielczość źródła wystarcza dla największego
+wariantu 1440 px; obrazu nie powiększano. Wykonano wyłącznie resampling Lanczos
+i kodowanie Pillow 12.3.0, bez generacji ani kolejnego retuszu.
+Quality: AVIF 65, WebP 85, JPEG 88 (optimized, progressive).
+Wariant 640 px ma wysokość 427 px po zaokrągleniu do pełnego piksela.
+
+| Szerokość | Wysokość | AVIF     | WebP      | JPEG fallback |
+| --------- | -------- | -------- | --------- | ------------- |
+| 640       | 427      | 34 346 B | 52 888 B  | 75 798 B      |
+| 960       | 640      | 53 403 B | 82 802 B  | 133 194 B     |
+| 1440      | 960      | 84 935 B | 127 666 B | 230 627 B     |
+
+`picture` używa AVIF → WebP → JPEG, istniejącego responsywnego `sizes`
+oraz eager loading. Nowe nazwy rozróżniają zasób od poprzedniej wersji w cache.
+Starsze warianty pozostają poniżej opisane i zachowane w repozytorium.
+
+## Poprzedni obraz V2 — archiwum
+
 Osobny zasób przygotowany dla V2 kierunku Papier i goban, 30.09.2026.
 Wygenerowany przez wbudowane narzędzie OpenAI `image_gen`; nie jest zdjęciem
 spotkania ani dowodem posiadania tego sprzętu przez klub. Bez osób, napisów,

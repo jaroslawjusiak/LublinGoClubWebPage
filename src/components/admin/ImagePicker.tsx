@@ -81,11 +81,13 @@ const ImagePicker: React.FC<ImagePickerProps> = ({
   };
 
   return (
-    <div>
+    <div className="min-w-0 [overflow-wrap:anywhere]">
       <input
         ref={inputRef}
         id="admin-photos"
         type="file"
+        aria-label={t('admin:photos_label')}
+        tabIndex={-1}
         accept="image/*"
         multiple
         className="sr-only"
@@ -95,23 +97,29 @@ const ImagePicker: React.FC<ImagePickerProps> = ({
       />
 
       {images.length > 0 ? (
-        <ul className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-3">
+        <ul className="grid sm:grid-cols-2 gap-4 mb-4">
           {images.map((image, index) => (
-            <li key={image.url} className="rounded overflow-hidden border border-border">
-              <div className="relative aspect-square bg-gray-200">
-                <img src={image.url} alt={image.alt} className="w-full h-full object-cover" />
+            <li key={image.url} className="min-w-0 rounded-xl border border-border bg-paper p-3">
+              <div className="aspect-video rounded-lg bg-sand">
+                <img
+                  src={image.url}
+                  alt={image.alt}
+                  className="w-full h-full object-contain rounded-lg"
+                />
+              </div>
+              <div className="mt-3">
                 <button
                   type="button"
                   onClick={() => handleRemove(index)}
                   disabled={uploading}
                   aria-label={`${t('admin:remove_photo')} ${index + 1}`}
-                  className="absolute top-1 right-1 w-7 h-7 rounded-full bg-ink/70 text-white text-sm leading-none flex items-center justify-center  disabled:opacity-50"
+                  className="min-h-11 w-full rounded-lg border border-red-700 bg-transparent px-3 py-2 text-sm font-semibold text-red-700 hover:bg-red-50 transition-colors disabled:opacity-50"
                 >
-                  ×
+                  {t('admin:remove_photo')}
                 </button>
               </div>
-              <div className="p-2">
-                <label htmlFor={`photo-alt-${index}`} className="sr-only">
+              <div className="mt-3">
+                <label htmlFor={`photo-alt-${index}`} className="block mb-1 text-sm font-medium">
                   {t('admin:alt_label')} {index + 1}
                 </label>
                 <input
@@ -133,13 +141,16 @@ const ImagePicker: React.FC<ImagePickerProps> = ({
         type="button"
         onClick={() => inputRef.current?.click()}
         disabled={uploading || images.length >= MAX_IMAGES}
-        className="inline-flex items-center justify-center rounded-md border border-border px-4 py-2 text-sm font-medium text-ink hover:bg-gray-100 transition  disabled:opacity-50"
+        className="inline-flex min-h-11 max-w-full items-center justify-center rounded-lg border border-brand px-4 py-2 text-sm font-semibold text-brand hover:bg-sand transition-colors disabled:opacity-50"
       >
         {uploading ? t('admin:uploading') : t('admin:add_photos')}
       </button>
 
       {error ? (
-        <p role="alert" className="mt-2 text-sm text-red-700">
+        <p
+          role="alert"
+          className="mt-3 rounded-lg border border-red-700 bg-red-50 p-3 text-sm text-red-800"
+        >
           {error}
         </p>
       ) : null}

@@ -2,6 +2,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Section, Container } from '../components/primitives';
+import PageIntro from '../components/PageIntro';
 
 const sections = [
   { title: 'privacy:data_title', body: 'privacy:data_body' },
@@ -20,14 +21,12 @@ const PrivacyPage: React.FC = () => {
 
   return (
     <Section id="prywatnosc">
-      <Container width="reading">
-        <h1 className="text-4xl font-medium tracking-tight text-ink mb-6">{t('privacy:title')}</h1>
-        <p className="text-xl text-muted-text mb-10">{t('privacy:intro')}</p>
-
-        <div className="space-y-8">
+      <Container width="reading" className="[overflow-wrap:anywhere]">
+        <PageIntro title={t('privacy:title')} intro={t('privacy:intro')} />
+        <div className="space-y-8 border-t border-border pt-8">
           {sections.map((section) => (
             <div key={section.title}>
-              <h2 className="text-2xl font-medium mb-2 text-ink">{t(section.title)}</h2>
+              <h2 className="text-h3 font-sans font-semibold mb-3 text-ink">{t(section.title)}</h2>
               <p className="text-ink">{t(section.body)}</p>
             </div>
           ))}

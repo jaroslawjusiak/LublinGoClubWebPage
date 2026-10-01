@@ -7,13 +7,12 @@ import type { Locale } from '../types/data_models';
 
 /**
  * Language labels are not translated: a switcher shows each language with a flag
- * (a local, public-domain SVG in `public/flags/`) plus a short code. Ukraine uses
- * the unambiguous ISO alpha-3 code "UKR" instead of "UA".
+ * (a local, public-domain SVG in `public/flags/`) plus a short display code.
  */
 const LANGUAGES: ReadonlyArray<{ code: Locale; flag: string; label: string; name: string }> = [
   { code: 'pl', flag: '/flags/pl.svg', label: 'PL', name: 'Polski' },
   { code: 'en', flag: '/flags/gb.svg', label: 'EN', name: 'English' },
-  { code: 'uk', flag: '/flags/ua.svg', label: 'UKR', name: 'Українська' },
+  { code: 'uk', flag: '/flags/ua.svg', label: 'UA', name: 'Українська' },
 ];
 
 const LanguageSwitcher: React.FC<{ className?: string }> = ({ className = '' }) => {

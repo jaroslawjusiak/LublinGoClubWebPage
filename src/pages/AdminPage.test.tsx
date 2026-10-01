@@ -36,6 +36,28 @@ const renderPage = () =>
   );
 
 describe('AdminPage', () => {
+  it.each(['unconfigured', 'loading', 'signed-out', 'denied', 'authorized'])(
+    'keeps one page heading in the %s state',
+    async (state) => {
+      vi.mocked(useAuth).mockReturnValue({
+        ...adminAuth,
+        ready: state !== 'unconfigured',
+        loading: state === 'loading',
+        user: state === 'signed-out' ? null : adminAuth.user,
+        isAdmin: state !== 'denied',
+      });
+      vi.mocked(newsRepository.listAll).mockResolvedValue([]);
+      renderPage();
+      expect(screen.getAllByRole('heading', { level: 1 })).toHaveLength(1);
+      expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Panel administratora');
+      if (state === 'authorized') {
+        fireEvent.click(await screen.findByRole('button', { name: 'Nowy wpis' }));
+        expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Panel administratora');
+        expect(screen.getByRole('heading', { level: 2, name: 'Nowy wpis' })).toBeInTheDocument();
+      }
+    },
+  );
+
   it('shows the load error with a retry action instead of loading forever', async () => {
     vi.mocked(newsRepository.listAll).mockRejectedValue(new Error('boom'));
 

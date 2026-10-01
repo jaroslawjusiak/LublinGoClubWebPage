@@ -5,6 +5,7 @@ import { Section, Container } from '../components/primitives';
 import MeetingSection from '../components/MeetingSection';
 import RulesSection from '../components/RulesSection';
 import { meetingInfo } from '../data/club';
+import PageIntro from '../components/PageIntro';
 
 type Interpolation = Record<string, string>;
 
@@ -60,7 +61,7 @@ const FaqAccordion: React.FC = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <div className="divide-y divide-border border border-border rounded-lg">
+    <div className="divide-y divide-border border-y border-border [overflow-wrap:anywhere]">
       {faqItems.map((item, index) => {
         const isOpen = openIndex === index;
         const buttonId = `faq-button-${index}`;
@@ -75,10 +76,10 @@ const FaqAccordion: React.FC = () => {
                 aria-expanded={isOpen}
                 aria-controls={panelId}
                 onClick={() => setOpenIndex(isOpen ? null : index)}
-                className="flex w-full items-center justify-between px-5 py-4 text-left text-lg font-semibold text-ink hover:text-brand transition "
+                className="flex min-h-11 w-full items-center justify-between gap-4 py-5 text-left text-body font-semibold text-ink hover:text-brand transition-colors"
               >
-                <span>{t(item.q, item.qVars)}</span>
-                <span aria-hidden="true" className="ml-4 text-brand">
+                <span className="min-w-0">{t(item.q, item.qVars)}</span>
+                <span aria-hidden="true" className="shrink-0 text-brand">
                   {isOpen ? '−' : '+'}
                 </span>
               </button>
@@ -88,7 +89,7 @@ const FaqAccordion: React.FC = () => {
               role="region"
               aria-labelledby={buttonId}
               hidden={!isOpen}
-              className="px-5 pb-4 text-muted-text"
+              className="pb-5 text-muted-text max-w-[65ch]"
             >
               {t(item.a, item.aVars)}
             </div>
@@ -110,38 +111,28 @@ const ZacznijPage: React.FC = () => {
     <>
       <Section id="zacznij">
         <Container>
-          <div className="text-center mb-12">
-            <h1 className="text-4xl font-medium tracking-tight text-ink mb-3">
-              {t('start:title')}
-            </h1>
-            <p className="text-xl max-w-3xl mx-auto text-muted-text">{t('start:intro')}</p>
-          </div>
-
+          <PageIntro title={t('start:title')} intro={t('start:intro')} />
           <RulesSection />
 
-          <div className="max-w-3xl mx-auto mb-16">
-            <h2 className="text-2xl md:text-3xl font-medium mb-6 text-ink">
-              {t('start:story_title')}
-            </h2>
-            <ol className="space-y-4">
+          <div className="rounded-xl bg-sand p-6 md:p-8 mb-10 md:mb-16 [overflow-wrap:anywhere]">
+            <h2 className="text-h2 mb-8 text-ink">{t('start:story_title')}</h2>
+            <ol className="grid gap-6 min-[960px]:grid-cols-2">
               {storySteps.map((step, index) => (
-                <li key={step.key} className="flex gap-4">
+                <li key={step.key} className="flex min-w-0 gap-4">
                   <span
                     aria-hidden="true"
-                    className="flex-shrink-0 w-8 h-8 rounded-full bg-brand text-white font-bold flex items-center justify-center"
+                    className="shrink-0 min-w-8 h-fit text-h3 font-semibold text-brand"
                   >
                     {index + 1}
                   </span>
-                  <p className="text-lg text-ink pt-1">{t(step.key, step.vars)}</p>
+                  <p className="min-w-0 text-ink">{t(step.key, step.vars)}</p>
                 </li>
               ))}
             </ol>
           </div>
 
-          <div className="max-w-3xl mx-auto">
-            <h2 className="text-2xl md:text-3xl font-medium mb-6 text-ink">
-              {t('start:faq_title')}
-            </h2>
+          <div className="max-w-3xl [overflow-wrap:anywhere]">
+            <h2 className="text-h2 mb-6 text-ink">{t('start:faq_title')}</h2>
             <FaqAccordion />
           </div>
         </Container>

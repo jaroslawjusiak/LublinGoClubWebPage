@@ -1,6 +1,6 @@
 # Lubelski Klub Go - Implementation Status Checklist
 
-**Created:** 2026-09-20 · **Last updated:** 2026-09-30 (code-review fixes: image lifecycle, admin retry, URL validation, photo viewing, RLS guide)
+**Created:** 2026-09-20 · **Last updated:** 2026-10-01 (V4 public pages/admin complete)
 **Purpose:** Single, honest snapshot of what is done vs. missing, measured against
 `docs/ULTIMATE_IMPLEMENTATION_PLAN.md` and the actual code in this repository.
 
@@ -16,11 +16,11 @@
 
 ---
 
-## Repository snapshot (verified 2026-09-30)
+## Repository snapshot (verified 2026-10-01)
 
-- Session handoff: [Papier i goban — resume here](design/WZNOWIENIE.md). V3.1 is complete; the shell-stone hero candidate was rejected. Owner will provide physical-board references; V3.2 has not started.
-- Build gate: **green** - lint/format clean, `tsc --noEmit` clean, **103/103 tests pass**, `vite build` succeeds (V3.1, 2026-09-30).
-- Papier i goban: **V2 and V3.1 complete** — local assets, semantic tokens/primitives, shared brand, Header, Footer and responsive hero. [V2 evidence and limits](design/V2-zasoby-i-fundament.md); [V3.1 evidence and limits](design/V3.1-naglowek-stopka-hero.md). Reassurance, meetings layout, news, mobile CTA and full Home/shared-shell reviews remain in V3.
+- Session handoff: [Papier i goban — resume here](design/WZNOWIENIE.md). On 2026-10-01 the owner approved the retouched `board.jpg` and it replaced the Home hero (full 3:2 frame, responsive AVIF/WebP/JPEG). Physical-board references are no longer awaited.
+- Build gate: **green** - lint/format clean, `tsc --noEmit` clean, **116/116 tests pass**, `vite build` succeeds (V4, 2026-10-01).
+- Papier i goban: **V2, V3 and V4 complete** — local assets, semantic tokens/primitives, shared brand, Header, Footer, responsive hero, sand reassurance band, meeting panel, news, measured mobile CTA, six public page layouts and compact admin forms. Visual/static reviews and browser checks passed after reflow fixes; admin writes were mocked. [V2 evidence and limits](design/V2-zasoby-i-fundament.md); [V3.1 evidence and limits](design/V3.1-naglowek-stopka-hero.md); [V3.2 evidence and review](design/V3.2-home-spotkania-aktualnosci.md); [V4 evidence and review](design/V4-podstrony-admin.md). V5 remains.
 - Application location: **repository root** (`src/`, `public/`), not `web/`.
 - Package manager: npm. Stack: React 18 + TypeScript 5.9 + Vite 8, Tailwind 3, react-router-dom 7, i18next.
 - `public/assets/` (hero board image) and `reference/legacy-site/` (old site) now exist.
@@ -209,10 +209,11 @@ post's status; the public feed still shows only published posts (RLS + `listPubl
 
 ## Next session
 
-**Active visual redesign:** read [the session handoff](design/WZNOWIENIE.md) first.
-Await the owner's board photographs for the hero correction; the next implementation
-slice is V3.2 when assigned. The completed code backlog below refers to the earlier
-functional rebuild, not completion of the visual plan.
+**Active visual redesign:** V2–V4 are complete. At the next session, begin V5's
+technical/visual acceptance matrix, using the [handoff](design/WZNOWIENIE.md)
+and the section 9 acceptance plan; collect evidence and `npm run check`.
+V5 does not authorize publishing. The completed code backlog below refers to the
+earlier functional rebuild, not completion of the visual plan.
 
 **Remaining code (unblocked, no club input):** none — the session's code backlog is complete.
 

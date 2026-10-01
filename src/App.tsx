@@ -68,7 +68,7 @@ const LocaleLayout: React.FC = () => {
 };
 
 const AppShell: React.FC = () => (
-  <div className="min-h-screen flex flex-col bg-paper text-ink pb-20 md:pb-0">
+  <div className="app-shell min-h-screen flex flex-col bg-paper text-ink">
     <PageMeta />
     <ScrollToTop />
     <Header />
