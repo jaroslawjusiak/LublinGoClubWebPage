@@ -23,6 +23,12 @@ describe('MobileMenu', () => {
     fireEvent.click(toggle);
     expect(toggle).toHaveAttribute('aria-expanded', 'true');
     expect(screen.getByRole('link', { name: 'Aktualności' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Zasady gry' })).toHaveAttribute('href', '/zasady');
+    expect(screen.getByRole('link', { name: 'Zacznij grać' })).toHaveAttribute(
+      'href',
+      '/zacznij-grac',
+    );
+    expect(screen.queryByRole('button', { name: 'Zacznij grać' })).not.toBeInTheDocument();
 
     fireEvent.click(toggle);
     expect(toggle).toHaveAttribute('aria-expanded', 'false');

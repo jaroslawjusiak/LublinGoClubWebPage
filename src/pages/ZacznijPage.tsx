@@ -1,11 +1,11 @@
 // src/pages/ZacznijPage.tsx
 import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import { Section, Container } from '../components/primitives';
 import MeetingSection from '../components/MeetingSection';
-import RulesSection from '../components/RulesSection';
 import { meetingInfo } from '../data/club';
 import PageIntro from '../components/PageIntro';
+import VenueLink from '../components/VenueLink';
 
 type Interpolation = Record<string, string>;
 
@@ -109,11 +109,9 @@ const ZacznijPage: React.FC = () => {
 
   return (
     <>
-      <Section id="zacznij">
+      <Section id="zacznij-grac">
         <Container>
           <PageIntro title={t('start:title')} intro={t('start:intro')} />
-          <RulesSection />
-
           <div className="rounded-xl bg-sand p-6 md:p-8 mb-10 md:mb-16 [overflow-wrap:anywhere]">
             <h2 className="text-h2 mb-8 text-ink">{t('start:story_title')}</h2>
             <ol className="grid gap-6 min-[960px]:grid-cols-2">
@@ -125,7 +123,13 @@ const ZacznijPage: React.FC = () => {
                   >
                     {index + 1}
                   </span>
-                  <p className="min-w-0 text-ink">{t(step.key, step.vars)}</p>
+                  <p className="min-w-0 text-ink">
+                    <Trans
+                      i18nKey={step.key}
+                      values={step.vars}
+                      components={{ venue: <VenueLink /> }}
+                    />
+                  </p>
                 </li>
               ))}
             </ol>

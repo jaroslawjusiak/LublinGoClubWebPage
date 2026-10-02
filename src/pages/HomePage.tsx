@@ -37,7 +37,7 @@ const HomePage: React.FC = () => {
               <Button onClick={scrollToMeeting} variant="primary">
                 {t('hero:cta_primary')}
               </Button>
-              <Button to={localizePath('/zacznij', locale)} variant="secondary">
+              <Button to={localizePath('/zasady', locale)} variant="secondary">
                 {t('hero:cta_secondary')}
               </Button>
             </div>

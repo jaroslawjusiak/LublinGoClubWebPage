@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { LuClock, LuMap, LuMapPin } from 'react-icons/lu';
 import { Section, Container, Button } from './primitives';
 import { meetingInfo, clubConfig } from '../data/club';
+import VenueLink from './VenueLink';
 
 /**
  * Shared meeting/location block. Renders every schedule and venue fact from
@@ -37,7 +38,9 @@ const MeetingSection: React.FC<{ intro?: 'default' | 'home' }> = ({ intro = 'def
               className="mt-1 h-[24px] w-[24px] shrink-0 text-accent"
             />
             <div className="min-w-0">
-              <p className="text-h3 font-semibold text-ink mb-2">{meetingInfo.venueName}</p>
+              <p className="text-h3 font-semibold text-ink mb-2">
+                <VenueLink />
+              </p>
               <p className="text-muted-text">
                 {meetingInfo.addressLine}, {meetingInfo.postalCode} {meetingInfo.city}
               </p>

@@ -6,6 +6,7 @@ export interface MeetingInfo {
   startTime: string; // HH:MM - e.g., "17:00"
   endTime: string; // HH:MM - e.g., "20:00"
   venueName: string; // Full official name of the location
+  venueUrl: string; // Official venue page
   addressLine: string; // Street address line 1, e.g. "ul. Bernardyńska 14a"
   postalCode: string; // e.g. "20-950"
   city: string; // e.g. "Lublin"

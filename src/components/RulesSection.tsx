@@ -81,10 +81,7 @@ const RulesSection: React.FC = () => {
   const { t } = useTranslation();
 
   return (
-    <div id="zasady" className="mb-10 md:mb-16 [overflow-wrap:anywhere]">
-      <h2 className="text-h2 mb-4 text-ink">{t('rules:title')}</h2>
-      <p className="text-lead text-muted-text max-w-[60ch] mb-8">{t('rules:intro')}</p>
-
+    <div className="[overflow-wrap:anywhere]">
       <ol className="divide-y divide-border border-t border-border">
         {ruleSteps.map((step, index) => (
           <li

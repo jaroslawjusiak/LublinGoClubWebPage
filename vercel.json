@@ -5,7 +5,8 @@
   "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }],
   "redirects": [
     { "source": "/index.html", "destination": "/", "permanent": true },
-    { "source": "/zasady.html", "destination": "/zacznij", "permanent": true },
+    { "source": "/zasady.html", "destination": "/zasady", "permanent": true },
+    { "source": "/zacznij", "destination": "/zacznij-grac", "permanent": true },
     { "source": "/kontakt.html", "destination": "/kontakt", "permanent": true },
     { "source": "/wydarzenia.html", "destination": "/aktualnosci", "permanent": true },
     { "source": "/galeria.html", "destination": "/aktualnosci", "permanent": true }

@@ -47,6 +47,23 @@ describe('App', () => {
     ).toBeInTheDocument();
   });
 
+  it('serves separate rules and first-visit pages, and redirects the retired path', async () => {
+    renderApp('/zasady');
+    expect(
+      await screen.findByRole('heading', { level: 1, name: 'Zasady gry' }),
+    ).toBeInTheDocument();
+    expect(within(screen.getByRole('main')).getAllByRole('listitem')).toHaveLength(6);
+    expect(screen.queryByRole('heading', { name: /Co się stanie/ })).not.toBeInTheDocument();
+  });
+
+  it('redirects the old localized route and keeps the locale', async () => {
+    renderApp('/en/zacznij');
+    expect(
+      await screen.findByRole('heading', { level: 1, name: 'Start playing' }),
+    ).toBeInTheDocument();
+    await waitFor(() => expect(document.documentElement.lang).toBe('en'));
+  });
+
   it('shows no invented posts and uses the shared news state', async () => {
     renderApp('/aktualnosci');
     // Without Supabase env vars the repository reports "unconfigured" (not an

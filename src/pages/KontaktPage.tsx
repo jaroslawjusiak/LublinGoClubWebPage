@@ -11,7 +11,7 @@ import PageIntro from '../components/PageIntro';
 /**
  * Contact page: the public contact channels (Facebook / Discord), the shared
  * meeting/location block, and contact persons with their OGS handles.
- * No contact form in Tier A; no personal phone/Gmail is exposed.
+ * No contact form in Tier A; no personal phone is exposed.
  */
 const KontaktPage: React.FC = () => {
   const { t } = useTranslation();

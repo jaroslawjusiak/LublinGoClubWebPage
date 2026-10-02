@@ -38,10 +38,10 @@ describe('LanguageSwitcher', () => {
   });
 
   it('re-prefixes the path when switching between non-default locales', () => {
-    renderSwitcher('/en/zacznij');
+    renderSwitcher('/en/zacznij-grac');
     fireEvent.click(screen.getByRole('link', { name: 'Українська' }));
 
-    expect(screen.getByTestId('pathname')).toHaveTextContent('/uk/zacznij');
+    expect(screen.getByTestId('pathname')).toHaveTextContent('/uk/zacznij-grac');
   });
 
   it('is hidden on the admin page (no locale-prefixed admin route)', () => {

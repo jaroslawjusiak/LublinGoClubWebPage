@@ -7,6 +7,7 @@
       "about": "O klubie",
       "news": "Aktualności",
       "events": "Kontakt",
+      "rules": "Zasady gry",
       "start": "Zacznij grać",
       "toggle": "Menu"
     },
@@ -48,7 +49,7 @@
     "title": "Zacznij grać",
     "intro": "Pokażemy Ci krok po kroku, jak wygląda pierwsza wizyta w klubie.",
     "story_title": "Co się stanie, kiedy przyjdę pierwszy raz?",
-    "story_step_1": "Przyjdź pod adres {{address}} ({{venue}}).",
+    "story_step_1": "Przyjdź pod adres {{address}} (<venue>{{venue}}</venue>).",
     "story_step_2": "Twoim celem jest {{room}} ({{hint}}).",
     "story_step_3": "Powiedz, że jesteś pierwszy raz.",
     "story_step_4": "Ktoś z klubu wytłumaczy Ci podstawy i znajdzie partnera do gry.",
@@ -71,9 +72,12 @@
   },
   "oklubie": {
     "title": "O klubie",
-    "intro": "Lubelski Klub Go to społeczność miłośników gry w Go w Lublinie.",
+    "intro": "Lubelski Klub Go działa od 2001 roku. Łączy nas przyjemność gry i odkrywania, jak wiele możliwości kryje plansza z czarnymi i białymi kamieniami.",
+    "second_paragraph": "W naszym klubie troje graczy osiągnęło stopień 2 dan — wysoki poziom umiejętności. Każda taka droga zaczyna się jednak od pierwszej partii. Jeśli jeszcze nie znasz Go, chętnie pokażemy Ci zasady i zagramy razem.",
     "typical_title": "Jak wygląda typowe spotkanie?",
-    "typical_text": "Gramy partie towarzyskie, uczymy początkujących i analizujemy rozgrywki. Spotkania są otwarte i bezpłatne — zapraszamy dzieci, młodzież i dorosłych. Uczymy się i bawimy razem, często całymi rodzinami."
+    "typical_text": "Gramy partie towarzyskie, uczymy początkujących i analizujemy rozgrywki. Spotkania są otwarte i bezpłatne — zapraszamy dzieci, młodzież i dorosłych. Uczymy się i bawimy razem, często całymi rodzinami.",
+    "tournament_image_alt": "Uczestnicy klubowego spotkania grają w Go przy kilku stołach.",
+    "tournament_image_caption": "Wewnętrzny turniej klubowy, marzec 2025."
   },
   "contact": {
     "title": "Kontakt",
@@ -85,6 +89,7 @@
   "footer": {
     "nav_heading": "Nawigacja",
     "nav_aria": "Nawigacja stopki",
+    "community_text": "Go łączy nas także między spotkaniami. Znajdziesz nas na Facebooku i Discordzie.",
     "contact_heading": "Skontaktuj się z nami",
     "email_unavailable": "Adres e-mail niedostępny",
     "address_heading": "Adres klubowy",
@@ -174,8 +179,10 @@
   "meta": {
     "home_title": "Lubelski Klub Go — graj w Go w Lublinie",
     "home_description": "Spotkania w środy, wstęp wolny. Naucz się grać w Go w Lublinie — Młodzieżowy Dom Kultury nr 2, sala 14.",
-    "start_title": "Zasady gry w Go — Lubelski Klub Go",
-    "start_description": "Poznaj zasady gry w Go i dowiedz się, jak wygląda Twoja pierwsza wizyta w klubie.",
+    "start_title": "Pierwsza wizyta w klubie Go — Lubelski Klub Go",
+    "start_description": "Dowiedz się, jak wygląda pierwsza wizyta i spotkanie w Lubelskim Klubie Go.",
+    "rules_title": "Zasady gry w Go — Lubelski Klub Go",
+    "rules_description": "Poznaj podstawowe zasady gry w Go: oddechy, atari, terytorium, ko oraz życie i śmierć grup.",
     "about_title": "O klubie — Lubelski Klub Go",
     "about_description": "Kim jesteśmy i jak wygląda typowe spotkanie w Lubelskim Klubie Go.",
     "news_title": "Aktualności — Lubelski Klub Go",

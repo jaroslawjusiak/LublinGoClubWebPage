@@ -1,6 +1,6 @@
 // src/App.tsx
 import React, { useEffect, useState } from 'react';
-import { Routes, Route, Outlet, useParams } from 'react-router-dom';
+import { Routes, Route, Outlet, useParams, Navigate } from 'react-router-dom';
 import { I18nextProvider, useTranslation } from 'react-i18next';
 import { HelmetProvider } from 'react-helmet-async';
 import i18nConfig from './i18n/config';
@@ -13,6 +13,7 @@ import PageMeta from './components/PageMeta';
 import ScrollToTop from './components/ScrollToTop';
 import HomePage from './pages/HomePage';
 import ZacznijPage from './pages/ZacznijPage';
+import ZasadyPage from './pages/ZasadyPage';
 import OKlubiePage from './pages/OKlubiePage';
 import AktualnosciPage from './pages/AktualnosciPage';
 import KontaktPage from './pages/KontaktPage';
@@ -75,7 +76,9 @@ const AppShell: React.FC = () => (
     <main className="flex-grow w-full">
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/zacznij" element={<ZacznijPage />} />
+        <Route path="/zacznij" element={<Navigate to="/zacznij-grac" replace />} />
+        <Route path="/zacznij-grac" element={<ZacznijPage />} />
+        <Route path="/zasady" element={<ZasadyPage />} />
         <Route path="/o-klubie" element={<OKlubiePage />} />
         <Route path="/aktualnosci" element={<AktualnosciPage />} />
         <Route path="/kontakt" element={<KontaktPage />} />
@@ -84,7 +87,9 @@ const AppShell: React.FC = () => (
 
         <Route path="/:locale" element={<LocaleLayout />}>
           <Route index element={<HomePage />} />
-          <Route path="zacznij" element={<ZacznijPage />} />
+          <Route path="zacznij" element={<Navigate to="../zacznij-grac" replace />} />
+          <Route path="zacznij-grac" element={<ZacznijPage />} />
+          <Route path="zasady" element={<ZasadyPage />} />
           <Route path="o-klubie" element={<OKlubiePage />} />
           <Route path="aktualnosci" element={<AktualnosciPage />} />
           <Route path="kontakt" element={<KontaktPage />} />

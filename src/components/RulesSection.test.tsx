@@ -15,7 +15,6 @@ describe('RulesSection', () => {
   it('renders the rules in six steps', () => {
     renderSection();
 
-    expect(screen.getByRole('heading', { level: 2, name: 'Zasady gry' })).toBeInTheDocument();
     expect(screen.getAllByRole('listitem')).toHaveLength(6);
     expect(screen.getByText(/Plansza i kamienie/)).toBeInTheDocument();
   });

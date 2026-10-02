@@ -6,8 +6,9 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { FaFacebookF, FaDiscord } from 'react-icons/fa';
 import { clubConfig, meetingInfo, socialLinks } from '../data/club';
-import { navItems, startCta } from '../data/site';
+import { navItems } from '../data/site';
 import { useLocale, localizePath } from '../i18n/locale';
+import VenueLink from './VenueLink';
 
 const footerLinkClasses =
   'inline-flex min-h-11 items-center rounded hover:underline underline-offset-4 transition-colors';
@@ -15,7 +16,7 @@ const footerLinkClasses =
 const socialLinkClasses =
   'inline-flex min-h-11 min-w-11 items-center justify-center rounded text-2xl hover:bg-on-brand/10 transition-colors';
 
-const footerLinks = [...navItems.slice(0, 2), startCta, ...navItems.slice(2)];
+const footerLinks = navItems;
 
 /**
  * @description Footer with navigation, contact summary and social links.
@@ -36,11 +37,7 @@ const Footer: React.FC = () => {
             <h2 id="site-footer-heading" className="mb-4">
               <BrandMark dark />
             </h2>
-            <p className="text-on-brand/90 max-w-[32ch] mb-6">
-              {clubConfig.slogan}
-              <br />
-              {meetingInfo.venueName} ({meetingInfo.addressLine})
-            </p>
+            <p className="text-on-brand/90 max-w-[32ch] mb-6">{t('footer:community_text')}</p>
 
             <div className="flex gap-3">
               {socialLinks.facebook ? (
@@ -105,7 +102,9 @@ const Footer: React.FC = () => {
             </p>
             <div className="mt-6 pt-4 border-t border-on-brand/25">
               <h4 className="font-semibold mb-2 text-lg">{t('footer:address_heading')}</h4>
-              <p>{meetingInfo.venueName}</p>
+              <p>
+                <VenueLink />
+              </p>
               <p>
                 {meetingInfo.addressLine}, {meetingInfo.roomNumber}
               </p>

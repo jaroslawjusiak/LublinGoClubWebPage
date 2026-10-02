@@ -2,11 +2,11 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Button, Container } from './primitives';
+import { Container } from './primitives';
 import MobileMenu from './MobileMenu';
 import LanguageSwitcher from './LanguageSwitcher';
 import BrandMark from './BrandMark';
-import { navItems, startCta } from '../data/site';
+import { navItems } from '../data/site';
 import { useLocale, localizePath } from '../i18n/locale';
 
 const Header: React.FC = () => {
@@ -41,13 +41,6 @@ const Header: React.FC = () => {
             <div className="hidden min-[1100px]:block">
               <LanguageSwitcher />
             </div>
-            <Button
-              to={localizePath(startCta.path, locale)}
-              variant="primary"
-              className="hidden min-[1100px]:inline-flex"
-            >
-              {t(startCta.labelKey)}
-            </Button>
             <MobileMenu />
           </div>
         </div>

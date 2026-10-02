@@ -13,7 +13,8 @@ interface MetaEntry {
 
 const ROUTE_META: Record<string, MetaEntry> = {
   '/': { title: 'meta:home_title', description: 'meta:home_description' },
-  '/zacznij': { title: 'meta:start_title', description: 'meta:start_description' },
+  '/zacznij-grac': { title: 'meta:start_title', description: 'meta:start_description' },
+  '/zasady': { title: 'meta:rules_title', description: 'meta:rules_description' },
   '/o-klubie': { title: 'meta:about_title', description: 'meta:about_description' },
   '/aktualnosci': { title: 'meta:news_title', description: 'meta:news_description' },
   '/kontakt': { title: 'meta:contact_title', description: 'meta:contact_description' },

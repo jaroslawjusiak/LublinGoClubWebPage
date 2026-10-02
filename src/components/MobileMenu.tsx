@@ -2,8 +2,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Button } from './primitives';
-import { navItems, startCta } from '../data/site';
+import { navItems } from '../data/site';
 import { useLocale, localizePath } from '../i18n/locale';
 
 /**
@@ -79,16 +78,6 @@ const MobileMenu: React.FC = () => {
               </li>
             ))}
           </ul>
-          <div className="px-4 pb-4">
-            <Button
-              to={localizePath(startCta.path, locale)}
-              onClick={close}
-              variant="primary"
-              className="w-full"
-            >
-              {t(startCta.labelKey)}
-            </Button>
-          </div>
         </nav>
       )}
     </div>
