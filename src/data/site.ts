@@ -9,9 +9,9 @@ import type { NavItem } from '../types/data_models';
  */
 export const navItems: NavItem[] = [
   { path: '/', labelKey: 'common:menu.home' },
+  { path: '/lekcje', labelKey: 'common:menu.lessons' },
   { path: '/zasady', labelKey: 'common:menu.rules' },
   { path: '/zacznij-grac', labelKey: 'common:menu.start' },
   { path: '/o-klubie', labelKey: 'common:menu.about' },
   { path: '/aktualnosci', labelKey: 'common:menu.news' },
-  { path: '/lekcje', labelKey: 'common:menu.lessons' },
 ];

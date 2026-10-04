@@ -62,6 +62,7 @@ export interface Person {
   name: string;
   role: string; // e.g., "Organizer", "Founder", "Mentor"
   ogsHandle?: string; // Optional OGS/Social handle link
+  ogsUrl?: string; // Optional public OGS player profile URL
 }
 
 // src/types/news.ts

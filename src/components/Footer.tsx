@@ -89,26 +89,39 @@ const Footer: React.FC = () => {
             <h3 className="text-h3 font-semibold text-on-brand mb-4">
               {t('footer:contact_heading')}
             </h3>
-            <p className="mb-2">
-              {clubConfig.email ? (
-                <a
-                  href={`mailto:${clubConfig.email}`}
-                  className="hover:underline underline-offset-4 transition-colors"
-                >
-                  {clubConfig.email}
-                </a>
-              ) : (
-                t('footer:email_unavailable')
-              )}
-            </p>
             {people.length > 0 ? (
               <ul className="mt-4 space-y-2">
                 {people.map((person) => (
                   <li key={person.name}>
                     {person.name}
+                    <span className="block text-caption">
+                      {clubConfig.email ? (
+                        <>
+                          {t('footer:email_label')}:{' '}
+                          <a
+                            href={`mailto:${clubConfig.email}`}
+                            className="hover:underline underline-offset-4 transition-colors"
+                          >
+                            {clubConfig.email}
+                          </a>
+                        </>
+                      ) : (
+                        t('footer:email_unavailable')
+                      )}
+                    </span>
                     {person.ogsHandle ? (
                       <span className="block text-caption">
-                        {t('contact:ogs_label')}: {person.ogsHandle}
+                        {t('contact:ogs_label')}:{' '}
+                        {person.ogsUrl ? (
+                          <a
+                            href={person.ogsUrl}
+                            className="hover:underline underline-offset-4 transition-colors"
+                          >
+                            {person.ogsHandle}
+                          </a>
+                        ) : (
+                          person.ogsHandle
+                        )}
                       </span>
                     ) : null}
                   </li>

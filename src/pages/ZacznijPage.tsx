@@ -114,7 +114,7 @@ const ZacznijPage: React.FC = () => {
           <PageIntro title={t('start:title')} intro={t('start:intro')} />
           <div className="rounded-xl bg-sand p-6 md:p-8 mb-10 md:mb-16 [overflow-wrap:anywhere]">
             <h2 className="text-h2 mb-8 text-ink">{t('start:story_title')}</h2>
-            <ol className="grid gap-6 min-[960px]:grid-cols-2">
+            <ol className="grid gap-6 min-[960px]:grid-cols-2 min-[960px]:grid-flow-col min-[960px]:grid-rows-3">
               {storySteps.map((step, index) => (
                 <li key={step.key} className="flex min-w-0 gap-4">
                   <span
