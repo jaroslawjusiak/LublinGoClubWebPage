@@ -97,10 +97,16 @@ describe('App', () => {
     expect(screen.getAllByText('Wstęp wolny').length).toBeGreaterThan(0);
   });
 
-  it('shows the same meeting section on the Contact page', async () => {
-    renderApp('/kontakt');
-    expect(await screen.findByRole('heading', { level: 1, name: 'Kontakt' })).toBeInTheDocument();
-    expect(await screen.findByRole('link', { name: 'Wyznacz dojazd' })).toBeInTheDocument();
+  it.each([
+    ['/kontakt', 'Lekcje'],
+    ['/en/kontakt', 'Lessons'],
+    ['/uk/kontakt', 'Уроки'],
+  ])('redirects retired contact route %s to lessons with its locale', async (route, title) => {
+    renderApp(route);
+    expect(await screen.findByRole('heading', { level: 1, name: title })).toBeInTheDocument();
+    const lessonsLink = within(screen.getAllByRole('banner')[0]).getByRole('link', { name: title });
+    expect(lessonsLink).toHaveAttribute('href', route.replace('kontakt', 'lekcje'));
+    expect(lessonsLink).toHaveAttribute('aria-current', 'page');
   });
 
   it('mounts the mobile navigation toggle', async () => {
@@ -113,13 +119,14 @@ describe('App', () => {
     expect(await screen.findByText(/17:00–20:00/)).toBeInTheDocument();
   });
 
-  it('shows the same meeting facts on Home and Contact', async () => {
+  it('keeps meeting facts available in the shared footer after Contact is retired', async () => {
     const home = renderApp('/');
     expect(await screen.findByText(/17:00–20:00/)).toBeInTheDocument();
     home.unmount();
 
     renderApp('/kontakt');
-    expect(await screen.findByText(/17:00–20:00/)).toBeInTheDocument();
+    expect(await screen.findByRole('heading', { level: 1, name: 'Lekcje' })).toBeInTheDocument();
+    expect(within(screen.getByRole('contentinfo')).getByText(/Bernardyńska/)).toBeInTheDocument();
   });
 
   it('serves the /en locale route in English', async () => {

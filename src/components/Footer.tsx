@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { FaFacebookF, FaDiscord } from 'react-icons/fa';
 import { clubConfig, meetingInfo, socialLinks } from '../data/club';
 import { navItems } from '../data/site';
+import { people } from '../data/people';
 import { useLocale, localizePath } from '../i18n/locale';
 import VenueLink from './VenueLink';
 
@@ -100,6 +101,20 @@ const Footer: React.FC = () => {
                 t('footer:email_unavailable')
               )}
             </p>
+            {people.length > 0 ? (
+              <ul className="mt-4 space-y-2">
+                {people.map((person) => (
+                  <li key={person.name}>
+                    {person.name}
+                    {person.ogsHandle ? (
+                      <span className="block text-caption">
+                        {t('contact:ogs_label')}: {person.ogsHandle}
+                      </span>
+                    ) : null}
+                  </li>
+                ))}
+              </ul>
+            ) : null}
             <div className="mt-6 pt-4 border-t border-on-brand/25">
               <h4 className="font-semibold mb-2 text-lg">{t('footer:address_heading')}</h4>
               <p>

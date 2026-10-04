@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Section, Container, Button } from '../components/primitives';
 import PostList from '../components/admin/PostList';
 import PostForm from '../components/admin/PostForm';
+import LessonManager from '../components/admin/LessonManager';
 import { newsRepository } from '../lib/news/repository';
 import { useAuth } from '../lib/supabase/auth';
 import type { NewsPost } from '../types/data_models';
@@ -24,7 +25,7 @@ const AdminPage: React.FC = () => {
   const [reloadKey, setReloadKey] = useState(0);
 
   useEffect(() => {
-    if (!user || !isAdmin) return;
+    if (!ready || loading || !user || !isAdmin) return;
 
     let active = true;
     newsRepository
@@ -44,7 +45,7 @@ const AdminPage: React.FC = () => {
     return () => {
       active = false;
     };
-  }, [user, isAdmin, reloadKey, t]);
+  }, [ready, loading, user, isAdmin, reloadKey, t]);
 
   const handleFormDone = () => {
     setEditing(null);
@@ -112,6 +113,7 @@ const AdminPage: React.FC = () => {
                 onEdit={(post) => setEditing(post)}
               />
             )}
+            <LessonManager />
           </>
         )}
       </Container>

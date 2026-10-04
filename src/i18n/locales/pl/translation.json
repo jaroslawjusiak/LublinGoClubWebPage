@@ -9,7 +9,8 @@
       "events": "Kontakt",
       "rules": "Zasady gry",
       "start": "Zacznij grać",
-      "toggle": "Menu"
+      "toggle": "Menu",
+      "lessons": "Lekcje"
     },
     "cta_start_button": "Zacznij grać",
     "news_description": "Najnowsze turnieje, warsztaty i artykuły z życia klubu.",
@@ -172,9 +173,9 @@
     "minors_title": "Osoby niepełnoletnie",
     "minors_body": "Zdjęcia osób niepełnoletnich publikujemy wyłącznie za wyraźną zgodą rodzica lub opiekuna prawnego.",
     "withdrawal_title": "Wycofanie zgody",
-    "withdrawal_body": "Każda osoba może w dowolnym momencie wycofać zgodę i poprosić o usunięcie swojego zdjęcia — wystarczy napisać do nas (sekcja Kontakt), a zdjęcie usuniemy niezwłocznie.",
+    "withdrawal_body": "Każda osoba może w dowolnym momencie wycofać zgodę i poprosić o usunięcie swojego zdjęcia — wystarczy napisać do nas przez kanały podane w stopce strony, a zdjęcie usuniemy niezwłocznie.",
     "contact_title": "Kontakt",
-    "contact_body": "W sprawach dotyczących danych osobowych prosimy o kontakt przez Facebooka lub Discorda (linki na stronie Kontakt)."
+    "contact_body": "W sprawach dotyczących danych osobowych prosimy o kontakt przez Facebooka lub Discorda (linki w stopce strony)."
   },
   "meta": {
     "home_title": "Lubelski Klub Go — graj w Go w Lublinie",
@@ -194,7 +195,9 @@
     "admin_title": "Panel administratora — Lubelski Klub Go",
     "admin_description": "Panel administratora Lubelskiego Klubu Go.",
     "notfound_title": "Nie znaleziono strony — Lubelski Klub Go",
-    "notfound_description": "Ta strona nie istnieje lub została przeniesiona."
+    "notfound_description": "Ta strona nie istnieje lub została przeniesiona.",
+    "lessons_title": "Lekcje — Lubelski Klub Go",
+    "lessons_description": "Materiały ze spotkań klubu — wróć do wybranego tematu i ćwicz we własnym tempie."
   },
   "aktualnosci": {
     "news_heading": "Aktualności",
@@ -212,5 +215,36 @@
     "title": "Nie znaleziono strony",
     "message": "Ta strona nie istnieje lub została przeniesiona.",
     "back_home": "Wróć na stronę główną"
+  },
+  "lessons": {
+    "title": "Lekcje",
+    "intro": "Materiały ze spotkań klubu — wróć do wybranego tematu i ćwicz we własnym tempie.",
+    "polish_note": "Materiały i opisy lekcji są dostępne w języku polskim.",
+    "loading": "Ładowanie lekcji…",
+    "empty": "Nie dodano jeszcze żadnych lekcji.",
+    "load_error": "Nie udało się wczytać lekcji. Spróbuj ponownie.",
+    "open_pdf": "Otwórz PDF",
+    "manage": "Zarządzanie lekcjami",
+    "add": "Dodaj lekcję",
+    "title_label": "Tytuł lekcji",
+    "description_label": "Opis lekcji",
+    "pdf_label": "Plik PDF",
+    "thumbnail_label": "Miniatura lekcji",
+    "file_help": "PDF: maks. 20 MB. Miniatura: JPG, PNG lub WebP, maks. 5 MB. Materiały dodawane są w języku polskim.",
+    "fields_required": "Uzupełnij tytuł i opis lekcji.",
+    "pdf_required": "Wybierz plik PDF.",
+    "thumbnail_required": "Wybierz miniaturę.",
+    "pdf_invalid": "Wybierz poprawny, niepusty plik PDF o rozmiarze do 20 MB.",
+    "thumbnail_invalid": "Wybierz niepustą miniaturę JPG, PNG lub WebP o rozmiarze do 5 MB.",
+    "save_error": "Nie udało się dodać lekcji. Sprawdź połączenie i konfigurację Supabase, a następnie spróbuj ponownie.",
+    "cleanup_failed": "Nie udało się usunąć plików po nieudanym zapisie. Kolejna próba najpierw ponowi ich usunięcie. Jeśli problem się powtarza, usuń wskazane pliki w Supabase Storage.",
+    "saved": "Lekcja została dodana i jest dostępna na stronie Lekcje.",
+    "existing": "Dodane lekcje",
+    "verify_failed": "Nie można potwierdzić wyniku zapisu. Pliki zachowano. Ponów sprawdzenie przed dodawaniem kolejnej lekcji.",
+    "verify_save": "Sprawdź zapis",
+    "pages_one": "{{count}} strona",
+    "pages_few": "{{count}} strony",
+    "pages_many": "{{count}} stron",
+    "pages_other": "{{count}} strony"
   }
 }
