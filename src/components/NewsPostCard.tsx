@@ -1,7 +1,7 @@
 // src/components/NewsPostCard.tsx
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Card, Button, SmartImage } from './primitives';
+import { Button, SmartImage } from './primitives';
 import type { NewsPost, PostTag } from '../types/data_models';
 
 const tagLabelKey: Record<PostTag, string> = {
@@ -26,21 +26,23 @@ const NewsPostCard: React.FC<{ post: NewsPost }> = ({ post }) => {
   });
 
   return (
-    <Card className="h-full flex flex-col">
-      <div className="mb-2 flex items-center gap-2">
+    <article className="min-w-0 h-full flex flex-col border-t border-border pt-6 [overflow-wrap:anywhere]">
+      <div className="mb-3 flex flex-wrap items-center gap-x-3 gap-y-1">
         <time dateTime={post.publishedAt} className="text-sm text-muted-text">
           {formattedDate}
         </time>
         {post.tag ? (
-          <span className="text-xs font-semibold uppercase text-kaya">
+          <span className="text-xs font-semibold uppercase text-accent">
             {t(tagLabelKey[post.tag])}
           </span>
         ) : null}
       </div>
 
-      <h3 className="text-xl font-bold leading-snug mb-2 text-ink">{post.title}</h3>
+      <h3 className="text-h3 font-sans font-semibold mb-3 text-ink">{post.title}</h3>
 
-      {post.body ? <p className="text-muted-text mb-4 flex-grow">{post.body}</p> : null}
+      {post.body ? (
+        <p className="text-muted-text mb-5 flex-grow whitespace-pre-line">{post.body}</p>
+      ) : null}
 
       {post.images.length > 0 ? (
         <div className={`grid gap-2 mb-4 ${post.images.length > 1 ? 'grid-cols-2' : ''}`}>
@@ -51,7 +53,7 @@ const NewsPostCard: React.FC<{ post: NewsPost }> = ({ post }) => {
               target="_blank"
               rel="noreferrer noopener"
               aria-label={image.alt || t('aktualnosci:open_image')}
-              className="block aspect-video rounded overflow-hidden bg-gray-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-kaya/70"
+              className="block min-w-0 aspect-video rounded-lg overflow-hidden bg-sand"
             >
               <SmartImage src={image.url} alt={image.alt} width={640} height={360} />
             </a>
@@ -61,12 +63,12 @@ const NewsPostCard: React.FC<{ post: NewsPost }> = ({ post }) => {
 
       {post.externalUrl ? (
         <div className="mt-auto">
-          <Button href={post.externalUrl} external variant="secondary" className="w-full py-2">
+          <Button href={post.externalUrl} external variant="secondary" className="w-full">
             {t('aktualnosci:external_link')}
           </Button>
         </div>
       ) : null}
-    </Card>
+    </article>
   );
 };
 

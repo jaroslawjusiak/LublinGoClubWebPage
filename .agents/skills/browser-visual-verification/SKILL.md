@@ -1,6 +1,6 @@
 ---
 name: browser-visual-verification
-description: "Verify LKG UI changes in a running browser through the existing Playwright MCP. Use after layout or style changes and for screenshot comparison, responsive checks, console errors and navigation evidence."
+description: 'Verify LKG UI changes in a running browser through the existing Playwright MCP. Use after layout or style changes and for screenshot comparison, responsive checks, console errors and navigation evidence.'
 ---
 
 # Browser visual verification
@@ -38,5 +38,3 @@ For each finding include severity, route, locale, viewport, expected versus actu
 reproduction, screenshot path and likely owning component if known.
 Mark checks as passed, failed or blocked. Never claim screenshot verification
 when image inspection is unavailable. Ask for the missing capability or report the gap.
-
-

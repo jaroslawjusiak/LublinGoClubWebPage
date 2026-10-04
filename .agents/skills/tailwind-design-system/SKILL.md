@@ -1,6 +1,6 @@
 ---
 name: tailwind-design-system
-description: "Style LKG components with Tailwind using the approved Papier i goban semantic tokens, shared primitives, typography, spacing and responsive behavior. Use for global CSS, Tailwind config and UI styling."
+description: 'Style LKG components with Tailwind using the approved Papier i goban semantic tokens, shared primitives, typography, spacing and responsive behavior. Use for global CSS, Tailwind config and UI styling.'
 ---
 
 # Tailwind design system
@@ -26,5 +26,3 @@ The approved redesign supersedes the old one-red-accent styling guidance.
 
 Finish with real desktop/mobile screenshots; a successful build does not establish
 that styles, layout or fonts look correct.
-
-

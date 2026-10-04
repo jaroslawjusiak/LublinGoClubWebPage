@@ -1,9 +1,8 @@
 // src/components/MobileMenu.tsx
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useRef, useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Button } from './primitives';
-import { navItems, startCta } from '../data/site';
+import { navItems } from '../data/site';
 import { useLocale, localizePath } from '../i18n/locale';
 
 /**
@@ -14,23 +13,28 @@ const MobileMenu: React.FC = () => {
   const { t } = useTranslation();
   const locale = useLocale();
   const [isOpen, setIsOpen] = useState(false);
+  const toggleRef = useRef<HTMLButtonElement>(null);
   const close = () => setIsOpen(false);
 
   useEffect(() => {
     if (!isOpen) return;
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') close();
+      if (event.key === 'Escape') {
+        close();
+        toggleRef.current?.focus();
+      }
     };
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
   }, [isOpen]);
 
   return (
-    <div className="relative md:hidden">
+    <div className="relative min-[1100px]:hidden">
       <button
+        ref={toggleRef}
         type="button"
         onClick={() => setIsOpen((open) => !open)}
-        className="p-2 text-ink hover:bg-gray-100 rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-kaya/70"
+        className="flex min-h-11 min-w-11 items-center justify-center text-ink hover:bg-sand rounded-lg"
         aria-expanded={isOpen}
         aria-controls="mobile-menu-list"
         aria-label={t('common:menu.toggle')}
@@ -61,26 +65,19 @@ const MobileMenu: React.FC = () => {
           <ul className="p-4 space-y-1">
             {navItems.map((item) => (
               <li key={item.path}>
-                <Link
+                <NavLink
                   to={localizePath(item.path, locale)}
+                  end={item.path === '/'}
                   onClick={close}
-                  className="block py-3 px-2 text-lg font-medium hover:text-kaya rounded transition duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-kaya/70"
+                  className={({ isActive }) =>
+                    `block py-3 px-2 text-lg font-medium hover:text-brand rounded transition-colors duration-150 ${isActive ? 'text-brand underline underline-offset-4' : 'text-ink'}`
+                  }
                 >
                   {t(item.labelKey)}
-                </Link>
+                </NavLink>
               </li>
             ))}
           </ul>
-          <div className="px-4 pb-4">
-            <Button
-              to={localizePath(startCta.path, locale)}
-              onClick={close}
-              variant="primary"
-              className="w-full py-3"
-            >
-              {t(startCta.labelKey)}
-            </Button>
-          </div>
         </nav>
       )}
     </div>

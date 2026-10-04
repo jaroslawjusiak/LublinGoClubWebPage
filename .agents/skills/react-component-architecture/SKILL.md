@@ -1,6 +1,6 @@
 ---
 name: react-component-architecture
-description: "Create or adjust typed LKG React components during the visual redesign while preserving data boundaries, composition, semantic controls and existing routing."
+description: 'Create or adjust typed LKG React components during the visual redesign while preserving data boundaries, composition, semantic controls and existing routing.'
 ---
 
 # React component architecture
@@ -21,5 +21,3 @@ Inspect existing primitives and component ownership before introducing a new abs
 - Avoid unrelated refactors and dependency upgrades.
 
 Follow the plan's atomic stages and report any necessary change of behavior explicitly.
-
-

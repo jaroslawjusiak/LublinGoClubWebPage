@@ -22,22 +22,24 @@ const PostList: React.FC<PostListProps> = ({ posts, onNew, onEdit }) => {
   const locale = i18n.resolvedLanguage ?? i18n.language ?? 'pl';
 
   return (
-    <div>
-      <div className="flex justify-between items-center gap-3 mb-6">
-        <h2 className="text-2xl font-bold text-ink">{t('admin:title')}</h2>
-        <Button onClick={onNew} variant="primary" className="py-2 px-4">
+    <div className="min-w-0 [overflow-wrap:anywhere]">
+      <div className="flex flex-wrap justify-between items-center gap-3 mb-6">
+        <Button onClick={onNew} variant="primary">
           {t('admin:new_post')}
         </Button>
       </div>
 
       {posts.length === 0 ? (
-        <p className="text-muted-text">{t('admin:list_empty')}</p>
+        <p className="rounded-xl bg-sand p-5 text-muted-text">{t('admin:list_empty')}</p>
       ) : (
-        <ul className="divide-y divide-border border border-border rounded-lg">
+        <ul className="divide-y divide-border border border-border bg-surface rounded-xl">
           {posts.map((post) => (
-            <li key={post.id} className="p-4 flex flex-col sm:flex-row sm:items-center gap-3">
+            <li
+              key={post.id}
+              className="p-5 flex min-w-0 flex-col sm:flex-row sm:items-center gap-3"
+            >
               <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2">
+                <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mb-2">
                   <p className="text-sm text-muted-text">
                     {new Date(post.publishedAt).toLocaleDateString(locale, {
                       year: 'numeric',
@@ -53,14 +55,14 @@ const PostList: React.FC<PostListProps> = ({ posts, onNew, onEdit }) => {
                     {post.published ? t('admin:status_published') : t('admin:status_draft')}
                   </span>
                 </div>
-                <h3 className="font-semibold text-ink truncate">{post.title}</h3>
+                <h2 className="text-body font-sans font-semibold text-ink">{post.title}</h2>
                 {post.tag ? (
-                  <span className="text-xs font-semibold uppercase text-kaya">
+                  <span className="text-xs font-semibold uppercase text-accent">
                     {t(tagLabelKey[post.tag])}
                   </span>
                 ) : null}
               </div>
-              <Button onClick={() => onEdit(post)} variant="secondary" className="py-2 px-4">
+              <Button onClick={() => onEdit(post)} variant="secondary">
                 {t('admin:edit')}
               </Button>
             </li>

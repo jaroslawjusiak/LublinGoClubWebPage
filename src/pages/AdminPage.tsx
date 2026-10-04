@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Section, Container, Button } from '../components/primitives';
 import PostList from '../components/admin/PostList';
 import PostForm from '../components/admin/PostForm';
+import LessonManager from '../components/admin/LessonManager';
 import { newsRepository } from '../lib/news/repository';
 import { useAuth } from '../lib/supabase/auth';
 import type { NewsPost } from '../types/data_models';
@@ -24,7 +25,7 @@ const AdminPage: React.FC = () => {
   const [reloadKey, setReloadKey] = useState(0);
 
   useEffect(() => {
-    if (!user || !isAdmin) return;
+    if (!ready || loading || !user || !isAdmin) return;
 
     let active = true;
     newsRepository
@@ -44,7 +45,7 @@ const AdminPage: React.FC = () => {
     return () => {
       active = false;
     };
-  }, [user, isAdmin, reloadKey, t]);
+  }, [ready, loading, user, isAdmin, reloadKey, t]);
 
   const handleFormDone = () => {
     setEditing(null);
@@ -60,25 +61,26 @@ const AdminPage: React.FC = () => {
   };
 
   return (
-    <Section id="admin">
-      <Container className="max-w-3xl">
+    <Section id="admin" spacing="compact">
+      <Container width="reading" className="min-w-0 [overflow-wrap:anywhere]">
+        <h1 className="text-h3 font-sans font-semibold mb-6 pb-5 border-b border-border text-ink">
+          {t('admin:title')}
+        </h1>
         {!ready ? (
-          <p className="text-muted-text">{t('admin:unconfigured')}</p>
+          <p className="rounded-xl bg-sand p-5 text-muted-text">{t('admin:unconfigured')}</p>
         ) : loading ? (
-          <p className="text-muted-text">{t('admin:loading')}</p>
+          <p className="rounded-xl bg-sand p-5 text-muted-text">{t('admin:loading')}</p>
         ) : !user ? (
-          <div className="text-center py-10">
-            <h1 className="text-2xl font-bold mb-4 text-ink">{t('admin:title')}</h1>
+          <div className="rounded-xl bg-surface border border-border p-6">
             <p className="text-muted-text mb-6">{t('admin:sign_in_prompt')}</p>
-            <Button onClick={() => void signInWithGoogle()} variant="primary" className="px-6 py-3">
+            <Button onClick={() => void signInWithGoogle()} variant="primary">
               {t('admin:sign_in')}
             </Button>
           </div>
         ) : !isAdmin ? (
-          <div className="text-center py-10">
-            <h1 className="text-2xl font-bold mb-4 text-ink">{t('admin:title')}</h1>
+          <div className="rounded-xl bg-surface border border-border p-6">
             <p className="text-muted-text mb-6">{t('admin:not_authorized')}</p>
-            <Button onClick={() => void signOut()} variant="secondary" className="px-6 py-3">
+            <Button onClick={() => void signOut()} variant="secondary">
               {t('admin:sign_out')}
             </Button>
           </div>
@@ -87,20 +89,23 @@ const AdminPage: React.FC = () => {
         ) : (
           <>
             <div className="flex justify-end mb-4">
-              <Button onClick={() => void signOut()} variant="secondary" className="py-2 px-4">
+              <Button onClick={() => void signOut()} variant="secondary">
                 {t('admin:sign_out')}
               </Button>
             </div>
 
             {postsError ? (
-              <div role="alert" className="text-red-700">
+              <div
+                role="alert"
+                className="rounded-xl border border-red-700 bg-red-50 p-5 text-red-800"
+              >
                 <p>{postsError}</p>
-                <Button onClick={retryList} variant="secondary" className="mt-3 py-2 px-4">
+                <Button onClick={retryList} variant="secondary" className="mt-3">
                   {t('admin:retry')}
                 </Button>
               </div>
             ) : posts === null ? (
-              <p className="text-muted-text">{t('admin:loading')}</p>
+              <p className="rounded-xl bg-sand p-5 text-muted-text">{t('admin:loading')}</p>
             ) : (
               <PostList
                 posts={posts}
@@ -110,6 +115,7 @@ const AdminPage: React.FC = () => {
             )}
           </>
         )}
+        {ready && !loading && user && isAdmin ? <LessonManager /> : null}
       </Container>
     </Section>
   );

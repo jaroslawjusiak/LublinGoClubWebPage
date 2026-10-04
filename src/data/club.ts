@@ -21,9 +21,7 @@ export const clubConfig: ClubConfig = {
   // Vercel URL as an alias. Confirm DNS ownership before launch.
   canonicalDomain: 'lubelski-klub-go.pl',
   isFreeEntry: true,
-  // PENDING: no club-level address approved yet. Do NOT substitute a personal
-  // phone or Gmail address as the primary public channel.
-  // email: undefined,
+  email: 'jaroslaw.jusiak@gmail.com',
 };
 
 // --- MEETING INFORMATION ---
@@ -31,6 +29,7 @@ export const meetingInfo: MeetingInfo = {
   startTime: '17:00',
   endTime: '20:00',
   venueName: 'Młodzieżowy Dom Kultury nr 2',
+  venueUrl: 'https://mdk2.lublin.eu/szczegoly-galerii/klub-gier-planszowych-lubelski-klub-go-7915',
   addressLine: 'ul. Bernardyńska 14a',
   postalCode: '20-950',
   city: 'Lublin',
@@ -47,8 +46,6 @@ export const meetingInfo: MeetingInfo = {
 // YouTube were placeholder inventions in the previous scaffold and are removed.
 export const socialLinks: SocialLinks = {
   facebook: 'https://www.facebook.com/KlubGoLublin/',
-  // PENDING: the old site had two invite codes (xeaQ8uMy on most pages,
-  // cZNpEtfj5J on index.html). Confirm the current invite before launch.
-  discord: 'https://discord.gg/xeaQ8uMy',
+  discord: 'https://discord.gg/NkJsASKPYb',
   // PENDING: OGS club group and Polish Go Association links — not yet verified.
 };

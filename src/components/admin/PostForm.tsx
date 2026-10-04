@@ -164,9 +164,9 @@ const PostForm: React.FC<PostFormProps> = ({ initial, onDone }) => {
   };
 
   return (
-    <Card>
+    <Card className="min-w-0 [overflow-wrap:anywhere]">
       <form onSubmit={handleFormSubmit} noValidate>
-        <h2 className="text-2xl font-bold mb-6 text-ink">
+        <h2 className="text-h3 font-sans font-semibold mb-6 text-ink">
           {initial ? t('admin:edit_post') : t('admin:new_post')}
         </h2>
 
@@ -180,10 +180,12 @@ const PostForm: React.FC<PostFormProps> = ({ initial, onDone }) => {
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="w-full rounded-md border border-border px-3 py-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-kaya/70"
+              aria-invalid={!!errors.title}
+              aria-describedby={errors.title ? 'post-title-error' : undefined}
+              className="w-full rounded-md border border-border-control bg-surface px-3 py-2 "
             />
             {errors.title ? (
-              <p role="alert" className="mt-1 text-sm text-red-700">
+              <p id="post-title-error" role="alert" className="mt-1 text-sm text-red-700">
                 {errors.title}
               </p>
             ) : null}
@@ -197,18 +199,20 @@ const PostForm: React.FC<PostFormProps> = ({ initial, onDone }) => {
               id="post-body"
               value={body}
               onChange={(e) => setBody(e.target.value)}
+              aria-invalid={!!errors.body}
+              aria-describedby={errors.body ? 'post-body-error' : undefined}
               rows={5}
-              className="w-full rounded-md border border-border px-3 py-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-kaya/70"
+              className="w-full rounded-md border border-border-control bg-surface px-3 py-2 "
             />
             {errors.body ? (
-              <p role="alert" className="mt-1 text-sm text-red-700">
+              <p id="post-body-error" role="alert" className="mt-1 text-sm text-red-700">
                 {errors.body}
               </p>
             ) : null}
           </div>
 
-          <div className="grid sm:grid-cols-2 gap-5">
-            <div>
+          <div className="grid min-w-0 grid-cols-1 sm:grid-cols-2 gap-5">
+            <div className="min-w-0">
               <label htmlFor="post-date" className="block font-medium mb-1 text-ink">
                 {t('admin:date_label')}
               </label>
@@ -217,16 +221,18 @@ const PostForm: React.FC<PostFormProps> = ({ initial, onDone }) => {
                 type="date"
                 value={publishedAt}
                 onChange={(e) => setPublishedAt(e.target.value)}
-                className="w-full rounded-md border border-border px-3 py-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-kaya/70"
+                aria-invalid={!!errors.publishedAt}
+                aria-describedby={errors.publishedAt ? 'post-date-error' : undefined}
+                className="w-full rounded-md border border-border-control bg-surface px-3 py-2 "
               />
               {errors.publishedAt ? (
-                <p role="alert" className="mt-1 text-sm text-red-700">
+                <p id="post-date-error" role="alert" className="mt-1 text-sm text-red-700">
                   {errors.publishedAt}
                 </p>
               ) : null}
             </div>
 
-            <div>
+            <div className="min-w-0">
               <label htmlFor="post-tag" className="block font-medium mb-1 text-ink">
                 {t('admin:tag_label')}
               </label>
@@ -234,7 +240,7 @@ const PostForm: React.FC<PostFormProps> = ({ initial, onDone }) => {
                 id="post-tag"
                 value={tag}
                 onChange={(e) => setTag(e.target.value as PostTag | '')}
-                className="w-full rounded-md border border-border px-3 py-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-kaya/70"
+                className="w-full rounded-md border border-border-control bg-surface px-3 py-2 "
               >
                 <option value="">{t('admin:tag_none')}</option>
                 <option value="spotkanie">{t('aktualnosci:tag_spotkanie')}</option>
@@ -253,11 +259,13 @@ const PostForm: React.FC<PostFormProps> = ({ initial, onDone }) => {
               type="url"
               value={externalUrl}
               onChange={(e) => setExternalUrl(e.target.value)}
+              aria-invalid={!!errors.externalUrl}
+              aria-describedby={errors.externalUrl ? 'post-link-error' : undefined}
               placeholder="https://…"
-              className="w-full rounded-md border border-border px-3 py-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-kaya/70"
+              className="w-full rounded-md border border-border-control bg-surface px-3 py-2 "
             />
             {errors.externalUrl ? (
-              <p role="alert" className="mt-1 text-sm text-red-700">
+              <p id="post-link-error" role="alert" className="mt-1 text-sm text-red-700">
                 {errors.externalUrl}
               </p>
             ) : null}
@@ -275,24 +283,22 @@ const PostForm: React.FC<PostFormProps> = ({ initial, onDone }) => {
         </div>
 
         {saveError ? (
-          <p role="alert" className="mt-4 text-red-700">
+          <p
+            role="alert"
+            className="mt-5 rounded-lg border border-red-700 bg-red-50 p-4 text-red-800"
+          >
             {saveError}
           </p>
         ) : null}
 
-        <div className="flex flex-wrap gap-3 mt-8">
+        <div className="flex flex-col min-[480px]:flex-row min-[480px]:flex-wrap gap-3 mt-6 border-t border-border pt-6">
           {initial?.published ? (
-            <Button
-              type="submit"
-              variant="primary"
-              disabled={saving || uploading}
-              className="px-6 py-3"
-            >
+            <Button type="submit" variant="primary" disabled={saving || uploading}>
               {saving ? t('admin:saving') : t('admin:save')}
             </Button>
           ) : (
             <>
-              <Button type="submit" disabled={saving || uploading} className="px-6 py-3">
+              <Button type="submit" disabled={saving || uploading}>
                 {saving ? t('admin:saving') : t('admin:save_draft')}
               </Button>
               <Button
@@ -300,7 +306,6 @@ const PostForm: React.FC<PostFormProps> = ({ initial, onDone }) => {
                 onClick={() => void handleSubmit(true)}
                 variant="primary"
                 disabled={saving || uploading}
-                className="px-6 py-3"
               >
                 {t('admin:publish')}
               </Button>
@@ -308,9 +313,9 @@ const PostForm: React.FC<PostFormProps> = ({ initial, onDone }) => {
           )}
           <Button
             type="button"
+            variant="secondary"
             onClick={() => void handleCancel()}
             disabled={saving || uploading}
-            className="px-6 py-3"
           >
             {t('admin:cancel')}
           </Button>
@@ -319,7 +324,8 @@ const PostForm: React.FC<PostFormProps> = ({ initial, onDone }) => {
               type="button"
               onClick={() => void handleDelete()}
               disabled={saving || uploading}
-              className="px-6 py-3 ml-auto bg-red-600 border-red-600 text-white hover:opacity-90"
+              variant="destructive"
+              className="min-[480px]:ml-auto"
             >
               {t('admin:delete')}
             </Button>

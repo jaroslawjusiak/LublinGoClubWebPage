@@ -7,13 +7,12 @@ import type { Locale } from '../types/data_models';
 
 /**
  * Language labels are not translated: a switcher shows each language with a flag
- * (a local, public-domain SVG in `public/flags/`) plus a short code. Ukraine uses
- * the unambiguous ISO alpha-3 code "UKR" instead of "UA".
+ * (a local, public-domain SVG in `public/flags/`) plus a short display code.
  */
 const LANGUAGES: ReadonlyArray<{ code: Locale; flag: string; label: string; name: string }> = [
   { code: 'pl', flag: '/flags/pl.svg', label: 'PL', name: 'Polski' },
   { code: 'en', flag: '/flags/gb.svg', label: 'EN', name: 'English' },
-  { code: 'uk', flag: '/flags/ua.svg', label: 'UKR', name: 'Українська' },
+  { code: 'uk', flag: '/flags/ua.svg', label: 'UA', name: 'Українська' },
 ];
 
 const LanguageSwitcher: React.FC<{ className?: string }> = ({ className = '' }) => {
@@ -31,7 +30,7 @@ const LanguageSwitcher: React.FC<{ className?: string }> = ({ className = '' }) 
   return (
     <nav
       aria-label={t('common:language_label')}
-      className={`flex items-center gap-2 ${className}`.trim()}
+      className={`flex flex-wrap items-center gap-2 ${className}`.trim()}
     >
       {LANGUAGES.map((lang) => {
         const active = lang.code === locale;
@@ -41,8 +40,10 @@ const LanguageSwitcher: React.FC<{ className?: string }> = ({ className = '' }) 
             to={localizePath(basePath, lang.code)}
             aria-current={active ? 'page' : undefined}
             aria-label={lang.name}
-            className={`inline-flex items-center gap-1.5 text-sm font-medium rounded px-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-kaya/70 ${
-              active ? 'text-kaya font-bold' : 'text-ink hover:text-kaya'
+            className={`inline-flex min-h-11 items-center gap-1.5 text-sm font-medium rounded px-1 ${
+              active
+                ? 'text-brand font-bold underline underline-offset-4'
+                : 'text-ink hover:text-brand'
             }`}
           >
             <span className="inline-block h-3.5 w-5 shrink-0 overflow-hidden rounded-sm border border-border">

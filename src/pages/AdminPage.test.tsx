@@ -5,10 +5,13 @@ import i18n from '../i18n/config';
 import AdminPage from './AdminPage';
 import { newsRepository } from '../lib/news/repository';
 import { useAuth } from '../lib/supabase/auth';
+import { lessonsRepository } from '../lib/lessons/repository';
 
 vi.mock('../lib/supabase/auth', () => ({
   useAuth: vi.fn(),
 }));
+
+vi.mock('../lib/lessons/repository', () => ({ lessonsRepository: { list: vi.fn() } }));
 
 vi.mock('../lib/news/repository', () => ({
   newsRepository: { listAll: vi.fn(), listPublished: vi.fn() },
@@ -25,6 +28,7 @@ const adminAuth = {
 
 beforeEach(() => {
   vi.resetAllMocks();
+  vi.mocked(lessonsRepository.list).mockResolvedValue([]);
   vi.mocked(useAuth).mockReturnValue(adminAuth);
 });
 
@@ -36,6 +40,28 @@ const renderPage = () =>
   );
 
 describe('AdminPage', () => {
+  it.each(['unconfigured', 'loading', 'signed-out', 'denied', 'authorized'])(
+    'keeps one page heading in the %s state',
+    async (state) => {
+      vi.mocked(useAuth).mockReturnValue({
+        ...adminAuth,
+        ready: state !== 'unconfigured',
+        loading: state === 'loading',
+        user: state === 'signed-out' ? null : adminAuth.user,
+        isAdmin: state !== 'denied',
+      });
+      vi.mocked(newsRepository.listAll).mockResolvedValue([]);
+      renderPage();
+      expect(screen.getAllByRole('heading', { level: 1 })).toHaveLength(1);
+      expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Panel administratora');
+      if (state === 'authorized') {
+        fireEvent.click(await screen.findByRole('button', { name: 'Nowy wpis' }));
+        expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Panel administratora');
+        expect(screen.getByRole('heading', { level: 2, name: 'Nowy wpis' })).toBeInTheDocument();
+      }
+    },
+  );
+
   it('shows the load error with a retry action instead of loading forever', async () => {
     vi.mocked(newsRepository.listAll).mockRejectedValue(new Error('boom'));
 
@@ -59,4 +85,18 @@ describe('AdminPage', () => {
     await waitFor(() => expect(newsRepository.listAll).toHaveBeenCalledTimes(2));
     await waitFor(() => expect(screen.queryByText('boom')).not.toBeInTheDocument());
   });
+  it.each(['signed-out', 'denied', 'unconfigured'])(
+    'does not expose lesson creation or fetch its admin list when %s',
+    async (state) => {
+      vi.mocked(useAuth).mockReturnValue({
+        ...adminAuth,
+        ready: state !== 'unconfigured',
+        user: state === 'signed-out' ? null : adminAuth.user,
+        isAdmin: state !== 'denied',
+      });
+      renderPage();
+      expect(screen.queryByRole('button', { name: 'Dodaj lekcję' })).not.toBeInTheDocument();
+      expect(lessonsRepository.list).not.toHaveBeenCalled();
+    },
+  );
 });

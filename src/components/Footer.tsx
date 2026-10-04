@@ -1,19 +1,23 @@
 // src/components/Footer.tsx
 import React from 'react';
+import { Container } from './primitives';
+import BrandMark from './BrandMark';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { FaFacebookF, FaDiscord } from 'react-icons/fa';
 import { clubConfig, meetingInfo, socialLinks } from '../data/club';
-import { navItems, startCta } from '../data/site';
+import { navItems } from '../data/site';
+import { people } from '../data/people';
 import { useLocale, localizePath } from '../i18n/locale';
+import VenueLink from './VenueLink';
 
 const footerLinkClasses =
-  'block hover:text-kaya transition rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-kaya/50';
+  'inline-flex min-h-11 items-center rounded hover:underline underline-offset-4 transition-colors';
 
 const socialLinkClasses =
-  'text-2xl text-ink hover:text-kaya transition rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-kaya/50';
+  'inline-flex min-h-11 min-w-11 items-center justify-center rounded text-2xl hover:bg-on-brand/10 transition-colors';
 
-const footerLinks = [...navItems.slice(0, 2), startCta, ...navItems.slice(2)];
+const footerLinks = navItems;
 
 /**
  * @description Footer with navigation, contact summary and social links.
@@ -23,24 +27,20 @@ const Footer: React.FC = () => {
   const locale = useLocale();
 
   return (
-    <footer className="bg-gray-50 border-t mt-24 pt-16 pb-8" aria-labelledby="site-footer-heading">
-      <div className="container mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 border-b pb-12 mb-8">
+    <footer
+      className="bg-brand text-on-brand pt-12 pb-8 [&_a:focus-visible]:outline-on-brand"
+      aria-labelledby="site-footer-heading"
+    >
+      <Container>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 border-b border-on-brand/25 pb-8 mb-8">
           {/* Column 1: Club info and social links */}
-          <div className="text-center md:text-left">
-            <h2
-              id="site-footer-heading"
-              className="text-3xl font-extrabold text-ink tracking-wide mb-4"
-            >
-              {clubConfig.name}
+          <div className="text-left">
+            <h2 id="site-footer-heading" className="mb-4">
+              <BrandMark dark />
             </h2>
-            <p className="text-muted-text max-w-[280px] mb-6 mx-auto md:mx-0">
-              {clubConfig.slogan}
-              <br />
-              {meetingInfo.venueName} ({meetingInfo.addressLine})
-            </p>
+            <p className="text-on-brand/90 max-w-[32ch] mb-6">{t('footer:community_text')}</p>
 
-            <div className="flex justify-center md:justify-start gap-6">
+            <div className="flex gap-3">
               {socialLinks.facebook ? (
                 <a
                   href={socialLinks.facebook}
@@ -69,10 +69,10 @@ const Footer: React.FC = () => {
           </div>
 
           {/* Column 2: Quick navigation */}
-          <div className="text-center md:text-left">
-            <h3 className="text-2xl font-bold text-kaya mb-6">{t('footer:nav_heading')}</h3>
+          <div className="text-left">
+            <h3 className="text-h3 font-semibold text-on-brand mb-4">{t('footer:nav_heading')}</h3>
             <nav aria-label={t('footer:nav_aria')}>
-              <ul className="space-y-4 text-lg">
+              <ul className="space-y-1">
                 {footerLinks.map((item) => (
                   <li key={item.path}>
                     <Link to={localizePath(item.path, locale)} className={footerLinkClasses}>
@@ -85,20 +85,54 @@ const Footer: React.FC = () => {
           </div>
 
           {/* Column 3: Contact details */}
-          <div className="text-center md:text-left">
-            <h3 className="text-2xl font-bold text-kaya mb-6">{t('footer:contact_heading')}</h3>
-            <p className="mb-2">
-              {clubConfig.email ? (
-                <a href={`mailto:${clubConfig.email}`} className="hover:text-kaya transition">
-                  {clubConfig.email}
-                </a>
-              ) : (
-                t('footer:email_unavailable')
-              )}
-            </p>
-            <div className="mt-6 pt-4 border-t border-border">
+          <div className="text-left">
+            <h3 className="text-h3 font-semibold text-on-brand mb-4">
+              {t('footer:contact_heading')}
+            </h3>
+            {people.length > 0 ? (
+              <ul className="mt-4 space-y-2">
+                {people.map((person) => (
+                  <li key={person.name}>
+                    {person.name}
+                    <span className="block text-caption">
+                      {clubConfig.email ? (
+                        <>
+                          {t('footer:email_label')}:{' '}
+                          <a
+                            href={`mailto:${clubConfig.email}`}
+                            className="hover:underline underline-offset-4 transition-colors"
+                          >
+                            {clubConfig.email}
+                          </a>
+                        </>
+                      ) : (
+                        t('footer:email_unavailable')
+                      )}
+                    </span>
+                    {person.ogsHandle ? (
+                      <span className="block text-caption">
+                        {t('contact:ogs_label')}:{' '}
+                        {person.ogsUrl ? (
+                          <a
+                            href={person.ogsUrl}
+                            className="hover:underline underline-offset-4 transition-colors"
+                          >
+                            {person.ogsHandle}
+                          </a>
+                        ) : (
+                          person.ogsHandle
+                        )}
+                      </span>
+                    ) : null}
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+            <div className="mt-6 pt-4 border-t border-on-brand/25">
               <h4 className="font-semibold mb-2 text-lg">{t('footer:address_heading')}</h4>
-              <p>{meetingInfo.venueName}</p>
+              <p>
+                <VenueLink />
+              </p>
               <p>
                 {meetingInfo.addressLine}, {meetingInfo.roomNumber}
               </p>
@@ -110,18 +144,18 @@ const Footer: React.FC = () => {
         </div>
 
         {/* Copyright bar */}
-        <div className="flex flex-col md:flex-row justify-between items-center gap-3 text-sm text-muted-text">
+        <div className="flex flex-col md:flex-row justify-between items-start gap-3 text-caption text-on-brand/90">
           <p>
             &copy; {new Date().getFullYear()} {clubConfig.name}
           </p>
           <Link
             to={localizePath('/prywatnosc', locale)}
-            className="hover:text-kaya transition rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-kaya/50"
+            className="hover:underline underline-offset-4 transition-colors rounded "
           >
             {t('footer:privacy_link')}
           </Link>
         </div>
-      </div>
+      </Container>
     </footer>
   );
 };

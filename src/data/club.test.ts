@@ -1,11 +1,14 @@
 import { describe, it, expect } from 'vitest';
 import { clubConfig, meetingInfo, socialLinks } from './club';
-import { navItems, startCta } from './site';
+import { navItems } from './site';
 import { people } from './people';
 
 describe('club data — single source of truth', () => {
   it('records the verified meeting facts from the old site and rebuild plan', () => {
     expect(meetingInfo.venueName).toBe('Młodzieżowy Dom Kultury nr 2');
+    expect(meetingInfo.venueUrl).toBe(
+      'https://mdk2.lublin.eu/szczegoly-galerii/klub-gier-planszowych-lubelski-klub-go-7915',
+    );
     expect(meetingInfo.addressLine).toBe('ul. Bernardyńska 14a');
     expect(meetingInfo.roomNumber).toBe('sala 14');
     expect(meetingInfo.postalCode).toBe('20-950');
@@ -19,12 +22,10 @@ describe('club data — single source of truth', () => {
     expect('dayOfWeek' in meetingInfo).toBe(false);
   });
 
-  it('does not expose a personal phone or Gmail as the primary contact channel', () => {
+  it('uses the provided public email and does not expose a personal phone', () => {
     const config = clubConfig as typeof clubConfig & { phone?: unknown };
     expect(config.phone).toBeUndefined();
-    if (clubConfig.email) {
-      expect(clubConfig.email).not.toMatch(/@gmail\.com$/i);
-    }
+    expect(clubConfig.email).toBe('jaroslaw.jusiak@gmail.com');
   });
 
   it('uses the rebuild-plan canonical domain, not the old placeholder', () => {
@@ -46,7 +47,7 @@ describe('club data — single source of truth', () => {
   });
 
   it('keeps every navigation label key-based rather than literal', () => {
-    for (const item of [...navItems, startCta]) {
+    for (const item of navItems) {
       expect(item.path).toMatch(/^\//);
       expect(item.labelKey).toMatch(/^[a-z]+:[a-z.]+$/);
     }

@@ -1,6 +1,6 @@
 // src/App.tsx
 import React, { useEffect, useState } from 'react';
-import { Routes, Route, Outlet, useParams } from 'react-router-dom';
+import { Routes, Route, Outlet, useParams, Navigate } from 'react-router-dom';
 import { I18nextProvider, useTranslation } from 'react-i18next';
 import { HelmetProvider } from 'react-helmet-async';
 import i18nConfig from './i18n/config';
@@ -13,9 +13,10 @@ import PageMeta from './components/PageMeta';
 import ScrollToTop from './components/ScrollToTop';
 import HomePage from './pages/HomePage';
 import ZacznijPage from './pages/ZacznijPage';
+import ZasadyPage from './pages/ZasadyPage';
 import OKlubiePage from './pages/OKlubiePage';
 import AktualnosciPage from './pages/AktualnosciPage';
-import KontaktPage from './pages/KontaktPage';
+import LekcjePage from './pages/LekcjePage';
 import AdminPage from './pages/AdminPage';
 import PrivacyPage from './pages/PrivacyPage';
 import NotFoundPage from './pages/NotFoundPage';
@@ -68,26 +69,32 @@ const LocaleLayout: React.FC = () => {
 };
 
 const AppShell: React.FC = () => (
-  <div className="min-h-screen flex flex-col bg-paper text-ink pb-20 md:pb-0">
+  <div className="app-shell min-h-screen flex flex-col bg-paper text-ink">
     <PageMeta />
     <ScrollToTop />
     <Header />
     <main className="flex-grow w-full">
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/zacznij" element={<ZacznijPage />} />
+        <Route path="/zacznij" element={<Navigate to="/zacznij-grac" replace />} />
+        <Route path="/zacznij-grac" element={<ZacznijPage />} />
+        <Route path="/zasady" element={<ZasadyPage />} />
         <Route path="/o-klubie" element={<OKlubiePage />} />
         <Route path="/aktualnosci" element={<AktualnosciPage />} />
-        <Route path="/kontakt" element={<KontaktPage />} />
+        <Route path="/lekcje" element={<LekcjePage />} />
+        <Route path="/kontakt" element={<Navigate to="/lekcje" replace />} />
         <Route path="/prywatnosc" element={<PrivacyPage />} />
         <Route path="/admin" element={<AdminPage />} />
 
         <Route path="/:locale" element={<LocaleLayout />}>
           <Route index element={<HomePage />} />
-          <Route path="zacznij" element={<ZacznijPage />} />
+          <Route path="zacznij" element={<Navigate to="../zacznij-grac" replace />} />
+          <Route path="zacznij-grac" element={<ZacznijPage />} />
+          <Route path="zasady" element={<ZasadyPage />} />
           <Route path="o-klubie" element={<OKlubiePage />} />
           <Route path="aktualnosci" element={<AktualnosciPage />} />
-          <Route path="kontakt" element={<KontaktPage />} />
+          <Route path="lekcje" element={<LekcjePage />} />
+          <Route path="kontakt" element={<Navigate to="../lekcje" replace />} />
           <Route path="prywatnosc" element={<PrivacyPage />} />
         </Route>
 

@@ -2,13 +2,11 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Section, Container, Button } from '../components/primitives';
+import PageIntro from '../components/PageIntro';
 import { useLocale, localizePath } from '../i18n/locale';
 
 /**
- * About page. Content is intentionally limited to what is verifiable today:
- * the club's purpose and what a typical meeting is like. A fuller founding
- * story, people bios and consented photos are added later (see N2) and must
- * not be fabricated here.
+ * About page with the club's approved short introduction.
  */
 const OKlubiePage: React.FC = () => {
   const { t } = useTranslation();
@@ -16,24 +14,38 @@ const OKlubiePage: React.FC = () => {
 
   return (
     <Section id="o-klubie">
-      <Container className="max-w-3xl">
-        <h1 className="text-4xl font-extrabold tracking-tight text-ink mb-6">
-          {t('oklubie:title')}
-        </h1>
-        <p className="text-xl text-muted-text mb-10">{t('oklubie:intro')}</p>
-
-        <h2 className="text-2xl md:text-3xl font-bold mb-4 text-ink">
-          {t('oklubie:typical_title')}
-        </h2>
-        <p className="text-lg text-ink mb-10">{t('oklubie:typical_text')}</p>
-
-        <Button
-          to={localizePath('/zacznij', locale)}
-          variant="primary"
-          className="px-6 py-3 text-lg"
-        >
-          {t('common:cta_start_button')}
-        </Button>
+      <Container className="grid items-start gap-8 min-[960px]:grid-cols-2 min-[960px]:gap-12">
+        <div className="min-w-0">
+          <PageIntro title={t('oklubie:title')} intro={t('oklubie:intro')} spacing="compact" />
+          <p className="mb-8 max-w-[60ch] text-lead text-muted-text [overflow-wrap:anywhere]">
+            {t('oklubie:second_paragraph')}
+          </p>
+          <Button
+            to={localizePath('/zacznij-grac', locale)}
+            variant="primary"
+            className="max-w-full [overflow-wrap:anywhere]"
+          >
+            {t('common:cta_start_button')}
+          </Button>
+        </div>
+        <div className="min-w-0 rounded-xl bg-sand p-6 md:p-8 [overflow-wrap:anywhere]">
+          <h2 className="text-h2 mb-5 text-ink">{t('oklubie:typical_title')}</h2>
+          <p className="text-ink max-w-[60ch]">{t('oklubie:typical_text')}</p>
+          <figure className="mt-6">
+            <img
+              src="/assets/spotkania/turniej.webp"
+              alt={t('oklubie:tournament_image_alt')}
+              width={1600}
+              height={900}
+              loading="lazy"
+              decoding="async"
+              className="aspect-video w-full rounded-lg object-cover"
+            />
+            <figcaption className="mt-2 text-sm text-muted-text">
+              {t('oklubie:tournament_image_caption')}
+            </figcaption>
+          </figure>
+        </div>
       </Container>
     </Section>
   );

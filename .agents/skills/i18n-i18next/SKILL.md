@@ -1,6 +1,6 @@
 ---
 name: i18n-i18next
-description: "Preserve LKG PL/EN/UK translations and locale routing when changing layout, labels, language switching or html lang. Use for localization-sensitive redesign work."
+description: 'Preserve LKG PL/EN/UK translations and locale routing when changing layout, labels, language switching or html lang. Use for localization-sensitive redesign work.'
 ---
 
 # LKG localization
@@ -25,5 +25,3 @@ do not create a parallel home/about/news schema based on generic examples.
 
 Run the existing parity tests and exercise switching at Home and an internal route.
 Check /admin behavior separately. Do not remove locale keys to make a screenshot fit.
-
-

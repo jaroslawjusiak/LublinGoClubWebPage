@@ -1,0 +1,44 @@
+[
+  {
+    "file": "noto-sans-cyrillic.woff2",
+    "family": "Noto Sans",
+    "subset": "cyrillic",
+    "source": "https://fonts.gstatic.com/s/notosans/v42/o-0bIpQlx3QUlC5A4PNB6Ryti20_6n1iPHjc5ardu2ui.woff2",
+    "sha256": "6ab64433de6077ca5ad31b05420450ce986a616a4ea47b6ad16f3217055dafc3"
+  },
+  {
+    "file": "noto-sans-latin-ext.woff2",
+    "family": "Noto Sans",
+    "subset": "latin-ext",
+    "source": "https://fonts.gstatic.com/s/notosans/v42/o-0bIpQlx3QUlC5A4PNB6Ryti20_6n1iPHjc5aDdu2ui.woff2",
+    "sha256": "6d5a79315528df191b9d86f97b0c4272a8b588fcb166773fe6588ac795de0613"
+  },
+  {
+    "file": "noto-sans-latin.woff2",
+    "family": "Noto Sans",
+    "subset": "latin",
+    "source": "https://fonts.gstatic.com/s/notosans/v42/o-0bIpQlx3QUlC5A4PNB6Ryti20_6n1iPHjc5a7duw.woff2",
+    "sha256": "51ca196f49a33e79e7870ff88ebd2829a3f627a51e7d690986618f0e7ad2b52d"
+  },
+  {
+    "file": "noto-serif-cyrillic.woff2",
+    "family": "Noto Serif",
+    "subset": "cyrillic",
+    "source": "https://fonts.gstatic.com/s/notoserif/v33/ga6daw1J5X9T9RW6j9bNVls-hfgvz8JcMofYTYf-D33Esw.woff2",
+    "sha256": "54e3bd0c4a002b0f76bf9c758507fe9bb170f9e364ea4ecc85fc8b22819bca7e"
+  },
+  {
+    "file": "noto-serif-latin-ext.woff2",
+    "family": "Noto Serif",
+    "subset": "latin-ext",
+    "source": "https://fonts.gstatic.com/s/notoserif/v33/ga6daw1J5X9T9RW6j9bNVls-hfgvz8JcMofYTYf0D33Esw.woff2",
+    "sha256": "2654f8d1261a420fc81628122bee9d494b493227e3d7d9baa4238360b92b11d3"
+  },
+  {
+    "file": "noto-serif-latin.woff2",
+    "family": "Noto Serif",
+    "subset": "latin",
+    "source": "https://fonts.gstatic.com/s/notoserif/v33/ga6daw1J5X9T9RW6j9bNVls-hfgvz8JcMofYTYf6D30.woff2",
+    "sha256": "46281456234014ceb2a79bff447245de0f76b8d803be0738972ed374c3206c5b"
+  }
+]

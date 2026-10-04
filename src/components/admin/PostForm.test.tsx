@@ -60,6 +60,20 @@ afterEach(() => {
 });
 
 describe('PostForm', () => {
+  it('associates validation feedback with its invalid fields and clears it after correction', () => {
+    const { form } = renderForm();
+    fireEvent.submit(form);
+    expect(screen.getByLabelText('Tytuł')).toHaveAttribute('aria-invalid', 'true');
+    expect(screen.getByLabelText('Tytuł')).toHaveAccessibleDescription('Podaj tytuł.');
+    expect(screen.getByLabelText('Treść')).toHaveAccessibleDescription('Podaj treść.');
+    fireEvent.change(screen.getByLabelText('Tytuł'), { target: { value: 'Poprawiony tytuł' } });
+    fireEvent.submit(form);
+    expect(screen.getByLabelText('Tytuł')).toHaveAttribute('aria-invalid', 'false');
+    expect(screen.getByLabelText('Tytuł')).not.toHaveAttribute('aria-describedby');
+    expect(screen.getByLabelText('Treść')).toHaveAttribute('aria-invalid', 'true');
+    expect(newsRepository.create).not.toHaveBeenCalled();
+  });
+
   it('defaults a new post to draft with explicit save-draft and publish actions', () => {
     renderForm();
 

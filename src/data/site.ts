@@ -9,15 +9,9 @@ import type { NavItem } from '../types/data_models';
  */
 export const navItems: NavItem[] = [
   { path: '/', labelKey: 'common:menu.home' },
+  { path: '/lekcje', labelKey: 'common:menu.lessons' },
+  { path: '/zasady', labelKey: 'common:menu.rules' },
+  { path: '/zacznij-grac', labelKey: 'common:menu.start' },
   { path: '/o-klubie', labelKey: 'common:menu.about' },
   { path: '/aktualnosci', labelKey: 'common:menu.news' },
-  // NOTE: key is misnamed `events` for the contact page today; it will be
-  // renamed to `common:menu.contact` when navigation is consolidated (R2).
-  { path: '/kontakt', labelKey: 'common:menu.events' },
 ];
-
-/**
- * The primary "start here" call-to-action is a route, not a meeting fact, so it
- * lives here next to the other navigation metadata.
- */
-export const startCta: NavItem = { path: '/zacznij', labelKey: 'common:menu.start' };

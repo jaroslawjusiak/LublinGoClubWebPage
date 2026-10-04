@@ -1,6 +1,6 @@
 ---
 name: react-testing-vitest
-description: "Validate changed LKG React behavior with existing Vitest and Testing Library tests. Use for UI regressions, semantic controls, i18n behavior and the repository validation gate; avoid CSS-only test churn."
+description: 'Validate changed LKG React behavior with existing Vitest and Testing Library tests. Use for UI regressions, semantic controls, i18n behavior and the repository validation gate; avoid CSS-only test churn.'
 ---
 
 # Focused regression checks
@@ -21,5 +21,3 @@ Run the repository-required `npm run check` for a completed implementation slice
 
 For instruction/config-only work, validate files and references; do not claim to
 have run app tests or browser checks that were not performed.
-
-

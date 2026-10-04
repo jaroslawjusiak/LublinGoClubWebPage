@@ -81,26 +81,30 @@ const RulesSection: React.FC = () => {
   const { t } = useTranslation();
 
   return (
-    <div id="zasady" className="max-w-3xl mx-auto mb-16">
-      <h2 className="text-2xl md:text-3xl font-bold mb-4 text-ink">{t('rules:title')}</h2>
-      <p className="text-lg text-muted-text mb-8">{t('rules:intro')}</p>
-
-      <ol className="space-y-10">
+    <div className="[overflow-wrap:anywhere]">
+      <ol className="divide-y divide-border border-t border-border">
         {ruleSteps.map((step, index) => (
-          <li key={step.titleKey}>
-            <h3 className="text-xl font-semibold mb-2 text-ink">
-              <span className="text-kaya">{index + 1}.</span> {t(step.titleKey)}
-            </h3>
-            <p className="text-ink">{t(step.bodyKey)}</p>
+          <li
+            key={step.titleKey}
+            className={`py-8 min-w-0 ${step.diagram ? 'grid items-start gap-6 min-[960px]:grid-cols-[1fr_320px] min-[960px]:gap-12' : ''}`}
+          >
+            <div className="min-w-0 max-w-[65ch]">
+              <h3 className="text-h3 font-semibold mb-3 text-ink">
+                <span className="text-accent">{index + 1}.</span> {t(step.titleKey)}
+              </h3>
+              <p className="text-ink">{t(step.bodyKey)}</p>
+            </div>
             {step.diagram ? (
-              <img
-                src={step.diagram.src}
-                alt={t(step.diagram.altKey)}
-                width={step.diagram.width}
-                height={step.diagram.height}
-                loading="lazy"
-                className="mt-4 rounded-lg border border-border w-full max-w-sm h-auto"
-              />
+              <div className="min-w-0 w-full max-w-sm rounded-xl bg-surface border border-border p-4">
+                <img
+                  src={step.diagram.src}
+                  alt={t(step.diagram.altKey)}
+                  width={step.diagram.width}
+                  height={step.diagram.height}
+                  loading="lazy"
+                  className="block w-full h-auto"
+                />
+              </div>
             ) : null}
           </li>
         ))}
