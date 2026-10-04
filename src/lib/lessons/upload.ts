@@ -9,22 +9,26 @@ export type LessonFileError =
 export async function validateLessonFiles(
   pdf: File | null,
   thumbnail: File | null,
+  optional = false,
 ): Promise<LessonFileError | null> {
-  if (!pdf) return 'pdf_required';
-  if (!thumbnail) return 'thumbnail_required';
-  if (pdf.type !== 'application/pdf' || pdf.size === 0 || pdf.size > PDF_LIMIT)
+  if (!optional && !pdf) return 'pdf_required';
+  if (!optional && !thumbnail) return 'thumbnail_required';
+  if (pdf && (pdf.type !== 'application/pdf' || pdf.size === 0 || pdf.size > PDF_LIMIT))
     return 'pdf_invalid';
-  const signature = await new Promise<string>((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(reader.result as string);
-    reader.onerror = () => reject(new Error('Could not read PDF.'));
-    reader.readAsText(pdf.slice(0, 5));
-  });
-  if (signature !== '%PDF-') return 'pdf_invalid';
+  if (pdf) {
+    const signature = await new Promise<string>((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = () => reject(new Error('Could not read PDF.'));
+      reader.readAsText(pdf.slice(0, 5));
+    });
+    if (signature !== '%PDF-') return 'pdf_invalid';
+  }
   if (
-    !['image/jpeg', 'image/png', 'image/webp'].includes(thumbnail.type) ||
-    thumbnail.size === 0 ||
-    thumbnail.size > THUMBNAIL_LIMIT
+    thumbnail &&
+    (!['image/jpeg', 'image/png', 'image/webp'].includes(thumbnail.type) ||
+      thumbnail.size === 0 ||
+      thumbnail.size > THUMBNAIL_LIMIT)
   )
     return 'thumbnail_invalid';
   return null;

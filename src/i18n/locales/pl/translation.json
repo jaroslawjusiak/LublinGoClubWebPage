@@ -245,6 +245,19 @@
     "pages_one": "{{count}} strona",
     "pages_few": "{{count}} strony",
     "pages_many": "{{count}} stron",
-    "pages_other": "{{count}} strony"
+    "pages_other": "{{count}} strony",
+    "edit": "Edytuj",
+    "edit_named": "Edytuj lekcję: {{title}}",
+    "delete_named": "Usuń lekcję: {{title}}",
+    "delete_confirm": "Czy na pewno usunąć lekcję „{{title}}”? Zniknie ona ze strony Lekcje. Tej operacji nie można cofnąć.",
+    "replacement_help": "Pliki są opcjonalne. Bez nowego pliku dotychczasowy pozostanie bez zmian. PDF: do 20 MB. Miniatura JPG, PNG lub WebP: do 5 MB.",
+    "current_pdf": "Obecny PDF",
+    "current_thumbnail": "Obecna miniatura",
+    "save_changes": "Zapisz zmiany",
+    "updated": "Zmiany lekcji zostały zapisane.",
+    "deleted": "Lekcja została usunięta.",
+    "mutation_failed": "Nie udało się wykonać operacji. Sprawdź połączenie i spróbuj ponownie.",
+    "mutation_verify_failed": "Nie można potwierdzić wyniku operacji. Pliki zachowano. Sprawdź wynik przed wykonaniem kolejnej zmiany.",
+    "mutation_cleanup_failed": "Operacja została sprawdzona, ale nie udało się posprzątać nieużywanych plików. Ponów sprzątanie; zmiana nie zostanie wykonana ponownie."
   }
 }

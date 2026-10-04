@@ -245,6 +245,19 @@
     "pages_one": "{{count}} page",
     "pages_few": "{{count}} pages",
     "pages_many": "{{count}} pages",
-    "pages_other": "{{count}} pages"
+    "pages_other": "{{count}} pages",
+    "edit": "Edit",
+    "edit_named": "Edit lesson: {{title}}",
+    "delete_named": "Delete lesson: {{title}}",
+    "delete_confirm": "Delete the lesson “{{title}}”? It will disappear from the Lessons page. This cannot be undone.",
+    "replacement_help": "Files are optional. Without a replacement, the current file stays unchanged. PDF: up to 20 MB. JPG, PNG or WebP thumbnail: up to 5 MB.",
+    "current_pdf": "Current PDF",
+    "current_thumbnail": "Current thumbnail",
+    "save_changes": "Save changes",
+    "updated": "Lesson changes were saved.",
+    "deleted": "The lesson was deleted.",
+    "mutation_failed": "The operation failed. Check your connection and try again.",
+    "mutation_verify_failed": "Could not confirm the operation result. Files were preserved. Verify the result before making another change.",
+    "mutation_cleanup_failed": "The operation was verified, but unused files could not be cleaned up. Retry cleanup; the change will not be applied again."
   }
 }

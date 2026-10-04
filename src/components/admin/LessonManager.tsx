@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button, Card } from '../primitives';
+import LessonActions from './LessonActions';
 import { lessonsRepository, type Lesson } from '../../lib/lessons/repository';
 import {
   cleanupLessonAssets,
@@ -17,6 +18,7 @@ export default function LessonManager() {
   const [lessons, setLessons] = useState<Lesson[] | null>(null);
   const [listError, setListError] = useState(false);
   const [reload, setReload] = useState(0);
+  const [activeRow, setActiveRow] = useState<string | null>(null);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [pdf, setPdf] = useState<File | null>(null);
@@ -27,7 +29,7 @@ export default function LessonManager() {
   const [pendingAttempt, setPendingAttempt] = useState<PendingLessonAttempt | undefined>();
   const form = useRef<HTMLFormElement>(null);
   const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState(false);
+  const [success, setSuccess] = useState<string | null>(null);
   useEffect(() => {
     let active = true;
     lessonsRepository
@@ -44,11 +46,11 @@ export default function LessonManager() {
   }, [reload]);
   const submit = async (event: React.FormEvent) => {
     event.preventDefault();
-    if (busy.current) return;
+    if (busy.current || activeRow) return;
     busy.current = true;
     setSaving(true);
     setError(null);
-    setSuccess(false);
+    setSuccess(null);
     try {
       if (!title.trim() || !description.trim()) {
         setError(t('lessons:fields_required'));
@@ -74,7 +76,7 @@ export default function LessonManager() {
       setPdf(null);
       setThumbnail(null);
       form.current?.reset();
-      setSuccess(true);
+      setSuccess(t('lessons:saved'));
       setLessons(null);
       setListError(false);
       setReload((value) => value + 1);
@@ -104,7 +106,7 @@ export default function LessonManager() {
       <Card>
         <form ref={form} onSubmit={(event) => void submit(event)} noValidate>
           <h3 className="mb-5 font-semibold">{t('lessons:add')}</h3>
-          <fieldset disabled={saving} className="min-w-0 space-y-5">
+          <fieldset disabled={saving || !!activeRow} className="min-w-0 space-y-5">
             <div>
               <label htmlFor="lesson-title" className="block font-medium mb-1">
                 {t('lessons:title_label')}
@@ -186,7 +188,7 @@ export default function LessonManager() {
           ) : null}
           {success ? (
             <p role="status" className="mt-4 text-green-800">
-              {t('lessons:saved')}
+              {success}
             </p>
           ) : null}
         </form>
@@ -202,6 +204,7 @@ export default function LessonManager() {
               setReload((value) => value + 1);
             }}
             variant="secondary"
+            disabled={!!activeRow}
             className="mt-3"
           >
             {t('admin:retry')}
@@ -222,6 +225,20 @@ export default function LessonManager() {
               >
                 {lesson.title}
               </a>
+              <LessonActions
+                lesson={lesson}
+                disabled={
+                  saving ||
+                  !!pendingAttempt ||
+                  pendingCleanup.length > 0 ||
+                  (!!activeRow && activeRow !== lesson.id)
+                }
+                onLockChange={(locked) => setActiveRow(locked ? lesson.id : null)}
+                onDone={(message) => {
+                  setSuccess(message);
+                  setReload((value) => value + 1);
+                }}
+              />
             </li>
           ))}
         </ul>
