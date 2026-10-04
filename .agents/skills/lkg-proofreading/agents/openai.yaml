@@ -1,0 +1,4 @@
+interface:
+  display_name: 'Korekta tekstów LKG'
+  short_description: 'Precyzyjna korekta tekstów strony w PL, EN i UK'
+  default_prompt: 'Użyj $lkg-proofreading do korekty tekstów strony w PL/EN/UK, zachowując sens, fakty i terminologię Go.'
