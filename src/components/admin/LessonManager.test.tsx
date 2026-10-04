@@ -3,7 +3,12 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { I18nextProvider } from 'react-i18next';
 import i18n from '../../i18n/config';
 import LessonManager from './LessonManager';
-import { lessonsRepository } from '../../lib/lessons/repository';
+import { lessonsRepository, type Lesson } from '../../lib/lessons/repository';
+import {
+  deleteLessonWithFiles,
+  resolveLessonMutation,
+  LessonMutationError,
+} from '../../lib/lessons/mutations';
 import {
   createLessonWithFiles,
   validateLessonFiles,
@@ -11,6 +16,11 @@ import {
   resolveLessonAttempt,
   LessonSaveError,
 } from '../../lib/lessons/upload';
+vi.mock('../../lib/lessons/mutations', async (original) => ({
+  ...(await original<typeof import('../../lib/lessons/mutations')>()),
+  deleteLessonWithFiles: vi.fn(),
+  resolveLessonMutation: vi.fn(),
+}));
 vi.mock('../../lib/lessons/repository', () => ({ lessonsRepository: { list: vi.fn() } }));
 vi.mock('../../lib/lessons/upload', async (importOriginal) => ({
   ...(await importOriginal<typeof import('../../lib/lessons/upload')>()),
@@ -115,5 +125,62 @@ describe('LessonManager', () => {
     expect(createLessonWithFiles).toHaveBeenCalledTimes(1);
     expect(resolveLessonAttempt).toHaveBeenCalledWith(expect.objectContaining({ id: 'attempt' }));
     expect(screen.getByLabelText('Tytuł lekcji')).toHaveValue('');
+  });
+  it('announces deletion after refreshing away the deleted row', async () => {
+    const lesson: Lesson = {
+      id: 'a',
+      title: 'Ko',
+      description: 'Opis',
+      pdfUrl: '/assets/lekcje/ko.pdf',
+      thumbnailUrl: '/assets/lekcje/thumbnails/ko.webp',
+      language: 'pl',
+      pageCount: 7,
+    };
+    vi.mocked(lessonsRepository.list).mockResolvedValueOnce([lesson]).mockResolvedValueOnce([]);
+    vi.spyOn(window, 'confirm').mockReturnValue(true);
+    show();
+    fireEvent.click(await screen.findByRole('button', { name: 'Usuń lekcję: Ko' }));
+    await waitFor(() =>
+      expect(screen.queryByRole('button', { name: 'Usuń lekcję: Ko' })).not.toBeInTheDocument(),
+    );
+    expect(screen.getByRole('status')).toHaveTextContent('Lekcja została usunięta.');
+  });
+  it('locks other rows and creation until unresolved deletion cleanup completes', async () => {
+    const lesson: Lesson = {
+      id: 'a',
+      title: 'Ko',
+      description: 'Opis',
+      pdfUrl: '/assets/lekcje/ko.pdf',
+      thumbnailUrl: '/assets/lekcje/thumbnails/ko.webp',
+      language: 'pl',
+      pageCount: 7,
+    };
+    vi.mocked(lessonsRepository.list).mockResolvedValue([
+      lesson,
+      { ...lesson, id: 'b', title: 'Fuseki' },
+    ]);
+    vi.spyOn(window, 'confirm').mockReturnValue(true);
+    vi.mocked(deleteLessonWithFiles).mockRejectedValueOnce(
+      new LessonMutationError(
+        {
+          kind: 'delete',
+          original: lesson,
+          staged: [],
+          confirmed: true,
+          cleanup: [{ bucket: 'lesson-pdfs', path: 'old.pdf' }],
+        },
+        'cleanup',
+      ),
+    );
+    show();
+    fireEvent.click(await screen.findByRole('button', { name: 'Usuń lekcję: Ko' }));
+    expect(await screen.findByRole('alert')).toHaveTextContent('posprzątać');
+    expect(screen.getByRole('button', { name: 'Dodaj lekcję' })).toBeDisabled();
+    expect(screen.getByRole('button', { name: 'Edytuj lekcję: Fuseki' })).toBeDisabled();
+    expect(screen.getByRole('button', { name: 'Usuń lekcję: Fuseki' })).toBeDisabled();
+    fireEvent.click(screen.getByRole('button', { name: 'Spróbuj ponownie' }));
+    await waitFor(() => expect(resolveLessonMutation).toHaveBeenCalledTimes(1));
+    expect(deleteLessonWithFiles).toHaveBeenCalledTimes(1);
+    await waitFor(() => expect(screen.getByRole('button', { name: 'Dodaj lekcję' })).toBeEnabled());
   });
 });

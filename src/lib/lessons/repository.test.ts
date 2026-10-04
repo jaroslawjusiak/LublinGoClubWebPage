@@ -56,4 +56,62 @@ describe('lessons repository', () => {
         pageCount: null,
       }),
     ).rejects.toThrow('not configured'));
+  it('updates exactly the requested row and maps the returned metadata', async () => {
+    const single = vi.fn().mockResolvedValue({ data: { ...row, title: 'Updated' }, error: null });
+    const select = vi.fn().mockReturnValue({ single });
+    const eq = vi.fn().mockReturnValue({ select });
+    const update = vi.fn().mockReturnValue({ eq });
+    const repo = new SupabaseLessonsRepository({
+      from: vi.fn().mockReturnValue({ update }),
+    } as unknown as SupabaseClient);
+    const result = await repo.update('id', {
+      title: 'Updated',
+      description: 'Description',
+      pdfUrl: row.pdf_url,
+      thumbnailUrl: row.thumbnail_url,
+      language: 'pl',
+      pageCount: 7,
+    });
+    expect(eq).toHaveBeenCalledWith('id', 'id');
+    expect(update).toHaveBeenCalledWith(
+      expect.objectContaining({
+        pdf_url: row.pdf_url,
+        thumbnail_url: row.thumbnail_url,
+        page_count: 7,
+      }),
+    );
+    expect(result.title).toBe('Updated');
+  });
+  it('surfaces failed update and delete responses', async () => {
+    const single = vi.fn().mockResolvedValue({ data: null, error: { message: 'denied' } });
+    const eq = vi.fn().mockReturnValue({ select: vi.fn().mockReturnValue({ single }) });
+    const client = {
+      from: vi.fn().mockReturnValue({
+        update: vi.fn().mockReturnValue({ eq }),
+        delete: vi
+          .fn()
+          .mockReturnValue({ eq: vi.fn().mockResolvedValue({ error: { message: 'denied' } }) }),
+      }),
+    } as unknown as SupabaseClient;
+    const repo = new SupabaseLessonsRepository(client);
+    await expect(
+      repo.update('id', {
+        title: 'Ko',
+        description: 'Description',
+        pdfUrl: row.pdf_url,
+        thumbnailUrl: row.thumbnail_url,
+        language: 'pl',
+        pageCount: 7,
+      }),
+    ).rejects.toThrow('denied');
+    await expect(repo.remove('id')).rejects.toThrow('denied');
+  });
+  it('deletes only the requested row', async () => {
+    const eq = vi.fn().mockResolvedValue({ error: null });
+    const repo = new SupabaseLessonsRepository({
+      from: vi.fn().mockReturnValue({ delete: vi.fn().mockReturnValue({ eq }) }),
+    } as unknown as SupabaseClient);
+    await repo.remove('id');
+    expect(eq).toHaveBeenCalledWith('id', 'id');
+  });
 });

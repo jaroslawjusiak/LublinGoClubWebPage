@@ -57,3 +57,39 @@ jednej próbnej lekcji przez uprawnionego administratora w środowisku testowym.
 Zweryfikuj odrzucenie zapisu i uploadu przez anonimowego użytkownika i użytkownika
 spoza allowlisty. Nie wykonano migracji ani żadnych zmian produkcyjnych w ramach
 przygotowania tych plików.
+
+## Edycja i usuwanie lekcji
+
+Przy każdej lekcji w panelu administratora są przyciski „Edytuj” i „Usuń”.
+Edycja pozwala zmienić tytuł oraz opis i niezależnie zastąpić PDF lub miniaturę.
+Pozostawienie pustego pola pliku zachowuje dotychczasowy plik. Język materiału
+pozostaje bez zmian; liczba stron jest zachowana przy edycji tekstu lub miniatury,
+a po wymianie PDF nie jest pokazywana, ponieważ nowa liczba nie została ustalona.
+„Anuluj” odrzuca zmiany; pliki są przesyłane dopiero podczas zapisu.
+
+Usuwanie wymaga potwierdzenia zawierającego tytuł lekcji i usuwa jej rekord.
+Początkowe pliki z wdrożenia pozostają w repozytorium. Sprzątanie Storage dotyczy
+wyłącznie własnych plików o wygenerowanych nazwach UUID w bucketach lekcji,
+których nie używa żaden pozostały rekord (w żadnym z pól PDF/miniatury).
+Zewnętrzne adresy, pliki statyczne i dawne niestandardowe nazwy nie są usuwane.
+
+Każdy zapis lub usunięcie jest sprawdzany przez odczyt rekordu przed sprzątaniem.
+Przy utracie połączenia pliki pozostają zachowane, a przycisk „Sprawdź zapis”
+ponawia sprawdzenie wyniku zamiast wykonywać zmianę ponownie. Błąd sprzątania
+ma osobny komunikat i ponowienie. Inne operacje na lekcjach są wtedy zablokowane,
+aby nie utracić stanu niedokończonej próby. Edytor aktualności nie usuwa sekcji
+lekcji ani jej oczekujących operacji. Zachowaj kartę otwartą do wyjaśnienia wyniku;
+po jej zamknięciu sprawdź rekord i Storage ręcznie przed powtórzeniem operacji.
+
+Nie potrzeba nowej migracji: istniejąca `0005_lessons.sql` udziela uprawnionym
+administratorom UPDATE/DELETE przez RLS. Wymagane jest wdrożenie nowego frontendu.
+
+### Kontrola edycji i usuwania
+
+W środowisku testowym sprawdź: zapis samego tekstu; niezależną wymianę PDF i
+miniatury; anulowanie edycji; odmowę potwierdzenia usunięcia i potwierdzone
+usunięcie; odrzucenie nieprawidłowego/za dużego pliku; utratę połączenia podczas
+zapisu/usuwania i ponowienie weryfikacji; błąd sprzątania i ponowienie bez
+ponownego zapisu; zachowanie pliku współdzielonego przez dwa rekordy; odmowę
+UPDATE/DELETE dla użytkownika spoza allowlisty. Sprawdź formularz na telefonie,
+fokus po otwarciu/anulowaniu edycji i komunikat po usunięciu znikającego wiersza.

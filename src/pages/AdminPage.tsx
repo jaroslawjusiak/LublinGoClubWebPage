@@ -113,9 +113,9 @@ const AdminPage: React.FC = () => {
                 onEdit={(post) => setEditing(post)}
               />
             )}
-            <LessonManager />
           </>
         )}
+        {ready && !loading && user && isAdmin ? <LessonManager /> : null}
       </Container>
     </Section>
   );

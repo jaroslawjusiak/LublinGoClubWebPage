@@ -68,6 +68,29 @@ export class SupabaseLessonsRepository {
     if (error) throw new Error(`Could not verify lesson: ${error.message}`);
     return data ? mapLesson(data as LessonRow) : null;
   }
+  async update(id: string, input: LessonInput): Promise<Lesson> {
+    if (!this.client) throw new Error('Supabase is not configured.');
+    const { data, error } = await this.client
+      .from('lessons')
+      .update({
+        title: input.title,
+        description: input.description,
+        pdf_url: input.pdfUrl,
+        thumbnail_url: input.thumbnailUrl,
+        language: input.language,
+        page_count: input.pageCount,
+      })
+      .eq('id', id)
+      .select()
+      .single();
+    if (error) throw new Error(`Failed to update lesson: ${error.message}`);
+    return mapLesson(data as LessonRow);
+  }
+  async remove(id: string): Promise<void> {
+    if (!this.client) throw new Error('Supabase is not configured.');
+    const { error } = await this.client.from('lessons').delete().eq('id', id);
+    if (error) throw new Error(`Failed to delete lesson: ${error.message}`);
+  }
   async create(input: LessonInput, id = crypto.randomUUID()): Promise<Lesson> {
     if (!this.client) throw new Error('Supabase is not configured.');
     const { data, error } = await this.client
