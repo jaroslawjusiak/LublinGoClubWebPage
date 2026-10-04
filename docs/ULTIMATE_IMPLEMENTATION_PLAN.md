@@ -730,4 +730,3 @@ M7 Governance, deployment and launch acceptance
 A useful early checkpoint is after M3: the project should already be a valuable static website with accurate meeting information, rules, contact details and a populated historical feed even if the admin system is not finished.
 
 The final implementation must be judged not by how many features exist, but by whether the club can keep the site accurate and alive with approximately 15 minutes of volunteer work per week.
-
