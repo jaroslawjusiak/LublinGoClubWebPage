@@ -40,8 +40,13 @@ Workflow nie wykonuje migracji ani zmian danych Supabase.
    Dla `production` ogranicz deployment branches do `main`. Sekrety można także
    przechowywać osobno w tych environments. Nie dodawaj wymaganej ręcznej zgody,
    jeśli wdrożenia mają być automatyczne.
-6. Najpierw uruchom Preview z gałęzi zawierającej ten workflow. Przed scaleniem
-   do `main` upewnij się, że sekrety wskazują właściwy projekt. **Scalenie do
+6. Przed pierwszym scaleniem przetestuj Preview lokalnie z gałęzi tego PR:
+   `npx vercel@62.2.0 pull --yes --environment=preview`, następnie
+   `npx vercel@62.2.0 build` i `npx vercel@62.2.0 deploy --prebuilt`.
+   Wymaga to zalogowania do Vercel i powiązania projektu z kroku 3.
+   Przycisk Run workflow będzie dostępny, gdy workflow znajdzie się na domyślnej
+   gałęzi. Przed scaleniem do `main` upewnij się, że sekrety wskazują właściwy
+   projekt. **Scalenie do
    `main` uruchomi wdrożenie produkcyjne.** Ostatnie zmiany funkcjonalne mogą
    nadal być na innych gałęziach: pipeline wdraża zawartość `main`.
 7. Ustaw ruleset/branch protection dla `main`: wymagaj pull requestu i sukcesu
