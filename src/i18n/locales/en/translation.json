@@ -9,7 +9,8 @@
       "events": "Contact",
       "rules": "Rules of the game",
       "start": "Start playing",
-      "toggle": "Menu"
+      "toggle": "Menu",
+      "lessons": "Lessons"
     },
     "cta_start_button": "Start playing",
     "news_description": "The latest tournaments, workshops and articles from club life.",
@@ -172,9 +173,9 @@
     "minors_title": "Minors",
     "minors_body": "We publish photos of minors only with the explicit consent of a parent or legal guardian.",
     "withdrawal_title": "Withdrawing consent",
-    "withdrawal_body": "Anyone can withdraw their consent at any time and ask for their photo to be removed — just write to us (Contact section) and we will remove it promptly.",
+    "withdrawal_body": "Anyone can withdraw their consent at any time and ask for their photo to be removed — write to us through the channels in the website footer and we will remove it promptly.",
     "contact_title": "Contact",
-    "contact_body": "For matters concerning personal data, please contact us via Facebook or Discord (links on the Contact page)."
+    "contact_body": "For matters concerning personal data, please contact us via Facebook or Discord (links in the website footer)."
   },
   "meta": {
     "home_title": "Lubelski Klub Go — play Go in Lublin",
@@ -194,7 +195,9 @@
     "admin_title": "Admin panel — Lubelski Klub Go",
     "admin_description": "Lubelski Klub Go admin panel.",
     "notfound_title": "Page not found — Lubelski Klub Go",
-    "notfound_description": "This page does not exist or has been moved."
+    "notfound_description": "This page does not exist or has been moved.",
+    "lessons_title": "Lessons — Lubelski Klub Go",
+    "lessons_description": "Materials from club meetings — revisit a topic and practise at your own pace."
   },
   "aktualnosci": {
     "news_heading": "News",
@@ -212,5 +215,36 @@
     "title": "Page not found",
     "message": "This page does not exist or has been moved.",
     "back_home": "Back to the home page"
+  },
+  "lessons": {
+    "title": "Lessons",
+    "intro": "Materials from club meetings — revisit a topic and practise at your own pace.",
+    "polish_note": "The materials and lesson descriptions are available in Polish.",
+    "loading": "Loading lessons…",
+    "empty": "No lessons have been added yet.",
+    "load_error": "Could not load lessons. Please try again.",
+    "open_pdf": "Open PDF",
+    "manage": "Manage lessons",
+    "add": "Add lesson",
+    "title_label": "Lesson title",
+    "description_label": "Lesson description",
+    "pdf_label": "PDF file",
+    "thumbnail_label": "Lesson thumbnail",
+    "file_help": "PDF: up to 20 MB. Thumbnail: JPG, PNG or WebP, up to 5 MB. New materials are in Polish.",
+    "fields_required": "Enter a lesson title and description.",
+    "pdf_required": "Choose a PDF file.",
+    "thumbnail_required": "Choose a thumbnail.",
+    "pdf_invalid": "Choose a valid, nonempty PDF file up to 20 MB.",
+    "thumbnail_invalid": "Choose a nonempty JPG, PNG or WebP thumbnail up to 5 MB.",
+    "save_error": "Could not add the lesson. Check your connection and Supabase configuration, then try again.",
+    "cleanup_failed": "Could not remove files after a failed save. The next attempt will retry removal first. If the problem persists, remove the listed files in Supabase Storage.",
+    "saved": "The lesson was added and is available on the Lessons page.",
+    "existing": "Added lessons",
+    "verify_failed": "Could not confirm the save result. Files were preserved. Retry verification before adding another lesson.",
+    "verify_save": "Verify save",
+    "pages_one": "{{count}} page",
+    "pages_few": "{{count}} pages",
+    "pages_many": "{{count}} pages",
+    "pages_other": "{{count}} pages"
   }
 }

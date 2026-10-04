@@ -16,7 +16,7 @@ import ZacznijPage from './pages/ZacznijPage';
 import ZasadyPage from './pages/ZasadyPage';
 import OKlubiePage from './pages/OKlubiePage';
 import AktualnosciPage from './pages/AktualnosciPage';
-import KontaktPage from './pages/KontaktPage';
+import LekcjePage from './pages/LekcjePage';
 import AdminPage from './pages/AdminPage';
 import PrivacyPage from './pages/PrivacyPage';
 import NotFoundPage from './pages/NotFoundPage';
@@ -81,7 +81,8 @@ const AppShell: React.FC = () => (
         <Route path="/zasady" element={<ZasadyPage />} />
         <Route path="/o-klubie" element={<OKlubiePage />} />
         <Route path="/aktualnosci" element={<AktualnosciPage />} />
-        <Route path="/kontakt" element={<KontaktPage />} />
+        <Route path="/lekcje" element={<LekcjePage />} />
+        <Route path="/kontakt" element={<Navigate to="/lekcje" replace />} />
         <Route path="/prywatnosc" element={<PrivacyPage />} />
         <Route path="/admin" element={<AdminPage />} />
 
@@ -92,7 +93,8 @@ const AppShell: React.FC = () => (
           <Route path="zasady" element={<ZasadyPage />} />
           <Route path="o-klubie" element={<OKlubiePage />} />
           <Route path="aktualnosci" element={<AktualnosciPage />} />
-          <Route path="kontakt" element={<KontaktPage />} />
+          <Route path="lekcje" element={<LekcjePage />} />
+          <Route path="kontakt" element={<Navigate to="../lekcje" replace />} />
           <Route path="prywatnosc" element={<PrivacyPage />} />
         </Route>
 

@@ -17,7 +17,7 @@ const ROUTE_META: Record<string, MetaEntry> = {
   '/zasady': { title: 'meta:rules_title', description: 'meta:rules_description' },
   '/o-klubie': { title: 'meta:about_title', description: 'meta:about_description' },
   '/aktualnosci': { title: 'meta:news_title', description: 'meta:news_description' },
-  '/kontakt': { title: 'meta:contact_title', description: 'meta:contact_description' },
+  '/lekcje': { title: 'meta:lessons_title', description: 'meta:lessons_description' },
   '/prywatnosc': { title: 'meta:privacy_title', description: 'meta:privacy_description' },
   '/admin': { title: 'meta:admin_title', description: 'meta:admin_description' },
 };

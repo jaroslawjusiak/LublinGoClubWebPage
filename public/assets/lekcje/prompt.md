@@ -12,8 +12,9 @@ Rozmiar thumbnaili pozostawiam Tobie do oceny. Zaproponuj układ listy lekcji, k
 
 ## Zmiany w podstronie admin
 
-Chciałbym dodać nową funkcjonalność do podstrony admin, która pozwoli na dodawanie nowych lekcji. 
+Chciałbym dodać nową funkcjonalność do podstrony admin, która pozwoli na dodawanie nowych lekcji.
 Formularz dodawania lekcji powinien zawierać:
+
 - tytuł lekcji
 - opis lekcji
 - plik PDF z lekcją
@@ -22,4 +23,3 @@ Formularz dodawania lekcji powinien zawierać:
 Formularz powinien zapisywać dane do bazy supabase. Prawdopodobnie będzie potrzebna dodatkowa migracja. Wygeneruj dla mnie plik migracji, abym mógł go uruchomić na stronie subapase.
 
 Po dodaniu lekcji powinna ona pojawić się na podstronie "Lekcje".
-

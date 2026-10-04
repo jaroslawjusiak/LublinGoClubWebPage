@@ -13,7 +13,5 @@ export const navItems: NavItem[] = [
   { path: '/zacznij-grac', labelKey: 'common:menu.start' },
   { path: '/o-klubie', labelKey: 'common:menu.about' },
   { path: '/aktualnosci', labelKey: 'common:menu.news' },
-  // NOTE: key is misnamed `events` for the contact page today; it will be
-  // renamed to `common:menu.contact` when navigation is consolidated (R2).
-  { path: '/kontakt', labelKey: 'common:menu.events' },
+  { path: '/lekcje', labelKey: 'common:menu.lessons' },
 ];
