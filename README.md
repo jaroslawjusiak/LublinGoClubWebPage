@@ -5,7 +5,7 @@ React + TypeScript + Vite single-page app. Polish is the default language.
 
 ## Requirements
 
-- Node.js 18+ and npm.
+- Node.js 22.12+ (22.x in CI and Vercel) and npm.
 
 ## Setup
 
@@ -35,6 +35,11 @@ VITE_SUPABASE_ANON_KEY=
 | `npm run check`     | lint → typecheck → test → build (the required gate) |
 
 ## Deployment (Vercel)
+
+GitHub Actions runs `npm run check` for pull requests and deploys successful pushes
+to `main` to Vercel Production. Manual workflow runs create Preview deployments.
+See [CI/CD setup](docs/CI_CD.md) for the required secrets and first-deployment steps.
+Native Vercel Git deployments are disabled to keep deployment behind the CI gate.
 
 The app is a static SPA at the repository root. `vercel.json` configures:
 

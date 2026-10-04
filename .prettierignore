@@ -1,5 +1,6 @@
 # Dependencies and build output
 node_modules/
+.vercel/
 dist/
 dist-ssr/
 coverage/
@@ -9,6 +10,9 @@ reference/
 supabase/
 
 # Local tooling / agent artifacts
+.agents/
+.codex/
+AGENTS.md
 .opencode/
 .playwright-mcp/
 

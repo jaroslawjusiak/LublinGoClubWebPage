@@ -46,7 +46,9 @@ npm run check        # lint → typecheck → test → build (run before every c
 
 ## Deploy
 
-- Push to `main` — Vercel builds and deploys automatically.
+- Push to `main` — GitHub Actions runs `npm run check`, then builds and deploys to
+  Vercel automatically. Manual workflow runs create Preview deployments.
+- One-time configuration and rollback: [CI/CD setup](CI_CD.md).
 - Open a pull request to get a preview URL first.
 - `vercel.json` handles the SPA fallback and the legacy redirects.
 
